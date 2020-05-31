@@ -38,40 +38,16 @@ class Peregrine(discord.Client):
         if url:
             storedurl = url
             print('URL Detected in message ID: {}'.format(message.id))
-            print('Processing url: {}\n\n`'.format(storedurl[0]))
-
+            print('Processing url: {}\n\n'.format(storedurl[0]))
             await message.delete()
-            botmessage = await message.channel.send('The URL has been submitted to Hybrid-Analysis for evaluation. Awaiting report')
-            await botmessage.edit(content = 'The URL has been submitted to Hybrid-Analysis for evaluation. Awaiting report.')
-            time.sleep(1)
-            await botmessage.edit(content = 'The URL has been submitted to Hybrid-Analysis for evaluation. Awaiting report..')
-            time.sleep(1)
-            await botmessage.edit(content = 'The URL has been submitted to Hybrid-Analysis for evaluation. Awaiting report...')
-            time.sleep(1)
-            await botmessage.edit(content = 'The URL has been submitted to Hybrid-Analysis for evaluation. Awaiting report')
-            time.sleep(1)
-            await botmessage.edit(content = 'The URL has been submitted to Hybrid-Analysis for evaluation. Awaiting report.')
-            time.sleep(1)
-            await botmessage.edit(content = 'The URL has been submitted to Hybrid-Analysis for evaluation. Awaiting report..')
-            time.sleep(1)
-            await botmessage.edit(content = 'The URL has been submitted to Hybrid-Analysis for evaluation. Awaiting report...')
-            time.sleep(1)
-            await botmessage.edit(content = 'The URL has been submitted to Hybrid-Analysis for evaluation. Awaiting report')
-            time.sleep(1)
-            await botmessage.edit(content = 'The URL has been submitted to Hybrid-Analysis for evaluation. Awaiting report.')
-            time.sleep(1)
-            await botmessage.edit(content = 'The URL has been submitted to Hybrid-Analysis for evaluation. Awaiting report..')
-            time.sleep(1)
-            await botmessage.edit(content = 'The URL has been submitted to Hybrid-Analysis for evaluation. Awaiting report...')
+            botmessage = await message.channel.send('The URL has been submitted to Hybrid-Analysis for evaluation. Awaiting report\n\nOriginal Message: {}'.format(message.id))
+
             # Generate report with Hybrid Analysis
+            await botmessage.edit(content = 'The URL: {} is currently being scanned. Original Message:\n```{}```\n'.format(storedurl[0], message))
 
             command = 'python3 ./VxAPI/vxapi.py scan_url_for_analysis {} all'.format(storedurl[0])
             scan = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE).stdout
             output = scan.read()
-            print(output)
-            # Edit previous message and add URL for report
-            await botmessage.edit(content = 'The URL: {} is currently being scanned. Original Message:\n```{}```\nHybrid-Analysis Output: ```{}```\n'.format(storedurl[0], message, output))
-            # Query status loop..
 
             # Edit message further with summary and unclickable urls
 

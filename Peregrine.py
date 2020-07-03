@@ -10,11 +10,7 @@ from io import StringIO
 from colorama import init
 from termcolor import colored
 
-<<<<<<< HEAD
 BotToken = "NzE2NDQyNTEwNDIzMjI4NDk2.Xv9IkQ.dGnr5fUw7br_tYIyi0IKegAdl0c"
-=======
-BotToken = ""
->>>>>>> 5a8157ccae02b58a57838aa11897cc5bb635ce73
 analysisMessage = ""
 analysisFull = ""
 botmessage = ""

@@ -13,7 +13,6 @@ from termcolor import colored
 BotToken = "NzE2NDQyNTEwNDIzMjI4NDk2.Xv9IkQ.dGnr5fUw7br_tYIyi0IKegAdl0c"
 analysisMessage = ""
 analysisFull = ""
-botmessage = ""
 
 def convert_Output(rawOutput):
     readOutput = rawOutput.read()

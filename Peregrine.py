@@ -142,12 +142,14 @@ class Peregrine(discord.Client):
 
         if urls:
 
+            botmessage = ""
+
             try:
 
                 with open('resources/quote_Message.txt', 'r') as quote_File:
                         quote_Message = quote_File.read()
                 await message.delete()
-                botmessage = ""
+
                 botmessage = await message.channel.send('Peregrine Discord Malware Protection :bird:\n\n```Do not panic, {}!\nYour URL has been submitted to Hybrid-Analysis for evaluation.\nOnce this process is completed this message will update.\n\n\nAwaiting report.```'.format(message.author))
                 analysisMessage = ""
                 analysisFull = ""
@@ -163,7 +165,7 @@ class Peregrine(discord.Client):
 
             except Exception:
 
-                await botmessage.edit(content = 'Could not process url.')
+                await botmessage.edit(content = "Could not process url.")
                 time.sleep(3)
 
         # Check if poster has moderation bypass

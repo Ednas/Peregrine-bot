@@ -5,14 +5,12 @@ import sys
 import time
 import json
 import sys
-import colorama
 from io import StringIO
 
 from colorama import init
 from termcolor import colored
 
-BotToken = "NzE2NDQyNTEwNDIzMjI4NDk2.Xtmu_Q.gMJB8dtNddQOKeJIs9KbHeyjOyI"
-urlRegex = '{http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+}'
+BotToken = ""
 analysisMessage = ""
 analysisFull = ""
 botmessage = ""
@@ -121,9 +119,8 @@ class Peregrine(discord.Client):
     async def on_ready(self):
         with open('resources/logo.txt', 'r') as mylogo:
                 logo = mylogo.read()
-        print('Logged in as')
         print(colored(logo, 'red'))
-        print(self.user.id)
+        print(colored(self.user.id, 'red'))
 
     async def on_message(self, message):
 

@@ -10,7 +10,7 @@ from io import StringIO
 from colorama import init
 from termcolor import colored
 
-BotToken = "NzE2NDQyNTEwNDIzMjI4NDk2.Xv9IkQ.dGnr5fUw7br_tYIyi0IKegAdl0c"
+BotToken = "NzE2NDQyNTEwNDIzMjI4NDk2.XwCk9w.BFQu2Cda65qhxoAUQvOmidEBdXs"
 analysisMessage = ""
 analysisFull = ""
 
@@ -160,17 +160,16 @@ class Peregrine(discord.Client):
                     fullMessage = "```" + analysisFull + "```" + "\n" + quote_Message.format(message.content, message.author)
                     await botmessage.edit(content = fullMessage)
 
-            except Exception:
+            except Exception as e:
 
+                print(e)
                 botmessage = ""
                 await botmessage.edit(content = "Could not process url.")
                 time.sleep(3)
 
         # Check if poster has moderation bypass
 
-        #
-
-        # Generate report with Hybrid analysis_Message
+            # Code goes here for mod bypass
 
 client = Peregrine()
 client.run(BotToken)

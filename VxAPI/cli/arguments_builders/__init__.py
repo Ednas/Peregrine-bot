@@ -1,4 +1,0 @@
-from cli.arguments_builders.default_cli_arguments import DefaultCliArguments
-from cli.arguments_builders.search_cli_arguments import SearchCliArguments
-from cli.arguments_builders.demo_bulk_cli_arguments import DemoBulkCliArguments
-from cli.arguments_builders.submission_cli_arguments import SubmissionCliArguments

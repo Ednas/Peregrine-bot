@@ -19,7 +19,7 @@ async def wguRolesEmbed():
 
     rolesMessage.add_field(
         name="You want em? We've got em.",
-        value="Get your roles here! Simply react with the appropriate emoji to autmoatically receive your role. If you're looking to get roles related to your industry certifications, please visit [#cert-verification](https://discord.com/channels/655170668660523070/787229800455864321/787230612959920128) to begin the process!\n\n━━━━━━━━━━━━",
+        value="Get your roles here! Simply react with the appropriate emoji to autmoatically receive your role. If you're looking to get roles related to your industry certifications, please visit [#cert-verification](https://discord.com/channels/655170668660523070/787229800455864321/787230612959920128) to begin the process!\n\n━━━━━",
         inline=False,
     )
     rolesMessage.add_field(

@@ -15,27 +15,17 @@ async def wguResourcesEmbed():
 
     resourcesMessage.add_field(
         name="WGU Student Resources",
-        value="Since this Discord is run and sponsored by WGU, verification of your identity is non-negoitable. You will be required to set your [server nickname](https://www.businessinsider.com/how-to-change-nickname-on-discord 'Click here for help (https://www.businessinsider.com/how-to-change-nickname-on-discord)') to the following format\n\n`<User Handle> | <WGU Username>`\n\nIf you would prefer to join this Discord with a new account, please click [here](https://discord.com/register 'Register account (https://discord.com/register)') and create a new Discord account using your WGU email address instead.\n\n━━━━━━━━━━━━",
+        value="A variety of resources are available from the WGU. There are a significant number of free learning tools and software licenses.\n┕ [WGU Student Resources](https://www.wgu.edu/admissions/student-experience/learning-resources.html 'https://www.wgu.edu/admissions/student-experience/learning-resources.html')\n┕ [WGU Alumni](https://www.wgu.edu/alumni.html 'https://www.wgu.edu/alumni.html')\n┕ [WGU DreamSpark Portal](https://wgudreamspark.onthehub.com/WebStore/Welcome.aspx 'https://wgudreamspark.onthehub.com/WebStore/Welcome.aspx')\n\n━━━━━",
         inline=False,
     )
     resourcesMessage.add_field(
         name="Professional Organizations",
-        value="By verifying your identity you certify and acknowledge that\n┕ You are a student or alumni of the WGU School of IT.\n┕ You agree to follow club nickname guidelines.\n┕ You agree to present yourself in a professional manner.\n┕ You agree to all bylaws outlined in the Cyber Club Constitution available [here](https://cm.wgu.edu/t5/Cyber-Security-Club/WGU-Cybersecurity-Club-Constitution-and-By-Laws/ta-p/24789 'WGU Club Bylaws (https://cm.wgu.edu/t5/Cyber-Security-Club/WGU-Cybersecurity-Club-Constitution-and-By-Laws/ta-p/24789)').\n\n━━━━━━━━━━━━",
+        value="Paying your dues can return dividends. The organizations listed here offer a variety of resources as part of your membership.\n┕ [CompTIA Student Membership](https://www.comptia.org/membership/it-pro/student-membership-and-benefits 'https://www.comptia.org/membership/it-pro/student-membership-and-benefits')\n┕ [(ISC)² Membership](https://www.isc2.org/Membership# 'https://www.isc2.org/Membership#')\n┕ [Association of Computing Machinery Student Membership](https://services.acm.org/public/qj/quickjoin/qj_control.cfm?promo=PWEBTOP&form_type=Student 'https://services.acm.org/public/qj/quickjoin/qj_control.cfm?promo=PWEBTOP&form_type=Student')\n\n━━━━━",
         inline=False,
     )
     resourcesMessage.add_field(
-        name="Free Software",
-        value="If you are ready to proceed with the verification process, please react to this message with a :white_check_mark:. You will receive a DM from our verification bot with further instructions. If you require assistance, please visit #verification-support on your left.\n\n━━━━━━━━━━━━",
-        inline=False,
-    )
-    resourcesMessage.add_field(
-        name="Free Learning",
-        value="If you are ready to proceed with the verification process, please react to this message with a :white_check_mark:. You will receive a DM from our verification bot with further instructions. If you require assistance, please visit #verification-support on your left.\n\n━━━━━━━━━━━━",
-        inline=False,
-    )
-    resourcesMessage.add_field(
-        name="Paid Learning",
-        value="If you are ready to proceed with the verification process, please react to this message with a :white_check_mark:. You will receive a DM from our verification bot with further instructions. If you require assistance, please visit #verification-support on your left.\n\n━━━━━━━━━━━━",
+        name="Additional Free Resources",
+        value="The resources below will give you access to a variety of free software, licenses, and learning tools.\n┕ [Azure Student Starter Pack](https://azure.microsoft.com/en-us/offers/ms-azr-0144p/ 'https://azure.microsoft.com/en-us/offers/ms-azr-0144p/')\n┕ [GitHub Student Developer Pack](https://github.blog/2019-08-20-the-github-student-developer-pack-is-back/ 'https://github.blog/2019-08-20-the-github-student-developer-pack-is-back/')\n┕ [Jet Brains Student Licenses](https://www.jetbrains.com/community/education/#students 'https://www.jetbrains.com/community/education/#students')\n┕ [Tableau Student License](https://www.tableau.com/academic/students 'https://www.tableau.com/academic/students')\n\n━━━━━",
         inline=False,
     )
 

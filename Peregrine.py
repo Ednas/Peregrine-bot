@@ -18,6 +18,8 @@ from resources.modules.wgu.wguEmbedModules.wguRoles import *
 
 from resources.modules.wgu.wguManagementModules.wguNewUserRoles import *
 from resources.modules.wgu.wguManagementModules.wguNewUserNick import *
+from resources.modules.wgu.wguManagementModules.wguVerifiedRoleAssign import *
+from resources.modules.wgu.wguManagementModules.wguVerifiedRoleRemove import *
 
 # Import custom modules for logging capabilities
 
@@ -29,6 +31,7 @@ intents = discord.Intents.default()
 intents.members = True
 intents.typing = True
 intents.presences = True
+intents.reactions = True
 client = commands.Bot(command_prefix="!")
 
 # Validate the bot has advanced gateway permissions
@@ -88,6 +91,69 @@ class peregrine(discord.Client):
         print(memberLeaveMessage)
         await channel.send(content=memberLeaveMessage)
 
+    async def on_raw_reaction_add(self, payload):
+
+        # Set verification channel ID and validate it is the proper channel
+
+        reactionMessage = await self.get_channel(787215365737807893).fetch_message(
+            787787424020299826
+        )
+        verificationChannel = "787215365737807893"
+
+        if payload.message_id != reactionMessage.id:
+            return
+
+        # Set log channel ID
+
+        logChannel = 787493570659221524
+        channel = self.get_channel(logChannel)
+
+        # Alert console of member leaving and push to log channel
+
+        memberVerifyMessage = (
+            "Event triggered: Member verification\n   Member: {}".format(payload.member)
+        )
+
+        print(memberVerifyMessage)
+        await channel.send(content=memberVerifyMessage)
+
+        # Run module
+
+        await wguAddVerifiedRole(self, payload, channel)
+
+    async def on_raw_reaction_remove(self, payload):
+
+        guild = await self.fetch_guild(payload.guild_id)
+        member = await guild.fetch_member(payload.user_id)
+
+        # Set verification channel ID and validate it is the proper channel
+
+        reactionMessage = await self.get_channel(787215365737807893).fetch_message(
+            787787424020299826
+        )
+        verificationChannel = "787215365737807893"
+
+        if payload.message_id != reactionMessage.id:
+            return
+
+        # Set log channel ID
+
+        logChannel = 787493570659221524
+        channel = self.get_channel(logChannel)
+
+        # Alert console of member leaving and push to log channel
+
+        memberRemoveVerifyMessage = (
+            "Event triggered: Member remove verification\n   Member: {}".format(member)
+        )
+
+        print(memberRemoveVerifyMessage)
+        await channel.send(content=memberRemoveVerifyMessage)
+
+        # Run module
+
+        await wguRemoveVerifiedRole(self, member, payload, channel)
+
     # Listen for custom commands
 
     async def on_message(self, message):
@@ -106,8 +172,15 @@ class peregrine(discord.Client):
                 print(
                     "Event triggered: !verify\n   Member: {}\n".format(message.author)
                 )
+
                 verifyMessage = await wguVerificationEmbed()
-                await message.channel.send(embed=verifyMessage)
+                sendMessage = await message.channel.send(embed=verifyMessage)
+
+                # Add initial reactions
+
+                verifyEmoji = "✅"
+                message = sendMessage
+                await message.add_reaction(verifyEmoji)
 
             except Exception as e:
 

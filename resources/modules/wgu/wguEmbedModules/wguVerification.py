@@ -25,7 +25,7 @@ async def wguVerificationEmbed():
     )
     verifyMessage.add_field(
         name="Ready?",
-        value="If you are ready to proceed with the verification process, please react to this message with a :white_check_mark:. You will receive a DM from our verification bot with further instructions. If you require assistance, please visit [#verification-support](https://discord.com/channels/655170668660523070/787216727255285771/787216846579171348) on your left.\n\n━━━━━━━━━━━━",
+        value="If you are ready to proceed with the verification process, please react to this message with a ✅. You will receive a DM from our verification bot with further instructions. If you require assistance, please visit [#verification-support](https://discord.com/channels/655170668660523070/787216727255285771/787216846579171348) on your left.\n\n━━━━━━━━━━━━",
         inline=False,
     )
 

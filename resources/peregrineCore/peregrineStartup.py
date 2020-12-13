@@ -1,7 +1,7 @@
 async def peregrineStartup(self, logChannel):
     # Print logo in terminal
 
-    with open("resources/peregrineCore/Peregrine.txt", "r") as mylogo:
+    with open("resources/peregrineCore/peregrineLogo", "r") as mylogo:
         logo = mylogo.read()
         print("{}".format(logo))
 

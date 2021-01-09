@@ -112,7 +112,6 @@ class peregrine(discord.Client):
         await wgu_set_unverified_on_new_join(member, channel)
         await wgu_set_user_nick_on_join(member, channel)
 
-
     async def on_member_remove(self, member):
 
         # Set log channel
@@ -259,6 +258,5 @@ class peregrine(discord.Client):
 
 # Launch the bot and connect to channel
 
-bot_token = open("resources/core/token", "r").readline()
 client = peregrine(intents=intents)
 client.run(TOKEN)

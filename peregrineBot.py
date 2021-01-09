@@ -131,7 +131,7 @@ class peregrine(discord.Client):
 
         # Set verification channel ID and validate it is the proper channel
 
-        on_reaction_add_message = await self.get_channel(VERIFICATION_CHANNEL_ID).fetch_message(VERIFICATION_MESSAGE_ID)
+        on_reaction_add_message = await self.get_channel(VERIFICATION_CHANNEL).fetch_message(VERIFICATION_MESSAGE)
 
         if payload.message_id != on_reaction_add_message.id:
             return

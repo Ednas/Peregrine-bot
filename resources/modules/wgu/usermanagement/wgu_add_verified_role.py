@@ -1,7 +1,7 @@
 import discord
 
 
-async def wgu_add_verified_role(self, VERIFIED_ROLE, UNVERIFIED_ROLE, member):
+async def wgu_add_verified_role(self, LOG_CHANNEL, VERIFIED_ROLE, UNVERIFIED_ROLE, member):
        
     try:
 
@@ -16,6 +16,6 @@ async def wgu_add_verified_role(self, VERIFIED_ROLE, UNVERIFIED_ROLE, member):
     except Exception as e:
         print(e)
         errorMessage = "Failed to process verification role for new member: {}\nPlease hand verify this member or contact a bot developer".format(member)
-        await channel.send(content=errorMessage)
+        await LOG_CHANNEL.send(content=errorMessage)
 
     return

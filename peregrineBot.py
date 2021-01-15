@@ -300,7 +300,7 @@ class peregrine(discord.Client):
                                            in the `#verification-support`
                                            channel.""")
 
-                await wgu_add_verified_role(self, member, VERIFIED_ROLE, UNVERIFIED_ROLE)
+                await wgu_add_verified_role(self, member, LOG_CHANNEL, VERIFIED_ROLE, UNVERIFIED_ROLE)
                 
 
         if message.content.startswith("!verify"):
@@ -316,7 +316,7 @@ class peregrine(discord.Client):
 
                     await wgu_set_verified(username, conx)
                     await wgu_delete_record(username, conx)
-                    await wgu_add_verified_role(self, member, VERIFIED_ROLE, UNVERIFIED_ROLE)
+                    await wgu_add_verified_role(self, member, LOG_CHANNEL, VERIFIED_ROLE, UNVERIFIED_ROLE)
                     await message.channel.send("""You're all set, enjoy the
                                                 server! We look forward to
                                                 learning with you!""")

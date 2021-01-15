@@ -278,7 +278,7 @@ class peregrine(discord.Client):
             expiry = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')
             username = str(message.channel.recipient)
             guild = client.get_guild(int(GUILD_ID))
-            member = guild.get_member(message.author.id)
+            member = guild.get_member(message.author)
             print("Verification email triggered by: {}".format(member))
 
             if bool(await wgu_check_verified(dst_email, conx)):
@@ -309,7 +309,7 @@ class peregrine(discord.Client):
             username = str(message.channel.recipient)
 
             guild = client.get_guild(int(GUILD_ID))
-            member = guild.get_member(message.author.id)
+            member = guild.get_member(message.author)
 
             if bool(wgu_check_record(code, username)):
                 

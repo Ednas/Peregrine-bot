@@ -291,7 +291,7 @@ class peregrine(discord.Client):
             guild = client.get_guild(int(GUILD_ID))
             member = guild.get_member(message.author.id)
 
-            print("Verification email triggered by: {}".format(member))
+            print("Verification email triggered by: {}".format(member.id))
 
             if bool(await wgu_check_verified(dst_email, conx)):
                 await wgu_set_record(dst_email, username, code, expiry, conx)

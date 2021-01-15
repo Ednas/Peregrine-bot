@@ -10,18 +10,38 @@ from dotenv import load_dotenv
 import smtplib
 import ssl
 import mysql.connector
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 import discord
 from discord.ext import commands
-from resources.peregrineCore.start_peregrine import *
+from resources.peregrineCore.start_peregrine import start_peregrine
 
-# Import custom modules
+# Import embed modules
+
+from resources.modules.wgu.embeds.wgu_certifications_embed import *
+from resources.modules.wgu.embeds.wgu_faq_embed import *
+from resources.modules.wgu.embeds.wgu_resources_embed import *
+from resources.modules.wgu.embeds.wgu_roles_embed import *
+from resources.modules.wgu.embeds.wgu_verification_embed import *
+
+# Import database modules
+
+from resources.modules.wgu.database.wgu_check_record import *
+from resources.modules.wgu.database.wgu_check_verified import *
+from resources.modules.wgu.database.wgu_delete_record import *
+from resources.modules.wgu.database.wgu_send_email import *
+from resources.modules.wgu.database.wgu_set_record import *
+from resources.modules.wgu.database.wgu_set_verified import *
+
+# Import user management modules
+
+from resources.modules.wgu.usermanagement.wgu_add_verified_role import *
+from resources.modules.wgu.usermanagement.wgu_set_unverified_on_new_join import *
+from resources.modules.wgu.usermanagement.wgu_set_user_nick_on_join import *
+from resources.modules.wgu.usermanagement.wgu_send_verification_dm import *
+
+# Import hybrid analysis modules
 
 from resources.modules.hybridanalysis import *
-from resources.modules.wgu.database import *
-from resources.modules.wgu.embeds import *
-from resources.modules.wgu.usermanagement import *
+
 
 # Set up additional parameters for commands and intents
 
@@ -43,10 +63,11 @@ WELCOME = os.getenv('welcome_message_id')
 GUILD_ID = os.getenv('guild_id')
 LOG_CHANNEL = os.getenv('log_channel_id')
 NICKNAME_SCHEMA = os.getenv('nickname_schema')
-VERIFICATION_CHANNEL = os.getenv('VERIFICATION_CHANNEL_ID')
-VERIFICATION_MESSAGE = os.getenv('VERIFICATION_MESSAGE_ID')
+VERIFICATION_CHANNEL = os.getenv('verification_channel_id')
+VERIFICATION_MESSAGE = os.getenv('verification_message_id')
 VERIFIED_ROLE = os.getenv('verified_role_name')
 VERIFICATION_EMOJI = os.getenv('verification_emoji')
+DM_MESSAGE = os.getenv('dm_verification_message')
 SRC_EMAIL = os.getenv('bot_email_address')
 EMAIL_PASS = os.getenv('bot_email_password')
 DB_USER = os.getenv('database_username')
@@ -57,29 +78,15 @@ DB_NAME = os.getenv('database_name')
 
 # Connect to database
 
-if DB_IPV6:
-
-    def connect():
-        return mysql.connector.connect(
-
-            host=DB_IPV6,
-            user=DB_USER,
-            password=DB_PASS,
-            database=DB_NAME
-            
-            )
-
-else: 
-
-    def connect():
+def connect():
     return mysql.connector.connect(
 
-        host=DB_IPV4,
-        user=DB_USER,
-        password=DB_PASS,
-        database=DB_NAME
-        
-        )
+    host=DB_IPV4,
+    user=DB_USER,
+    password=DB_PASS,
+    database=DB_NAME
+
+    )
 
 class peregrine(discord.Client):
 
@@ -89,7 +96,7 @@ class peregrine(discord.Client):
 
         # Initiate bot and connect to guilds
 
-        await start_peregrine(self, LOG_CHANNEL)
+        await start_peregrine(self, int(LOG_CHANNEL))
 
     # Track user joins and leaves
 
@@ -97,7 +104,7 @@ class peregrine(discord.Client):
 
         # Set log channel ID
 
-        channel = self.get_channel(LOG_CHANNEL)
+        channel = self.get_channel(int(LOG_CHANNEL))
 
         # Alert console of new member and push to log channel
 
@@ -110,13 +117,13 @@ class peregrine(discord.Client):
         # Auto assign unverified role to new members and set nickname defaults
 
         await wgu_set_unverified_on_new_join(member, channel)
-        await wgu_set_user_nick_on_join(member, channel)
+        await wgu_set_user_nick_on_join(member, channel, NICKNAME_SCHEMA)
 
     async def on_member_remove(self, member):
 
         # Set log channel
 
-        channel = self.get_channel(LOG_CHANNEL)
+        channel = self.get_channel(int(LOG_CHANNEL))
 
         # Alert console of member leaving and push to log channel
 
@@ -129,31 +136,35 @@ class peregrine(discord.Client):
 
     async def on_raw_reaction_add(self, payload):
 
-        # Set verification channel ID and validate it is the proper channel
+        print("Verification_message_id: {}".format(VERIFICATION_MESSAGE))
+        print("Payload id: {}".format(payload.message_id))
+        
+        if str(payload.message_id) == str(VERIFICATION_MESSAGE):
+            
+            print("Triggering verification")
+            
+            # Set log channel
 
-        on_reaction_add_message = await self.get_channel(VERIFICATION_CHANNEL).fetch_message(VERIFICATION_MESSAGE)
+            channel = self.get_channel(int(LOG_CHANNEL))
+            print("Log channel set")
+            
+            # Alert console of member leaving and push to log channel
 
-        if payload.message_id != on_reaction_add_message.id:
+            on_reaction_add_verification_alert = (
+                "Event triggered: Member verification\n   Member: {}".format(payload.member)
+            )
+
+            print(on_reaction_add_verification_alert)
+            await channel.send(content=on_reaction_add_verification_alert)
+
+            # Initiate email verification process
+
+            await wgu_send_verification_dm(self, payload, VERIFICATION_MESSAGE, VERIFICATION_EMOJI, DM_MESSAGE)
+
             return
 
-        # Set log channel
-
-        channel = self.get_channel(LOG_CHANNEL)
-
-        # Alert console of member leaving and push to log channel
-
-        on_reaction_add_verification_alert = (
-            "Event triggered: Member verification\n   Member: {}".format(payload.member)
-        )
-
-        print(on_reaction_add_verification_alert)
-        await channel.send(content=on_reaction_add_verification_alert)
-
-#*******# Initiate email verification process here ******
-
-        # Run module to set user role to verified
-
-        await wgu_add_verified_role(self, payload, channel)
+        if str(payload.message_id) != str(VERIFICATION_MESSAGE):
+            return
 
     # Listen for custom commands
 
@@ -255,6 +266,71 @@ class peregrine(discord.Client):
 
             return
 
+        if message.content.startswith("!email"):
+            
+            conx = connect()
+            dst_email = message.content.split(' ')[-1]
+            code = []
+            for _ in range(6):
+                code.append(str(random.randint(0,9)))
+            code = ''.join(code)
+            expiry = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')
+            username = str(message.channel.recipient)
+
+            if bool(wgu_check_verified(dst_email, conx)):
+                await wgu_set_record(dst_email, username, code, expiry, conx)
+                await wgu_send_email(code, dst_email)
+                await message.channel.send("""An email was sent to the email
+                                           address you provided. If you have
+                                           any trouble finding it, try
+                                           refreshing your browser, waiting a
+                                           few minutes, or check your spam
+                                           folder. If you're still having
+                                           issues, feel free to check out the
+                                           `#verification-support` channel for
+                                           further questions.""")
+                # Log the beginning of verification attempt! Enter here.
+            else:
+                await message.channel.send("""That email has already been
+                                           verified. If you think this message
+                                           is in error, please send a message
+                                           in the `#verification-support`
+                                           channel.""")
+
+        if message.content.startswith("!verify"):
+            code = message.content.split(' ')[-1]
+            username = str(message.channel.recipient)
+
+            if bool(wgu_check_record(code, username)):
+                await wgu_set_verified(username, conx)
+                await wgu_delete_record(username, conx)
+
+                guild = client.get_guild(int(GUILD_ID))
+                role = discord.utils.get(guild.roles, name='valid')
+                member = discord.utils.find(lambda m : m.id ==
+                                            message.channel.recipient.id,
+                                            guild.members)
+
+                if role is not None:
+                    if member is not None:
+                        await member.add_roles(role)
+                        await message.channel.send("""You're all set, enjoy the
+                                                   server! We look forward to
+                                                   learning with you!""")
+                    else:
+                        print("Member doesn't exist")
+                else:
+                    print("Role doesn't exist")
+            else:
+                await message.channel.send("""It looks like your code is wrong.
+                                           Please try again.""")
+
+        if message.content.startswith("!delete"):
+            field = message.content.split(' ')[-1]
+
+            wgu_delete_record(field)
+            await message.channel.send("""We'll get that taken care of for
+                                       you.""")
 
 # Launch the bot and connect to channel
 

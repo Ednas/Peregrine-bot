@@ -308,19 +308,17 @@ class peregrine(discord.Client):
                 
                 try: 
 
-                await wgu_set_verified(username, conx)
-                await wgu_delete_record(username, conx)
-                await wgu_add_verified_role(self, payload, channel, VERIFIED_ROLE, UNVERIFIED_ROLE)
-                        
-                await message.channel.send("""You're all set, enjoy the
-                                            server! We look forward to
-                                            learning with you!""")
+                    await wgu_set_verified(username, conx)
+                    await wgu_delete_record(username, conx)
+                    await wgu_add_verified_role(self, payload, channel, VERIFIED_ROLE, UNVERIFIED_ROLE)
+                    await message.channel.send("""You're all set, enjoy the
+                                                server! We look forward to
+                                                learning with you!""")
 
             except Exception as e:
+
                 print(e)
-                        errorMessage = "Failed to process verification role for new member: {}\nPlease hand verify this member or contact a bot developer".format(
-                            payload.member
-                                )
+                errorMessage = "Failed to process verification role for new member: {}\nPlease hand verify this member or contact a bot developer".format(payload.member)
                 await channel.send(content=errorMessage)
 
         if message.content.startswith("!delete"):

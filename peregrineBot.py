@@ -304,13 +304,16 @@ class peregrine(discord.Client):
             code = message.content.split(' ')[-1]
             username = str(message.channel.recipient)
 
+            guild = client.get_guild(int(GUILD_ID))
+            member = guild.get_member(ctx.message.author.id)
+
             if bool(wgu_check_record(code, username)):
                 
                 try: 
 
                     await wgu_set_verified(username, conx)
                     await wgu_delete_record(username, conx)
-                    await wgu_add_verified_role(self, payload, channel, VERIFIED_ROLE, UNVERIFIED_ROLE)
+                    await wgu_add_verified_role(self, member, VERIFIED_ROLE, UNVERIFIED_ROLE)
                     await message.channel.send("""You're all set, enjoy the
                                                 server! We look forward to
                                                 learning with you!""")

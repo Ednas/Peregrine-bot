@@ -178,6 +178,10 @@ class peregrine(discord.Client):
 
         # Channel commands are listed below
 
+        # Set log channel
+
+        channel = self.get_channel(int(LOG_CHANNEL))
+
         if message.content.startswith("!verify"):
 
             try:
@@ -268,7 +272,13 @@ class peregrine(discord.Client):
             return
 
         if message.content.startswith("!email"):
+        
+            # Set log channel
+
+            channel = self.get_channel(int(LOG_CHANNEL))
             
+            # Set up other variables
+
             conx = connect()
             dst_email = message.content.split(' ')[-1]
             code = []
@@ -301,10 +311,17 @@ class peregrine(discord.Client):
                                            in the `#verification-support`
                                            channel.""")
 
-                await wgu_add_verified_role(self, member, LOG_CHANNEL, VERIFIED_ROLE, UNVERIFIED_ROLE)
+                await wgu_add_verified_role(self, member, channel, VERIFIED_ROLE, UNVERIFIED_ROLE)
                 
 
         if message.content.startswith("!verify"):
+            
+            # Set log channel
+
+            channel = self.get_channel(int(LOG_CHANNEL))
+            
+            # Set up other variables
+
             code = message.content.split(' ')[-1]
             username = str(message.channel.recipient)
 
@@ -317,7 +334,7 @@ class peregrine(discord.Client):
 
                     await wgu_set_verified(username, conx)
                     await wgu_delete_record(username, conx)
-                    await wgu_add_verified_role(self, member, LOG_CHANNEL, VERIFIED_ROLE, UNVERIFIED_ROLE)
+                    await wgu_add_verified_role(self, member, channel, VERIFIED_ROLE, UNVERIFIED_ROLE)
                     await message.channel.send("""You're all set, enjoy the
                                                 server! We look forward to
                                                 learning with you!""")
@@ -329,6 +346,13 @@ class peregrine(discord.Client):
                     await channel.send(content=errorMessage)
 
         if message.content.startswith("!delete"):
+            
+            # Set log channel
+
+            channel = self.get_channel(int(LOG_CHANNEL))
+            
+            # Set up other variables
+            
             field = message.content.split(' ')[-1]
 
             wgu_delete_record(field)

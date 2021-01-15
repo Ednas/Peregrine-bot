@@ -292,8 +292,9 @@ class peregrine(discord.Client):
             # Get necessary role information
             
             guild = self.get_guild(int(GUILD_ID))
-            member = guild.get_member(message.author.id)
-
+            member = discord.utils.find(lambda m : m.id ==
+                                        message.channel.recipient.id,
+                                        guild.members)
             print("Verification email triggered by: {} for guild {}".format(member.id, member.guild))
 
             if bool(await wgu_check_verified(dst_email, conx)):
@@ -321,6 +322,14 @@ class peregrine(discord.Client):
 
         if message.content.startswith("!verify"):
             
+            # Get necessary role information
+            
+            guild = self.get_guild(int(GUILD_ID))
+            member = discord.utils.find(lambda m : m.id ==
+                                        message.channel.recipient.id,
+                                        guild.members)
+            print("Verification triggered by: {} for guild {}".format(member.id, member.guild))
+
             # Set log channel
 
             channel = self.get_channel(int(LOG_CHANNEL))
@@ -330,16 +339,13 @@ class peregrine(discord.Client):
             code = message.content.split(' ')[-1]
             username = str(message.channel.recipient)
 
-            guild = client.get_guild(int(GUILD_ID))
-            member = guild.get_member(message.author)
-
             if bool(wgu_check_record(code, username)):
                 
                 try: 
 
                     await wgu_set_verified(username, conx)
                     await wgu_delete_record(username, conx)
-                    await wgu_add_verified_role(self, member, channel, VERIFIED_ROLE, UNVERIFIED_ROLE)
+                    await wgu_add_verified_role(self, member, channel, guild, VERIFIED_ROLE, UNVERIFIED_ROLE)
                     await message.channel.send("""You're all set, enjoy the
                                                 server! We look forward to
                                                 learning with you!""")

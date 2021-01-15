@@ -66,6 +66,7 @@ NICKNAME_SCHEMA = os.getenv('nickname_schema')
 VERIFICATION_CHANNEL = os.getenv('verification_channel_id')
 VERIFICATION_MESSAGE = os.getenv('verification_message_id')
 VERIFIED_ROLE = os.getenv('verified_role_name')
+UNVERIFIED_ROLE = os.getenv('unverified_role_name')
 VERIFICATION_EMOJI = os.getenv('verification_emoji')
 DM_MESSAGE = os.getenv('dm_verification_message')
 SRC_EMAIL = os.getenv('bot_email_address')
@@ -296,7 +297,7 @@ class peregrine(discord.Client):
                                            is in error, please send a message
                                            in the `#verification-support`
                                            channel.""")
-                await wgu_add_verified_role
+                await wgu_add_verified_role(self, payload, channel, VERIFIED_ROLE, UNVERIFIED_ROLE)
                 
 
         if message.content.startswith("!verify"):
@@ -304,29 +305,23 @@ class peregrine(discord.Client):
             username = str(message.channel.recipient)
 
             if bool(wgu_check_record(code, username)):
+                
+                try: 
+
                 await wgu_set_verified(username, conx)
                 await wgu_delete_record(username, conx)
-                await wgu_add_verified_role
+                await wgu_add_verified_role(self, payload, channel, VERIFIED_ROLE, UNVERIFIED_ROLE)
+                        
+                await message.channel.send("""You're all set, enjoy the
+                                            server! We look forward to
+                                            learning with you!""")
 
-                guild = client.get_guild(int(GUILD_ID))
-                role = discord.utils.get(guild.roles, name=VERIFIED_ROLE)
-                member = discord.utils.find(lambda m : m.id ==
-                                            message.channel.recipient.id,
-                                            guild.members)
-
-                if role is not None:
-                    if member is not None:
-                        await member.add_roles(role)
-                        await message.channel.send("""You're all set, enjoy the
-                                                   server! We look forward to
-                                                   learning with you!""")
-                    else:
-                        print("Member doesn't exist")
-                else:
-                    print("Role doesn't exist")
-            else:
-                await message.channel.send("""It looks like your code is wrong.
-                                           Please try again.""")
+            except Exception as e:
+                print(e)
+                        errorMessage = "Failed to process verification role for new member: {}\nPlease hand verify this member or contact a bot developer".format(
+                            payload.member
+                                )
+                await channel.send(content=errorMessage)
 
         if message.content.startswith("!delete"):
             field = message.content.split(' ')[-1]

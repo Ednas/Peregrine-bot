@@ -1,12 +1,9 @@
 import discord
 
 
-async def wgu_add_verified_role(self, payload, channel, VERIFICATION_EMOJI):
+async def wgu_add_verified_role(self, payload, channel):
 
     try:
-
-        if str(payload.emoji) == str(VERIFICATION_EMOJI):
-            print("Success! Emoji is: {}".format(payload.emoji))
 
             await payload.member.add_roles(
                 discord.utils.get(payload.member.guild.roles, name="Verified")
@@ -15,9 +12,6 @@ async def wgu_add_verified_role(self, payload, channel, VERIFICATION_EMOJI):
             await payload.member.remove_roles(
                discord.utils.get(payload.member.guild.roles, name="Unverified")
             )
-
-        else:
-            print("Failed! Emoji is: {}".format(payload.emoji))
 
     except Exception as e:
         print(e)

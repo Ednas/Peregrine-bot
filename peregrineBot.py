@@ -277,7 +277,9 @@ class peregrine(discord.Client):
             code = ''.join(code)
             expiry = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')
             username = str(message.channel.recipient)
-
+            guild = client.get_guild(int(GUILD_ID))
+            member = guild.get_member(ctx.message.author.id)
+            
             if bool(await wgu_check_verified(dst_email, conx)):
                 await wgu_set_record(dst_email, username, code, expiry, conx)
                 await wgu_send_email(code, dst_email, SRC_EMAIL)
@@ -297,7 +299,8 @@ class peregrine(discord.Client):
                                            is in error, please send a message
                                            in the `#verification-support`
                                            channel.""")
-                await wgu_add_verified_role(self, payload, channel, VERIFIED_ROLE, UNVERIFIED_ROLE)
+
+                await wgu_add_verified_role(self, member, VERIFIED_ROLE, UNVERIFIED_ROLE)
                 
 
         if message.content.startswith("!verify"):

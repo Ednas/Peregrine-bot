@@ -33,7 +33,6 @@ from resources.modules.wgu.database.wgu_set_verified import *
 
 # Import user management modules
 
-from resources.modules.wgu.usermanagement.wgu_add_verified_role import *
 from resources.modules.wgu.usermanagement.wgu_set_unverified_on_new_join import *
 from resources.modules.wgu.usermanagement.wgu_set_user_nick_on_join import *
 from resources.modules.wgu.usermanagement.wgu_send_verification_dm import *
@@ -313,12 +312,10 @@ class peregrine(discord.Client):
                                            is in error, please send a message
                                            in the `#verification-support`
                                            channel.""")
-
-
-                    print("Verification triggered by: {} for guild {}".format(member.id, member.guild))
-
-                    await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
-                    await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
+                                           
+                print("Verification triggered by: {} for guild {}".format(member.id, member.guild))
+                await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
+                await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
                 
 
         if message.content.startswith("!verify"):

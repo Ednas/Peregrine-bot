@@ -45,12 +45,13 @@ from resources.modules.hybridanalysis import *
 
 # Set up additional parameters for commands and intents
 
-intents = discord.Intents.default()
+intents = discord.Intents(messages=True, guilds=True)
 intents.members = True
 intents.typing = True
 intents.presences = True
 intents.reactions = True
 client = commands.Bot(command_prefix="!")
+
 
 # Validate the bot has advanced gateway permissions
 
@@ -289,7 +290,7 @@ class peregrine(discord.Client):
             username = str(message.channel.recipient)
             guild = client.get_guild(int(GUILD_ID))
             member = guild.get_member(message.author.id)
-            
+
             print("Verification email triggered by: {}".format(member))
 
             if bool(await wgu_check_verified(dst_email, conx)):

@@ -279,7 +279,7 @@ class peregrine(discord.Client):
 
             if bool(wgu_check_verified(dst_email, conx)):
                 await wgu_set_record(dst_email, username, code, expiry, conx)
-                await wgu_send_email(code, dst_email)
+                await wgu_send_email(code, dst_email, SRC_EMAIL)
                 await message.channel.send("""An email was sent to the email
                                            address you provided. If you have
                                            any trouble finding it, try

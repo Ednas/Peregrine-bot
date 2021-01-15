@@ -1,7 +1,8 @@
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import smtplib
 
-async def wgu_send_email(code, dst_email):
+async def wgu_send_email(code, dst_email, SRC_EMAIL):
     "Sends an email to the student seeking verification"
     email_text = """Greetings!
     This email was sent to verify your discord account. To ensure that this

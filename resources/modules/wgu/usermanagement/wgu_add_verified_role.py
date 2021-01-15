@@ -5,11 +5,11 @@ async def wgu_add_verified_role(self, channel, VERIFIED_ROLE, UNVERIFIED_ROLE, m
        
     try:
 
-        await member.add_roles(
+        await member.id.add_roles(
             discord.utils.get(member.guild.roles, name=VERIFIED_ROLE)
         )
 
-        await member.remove_roles(
+        await member.id.remove_roles(
             discord.utils.get(member.guild.roles, name=UNVERIFIED_ROLE)
         )
 

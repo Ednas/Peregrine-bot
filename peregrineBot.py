@@ -296,6 +296,8 @@ class peregrine(discord.Client):
                                            is in error, please send a message
                                            in the `#verification-support`
                                            channel.""")
+                await wgu_add_verified_role
+                
 
         if message.content.startswith("!verify"):
             code = message.content.split(' ')[-1]
@@ -304,9 +306,10 @@ class peregrine(discord.Client):
             if bool(wgu_check_record(code, username)):
                 await wgu_set_verified(username, conx)
                 await wgu_delete_record(username, conx)
+                await wgu_add_verified_role
 
                 guild = client.get_guild(int(GUILD_ID))
-                role = discord.utils.get(guild.roles, name='valid')
+                role = discord.utils.get(guild.roles, name=VERIFIED_ROLE)
                 member = discord.utils.find(lambda m : m.id ==
                                             message.channel.recipient.id,
                                             guild.members)

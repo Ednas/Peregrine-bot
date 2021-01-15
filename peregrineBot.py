@@ -292,9 +292,6 @@ class peregrine(discord.Client):
             # Get necessary role information
             
             guild = self.get_guild(int(GUILD_ID))
-            member = discord.utils.find(lambda m : m.id ==
-                                        message.channel.recipient.id,
-                                        guild.members)
 
             if bool(await wgu_check_verified(dst_email, conx)):
                 await wgu_set_record(dst_email, username, code, expiry, conx)
@@ -316,7 +313,7 @@ class peregrine(discord.Client):
                                            in the `#verification-support`
                                            channel.""")
 
-                await wgu_add_verified_role(self, member, channel, guild, VERIFIED_ROLE, UNVERIFIED_ROLE)
+                await wgu_add_verified_role(self, message, channel, guild, VERIFIED_ROLE, UNVERIFIED_ROLE)
                 
 
         if message.content.startswith("!verify"):
@@ -324,9 +321,6 @@ class peregrine(discord.Client):
             # Get necessary role information
             
             guild = self.get_guild(int(GUILD_ID))
-            member = discord.utils.find(lambda m : m.id ==
-                                        message.channel.recipient.id,
-                                        guild.members)
 
             # Set log channel
 

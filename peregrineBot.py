@@ -288,10 +288,13 @@ class peregrine(discord.Client):
             code = ''.join(code)
             expiry = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')
             username = str(message.channel.recipient)
-            guild = client.get_guild(int(GUILD_ID))
+            
+            # Get necessary role information
+            
+            guild = self.get_guild(int(GUILD_ID))
             member = guild.get_member(message.author.id)
 
-            print("Verification email triggered by: {}".format(member.id))
+            print("Verification email triggered by: {} for guild {}".format(member.id, member.guild))
 
             if bool(await wgu_check_verified(dst_email, conx)):
                 await wgu_set_record(dst_email, username, code, expiry, conx)
@@ -313,7 +316,7 @@ class peregrine(discord.Client):
                                            in the `#verification-support`
                                            channel.""")
 
-                await wgu_add_verified_role(self, member, channel, VERIFIED_ROLE, UNVERIFIED_ROLE)
+                await wgu_add_verified_role(self, member, channel, guild, VERIFIED_ROLE, UNVERIFIED_ROLE)
                 
 
         if message.content.startswith("!verify"):

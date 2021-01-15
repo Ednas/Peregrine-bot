@@ -1,16 +1,16 @@
 import discord
 
 
-async def wgu_add_verified_role(self, channel, VERIFIED_ROLE, UNVERIFIED_ROLE, member):
+async def wgu_add_verified_role(self, channel, guild, VERIFIED_ROLE, UNVERIFIED_ROLE, member):
        
     try:
 
-        await member.id.add_roles(
-            discord.utils.get(member.guild.roles, name=VERIFIED_ROLE)
+        await member.add_roles(
+            discord.utils.get(guild.roles, name=VERIFIED_ROLE)
         )
 
-        await member.id.remove_roles(
-            discord.utils.get(member.guild.roles, name=UNVERIFIED_ROLE)
+        await member.remove_roles(
+            discord.utils.get(guild.roles, name=UNVERIFIED_ROLE)
         )
 
     except Exception as e:

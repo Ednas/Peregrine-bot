@@ -2,11 +2,11 @@ import discord
 
 
 async def wgu_add_verified_role(self, channel, guild, VERIFIED_ROLE, UNVERIFIED_ROLE, message):
-      
+     
+    member = discord.utils.find(lambda m : m.id == message.channel.recipient.id, guild.members) 
+    
     print("Verification triggered by: {} for guild {}".format(member.id, member.guild))
-
-    member = discord.utils.find(lambda m : m.id == message.channel.recipient.id, guild.members)
-
+    
     try:
 
         await member.add_roles(

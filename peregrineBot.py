@@ -295,7 +295,6 @@ class peregrine(discord.Client):
             member = discord.utils.find(lambda m : m.id ==
                                         message.channel.recipient.id,
                                         guild.members)
-            print("Verification email triggered by: {} for guild {}".format(member.id, member.guild))
 
             if bool(await wgu_check_verified(dst_email, conx)):
                 await wgu_set_record(dst_email, username, code, expiry, conx)
@@ -328,7 +327,6 @@ class peregrine(discord.Client):
             member = discord.utils.find(lambda m : m.id ==
                                         message.channel.recipient.id,
                                         guild.members)
-            print("Verification triggered by: {} for guild {}".format(member.id, member.guild))
 
             # Set log channel
 
@@ -339,7 +337,7 @@ class peregrine(discord.Client):
             code = message.content.split(' ')[-1]
             username = str(message.channel.recipient)
 
-            if bool(wgu_check_record(code, username)):
+            if bool(await wgu_check_record(code, username)):
                 
                 try: 
 

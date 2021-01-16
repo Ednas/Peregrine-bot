@@ -25,7 +25,7 @@ async def wgu_verification_embed():
     )
     verifyMessage.add_field(
         name="Ready?",
-        value="If you are ready to proceed with the verification process, please react to this message with a ✅. You will receive a DM from our verification bot with further instructions. If you require assistance, please visit [#support](https://discordapp.com/channels/688822375327989875/797540968790360084/799817535662587914) on your left.\n\n━━━━━━━━━━━━",
+        value="If you are ready to proceed with the verification process, please react to this message with a ✅. You will receive a DM from our verification bot with further instructions. If you require assistance, please visit [#support](https://discordapp.com/channels/688822375327989875/799808287356485632/799818098987237417) on your left.\n\n━━━━━━━━━━━━",
         inline=False,
     )
 

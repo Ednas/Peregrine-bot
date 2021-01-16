@@ -312,21 +312,21 @@ class peregrine(discord.Client):
                                            is in error, please send a message
                                            in the `#verification-support`
                                            channel.""")
-            try:
+                try:
 
-                print("Verification triggered by: {} for guild {}".format(member.id, member.guild))
+                    print("Verification triggered by: {} for guild {}".format(member.id, member.guild))
 
-                await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
-                await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
-                await message.channel.send("""You're all set, enjoy the
-                                            server! We look forward to
-                                            learning with you!""")
+                    await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
+                    await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
+                    await message.channel.send("""You're all set, enjoy the
+                                                server! We look forward to
+                                                learning with you!""")
 
-            except Exception as e:
+                except Exception as e:
 
-                print(e)
-                errorMessage = "Failed to process verification role for new member: {}\nPlease hand verify this member or contact a bot developer".format(payload.member)
-                await channel.send(content=errorMessage)
+                    print(e)
+                    errorMessage = "Failed to process verification role for new member: {}\nPlease hand verify this member or contact a bot developer".format(payload.member)
+                    await channel.send(content=errorMessage)
                 
 
         if message.content.startswith("!verify"):

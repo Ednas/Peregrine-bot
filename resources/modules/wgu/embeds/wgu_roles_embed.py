@@ -24,7 +24,7 @@ async def wgu_roles_embed():
     )
     rolesMessage.add_field(
         name="Enrollment Status",
-        value=":man_student: Student\n :mortar_board: Alumni\n\n━━━━━━━━━━━━",
+        value="┕ :man_student: Student\n┕ :mortar_board: Alumni\n\n━━━━━━━━━━━━",
         inline=False,
     )
 

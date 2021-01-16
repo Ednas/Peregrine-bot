@@ -30,7 +30,7 @@ async def wgu_faq_embed():
     )
     faqMessage.add_field(
         name="Q: Is there any additional resources I should know about?",
-        value="A: In addition to our growing list located in [#student-resources](https://discord.com/channels/655170668660523070/787767748981161985/787767778869903372), you can find additional information from the [WGU Student Resources](https://www.wgu.edu/admissions/student-experience/learning-resources.html 'https://www.wgu.edu/admissions/student-experience/learning-resources.html') page, the [WGU Alumni](https://www.wgu.edu/alumni.html 'https://www.wgu.edu/alumni.html') page and on the [WGU DreamSpark Portal](https://wgudreamspark.onthehub.com/WebStore/Welcome.aspx 'https://wgudreamspark.onthehub.com/WebStore/Welcome.aspx').\n\n━━━━━",
+        value="A: In addition to our growing list located in [#student-resources](https://discordapp.com/channels/688822375327989875/769026821936382013), you can find additional information from the [WGU Student Resources](https://www.wgu.edu/admissions/student-experience/learning-resources.html 'https://www.wgu.edu/admissions/student-experience/learning-resources.html') page, the [WGU Alumni](https://www.wgu.edu/alumni.html 'https://www.wgu.edu/alumni.html') page and on the [WGU DreamSpark Portal](https://wgudreamspark.onthehub.com/WebStore/Welcome.aspx 'https://wgudreamspark.onthehub.com/WebStore/Welcome.aspx').\n\n━━━━━",
         inline=False,
     )
     faqMessage.add_field(

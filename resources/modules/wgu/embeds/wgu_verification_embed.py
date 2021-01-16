@@ -15,7 +15,7 @@ async def wgu_verification_embed():
 
     verifyMessage.add_field(
         name="Housekeeping",
-        value="Since this Discord is run and sponsored by WGU, verification of your identity is non-negoitable. You will be required to set your [server nickname](https://www.businessinsider.com/how-to-change-nickname-on-discord 'Click here for help (https://www.businessinsider.com/how-to-change-nickname-on-discord)') to the following format\n\n`<User Handle> | <WGU Username>`\n\nIf you would prefer to join this Discord with a new account, please click [here](https://discord.com/register 'Register account (https://discord.com/register)') and create a new Discord account using your WGU email address instead.\n\n━━━━━━━━━━━━",
+        value="Since this Discord is run and sponsored by WGU, verification of your identity is non-negotiable. You will be required to set your [server nickname](https://www.businessinsider.com/how-to-change-nickname-on-discord 'Click here for help (https://www.businessinsider.com/how-to-change-nickname-on-discord)') to the following format\n\n`<User Handle> | <WGU Username>`\n\nIf you would prefer to join this Discord with a new account, please click [here](https://discord.com/register 'Register account (https://discord.com/register)') and create a new Discord account using your WGU email address instead.\n\n━━━━━━━━━━━━",
         inline=False,
     )
     verifyMessage.add_field(
@@ -25,7 +25,7 @@ async def wgu_verification_embed():
     )
     verifyMessage.add_field(
         name="Ready?",
-        value="If you are ready to proceed with the verification process, please react to this message with a ✅. You will receive a DM from our verification bot with further instructions. If you require assistance, please visit [#verification-support](https://discordapp.com/channels/688822375327989875/797540968790360084/799821319826178049) on your left.\n\n━━━━━━━━━━━━",
+        value="If you are ready to proceed with the verification process, please react to this message with a ✅. You will receive a DM from our verification bot with further instructions. If you require assistance, please visit [#verification-support](https://discordapp.com/channels/688822375327989875/768993144380981248) on your left.\n\n━━━━━━━━━━━━",
         inline=False,
     )
 

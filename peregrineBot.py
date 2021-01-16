@@ -182,7 +182,7 @@ class peregrine(discord.Client):
 
         channel = self.get_channel(int(LOG_CHANNEL))
 
-        if message.content.startswith("!verify"):
+        if message.content.startswith("!verifyembed"):
 
             try:
 
@@ -204,7 +204,7 @@ class peregrine(discord.Client):
                 error_message = "Could not process !verify command.\n"
                 await message.channel.send(content=error_message)
 
-        if message.content.startswith("!certs"):
+        if message.content.startswith("!certsembed"):
 
             try:
 
@@ -220,7 +220,7 @@ class peregrine(discord.Client):
 
             return
 
-        if message.content.startswith("!faq"):
+        if message.content.startswith("!faqembed"):
 
             try:
 
@@ -236,7 +236,7 @@ class peregrine(discord.Client):
 
             return
 
-        if message.content.startswith("!resources"):
+        if message.content.startswith("!resourcesembed"):
 
             try:
 
@@ -256,7 +256,7 @@ class peregrine(discord.Client):
 
             return
 
-        if message.content.startswith("!roles"):
+        if message.content.startswith("!rolesembed"):
 
             try:
                 print("Event triggered: !roles\n   Member: {}\n".format(message.author))

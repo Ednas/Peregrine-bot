@@ -182,7 +182,7 @@ class peregrine(discord.Client):
 
         channel = self.get_channel(int(LOG_CHANNEL))
 
-        if message.content.startswith("!verifyembed"):
+        if message.content.startswith("!verembed"):
 
             try:
 

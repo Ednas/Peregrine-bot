@@ -293,34 +293,34 @@ class peregrine(discord.Client):
             guild = self.get_guild(int(GUILD_ID))
             member = discord.utils.find(lambda m : m.id == message.channel.recipient.id, guild.members) 
 
-            if bool(await wgu_check_verified(dst_email, conx)):
-                await wgu_set_record(dst_email, username, code, expiry, conx)
-                await wgu_send_email(code, dst_email, SRC_EMAIL)
-                await message.channel.send("""An email was sent to the email
-                                           address you provided. If you have
-                                           any trouble finding it, try
-                                           refreshing your browser, waiting a
-                                           few minutes, or check your spam
-                                           folder. If you're still having
-                                           issues, feel free to check out the
-                                           `#verification-support` channel for
-                                           further questions.""")
-                # Log the beginning of verification attempt! Enter here.
-            else:
-                await message.channel.send("""That email has already been
-                                           verified. If you think this message
-                                           is in error, please send a message
-                                           in the `#verification-support`
-                                           channel.""")
-                try:
+                if bool(await wgu_check_verified(dst_email, conx)):
+                    await wgu_set_record(dst_email, username, code, expiry, conx)
+                    await wgu_send_email(code, dst_email, SRC_EMAIL, EMAIL_PASS)
+                    await message.channel.send("""An email was sent to the email
+                                                address you provided. If you have
+                                                any trouble finding it, try
+                                                refreshing your browser, waiting a
+                                                few minutes, or check your spam
+                                                folder. If you're still having
+                                                issues, feel free to check out the
+                                                `#verification-support` channel for
+                                                further questions.""")
+                    # Log the beginning of verification attempt! Enter here.
+                else:
+                    await message.channel.send("""That email has already been
+                                                verified. If you think this message
+                                                is in error, please send a message
+                                                in the `#verification-support`
+                                                channel.""")
+                    try:
 
-                    print("Verification triggered by: {} for guild {}".format(member.id, member.guild))
+                        print("Verification triggered by: {} for guild {}".format(member.id, member.guild))
 
-                    await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
-                    await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
-                    await message.channel.send("""You're all set, enjoy the
-                                                server! We look forward to
-                                                learning with you!""")
+                        await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
+                        await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
+                        await message.channel.send("""You're all set, enjoy the
+                                                    server! We look forward to
+                                                    learning with you!""")
 
                 except Exception as e:
 

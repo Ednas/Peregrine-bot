@@ -1,6 +1,7 @@
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import smtplib
+import ssl
 
 async def wgu_send_email(code, dst_email, SRC_EMAIL):
     "Sends an email to the student seeking verification"

@@ -292,7 +292,7 @@ class peregrine(discord.Client):
             
             guild = self.get_guild(int(GUILD_ID))
             member = discord.utils.find(lambda m : m.id == message.channel.recipient.id, guild.members) 
-            
+
             print("Verification triggered by: {} for guild {}\n   Code is: {}.\n   Email is:".format(member.id, member.guild, code, dst_email))
 
             if bool(await wgu_check_verified(dst_email, conx)):
@@ -334,6 +334,7 @@ class peregrine(discord.Client):
             
             # Get necessary role information
             
+            username = str(message.channel.recipient)
             guild = self.get_guild(int(GUILD_ID))
             member = discord.utils.find(lambda m : m.id == message.channel.recipient.id, guild.members) 
 

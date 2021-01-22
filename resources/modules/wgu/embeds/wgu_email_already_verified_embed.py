@@ -11,7 +11,7 @@ async def email_already_verified_embed(user_email, discord_user):
 
     already_verifiedMessage = discord.Embed(
         title="This email has already been verified!",
-        description="Hello, {}!\n\nThe email address {} already belongs to a verified Discord account.\nIf you believe this is a mistake, please contact a moderator in [#verification-support](https://discordapp.com/channels/688822375327989875/768993144380981248)".format(discord_user[0][0:24], user_email),
+        description="Hello, {}!\n\nThe email address {} already belongs to a member of this discord.\n\n\nIf you believe this is a mistake, please contact a moderator in [#verification-support](https://discordapp.com/channels/688822375327989875/768993144380981248)".format(discord_user[0][0:24], user_email),
         colour=discord.Colour.dark_blue(),
     )
   

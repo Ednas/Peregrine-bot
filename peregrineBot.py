@@ -405,7 +405,7 @@ class peregrine(discord.Client):
 
             # Generate new user nickname
 
-            new_nick_part_one = discord_user[0:18]
+            new_nick_part_one = discord_user[0][0:18]
             new_nick_part_two = wgu_user[0]
             new_nickname = "{} | {}".format(new_nick_part_one, new_nick_part_two)
            
@@ -416,7 +416,7 @@ class peregrine(discord.Client):
 
             # Print to console
 
-            print("Verification triggered by: {} for guild {}\n   Code is: {}\n   Email is: {}\n   New Nickname is: {}".format(str(member.id), str(member.guild), str(code), str(message.content.split(' ')[-1]), str(new_nickname)))
+            print("Verification triggered by: {} for guild {}\n   Code is: {}\n   Email is: {}\n   New Nickname is: {}".format(str(member.id), str(member.guild), str(code), str(message.content.split(' ')[-1]), str(new_nickname[0])))
             
             if bool(await wgu_check_verified(dst_email, conx)):
                 await wgu_set_record(dst_email, username, code, expiry, conx)

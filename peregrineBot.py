@@ -21,6 +21,8 @@ from resources.modules.wgu.embeds.wgu_faq_embed import *
 from resources.modules.wgu.embeds.wgu_resources_embed import *
 from resources.modules.wgu.embeds.wgu_roles_embed import *
 from resources.modules.wgu.embeds.wgu_verification_embed import *
+from resources.modules.wgu.embeds.wgu_htb_embed import *
+from resources.modules.wgu.embeds.wgu_announcement_sub_embed import *
 
 # Import database modules
 
@@ -286,14 +288,14 @@ class peregrine(discord.Client):
         if message.content.startswith("!subembed"):
 
             try:
-                print("Event triggered: !roles\n   Member: {}\n".format(message.author))
+                print("Event triggered: !subembed\n   Member: {}\n".format(message.author))
                 sub_embedded_message = await wgu_subscription_embed
                 await message.channel.send(embed=sub_embedded_message)
 
             except Exception as e:
 
                 print(e)
-                error_message = "Could not process !roles command.\n"
+                error_message = "Could not process !subembed command.\n"
                 await message.channel.send(content=error_message)
 
             return

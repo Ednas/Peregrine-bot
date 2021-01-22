@@ -330,7 +330,7 @@ class peregrine(discord.Client):
             # Set up other variables
 
             conx = connect()
-            print("Sanity check. Submitted message is: {}\n from: {}".format(message, message.author.id))
+            print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
             dst_email = message.content.split(' ')[-1]
             code = []
             for _ in range(6):

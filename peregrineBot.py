@@ -415,10 +415,8 @@ class peregrine(discord.Client):
 
             # Print to console
 
-            print("Verification triggered by: {} for guild {}\n   Code is: {}\n   Email is: {}".format(str(member.id), str(member.guild), str(code), str(message.content.split(' ')[-1])))
+            print("Verification triggered by: {} for guild {}\n   Code is: {}\n   Email is: {}\n   New Nickname is: {}".format(str(member.id), str(member.guild), str(code), str(message.content.split(' ')[-1], str(new_nickname)))
             
-    
-
             if bool(await wgu_check_verified(dst_email, conx)):
                 await wgu_set_record(dst_email, username, code, expiry, conx)
                 await wgu_send_email(code, dst_email, SRC_EMAIL, EMAIL_PASS)
@@ -438,6 +436,7 @@ class peregrine(discord.Client):
 
                     already_verified_message = await wgu_email_already_verified_embed(dst_email, wgu_user)
                     await message.channel.send(embed=already_verified_message)
+                    await member.edit(nick=new_nickname)
 
             # Log information
 
@@ -446,7 +445,8 @@ class peregrine(discord.Client):
             print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
             print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
             print("    ┕ WGU user is: {}".format(wgu_user[0]))
-            print("    ┕ Discord Username: {}".format(discord_user[0]))           
+            print("    ┕ Discord Username: {}".format(discord_user[0]))     
+            print("    ┕ New Nickname is: {}".format(new_nickname))        
 
         if message.content.startswith("!verify"):
 

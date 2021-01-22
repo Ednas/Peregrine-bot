@@ -19,17 +19,32 @@ async def wgu_subscription_embed():
 
     subMessage.add_field(
         name="Collegiete Cyber Defense Competition Notifications",
-        value="These announcmeents are contributed to us from various resources and are located in [#ccdc-announcements](https://discordapp.com/channels/688822375327989875/765664389792923688).\n┕ :shield: CCDC\n\n━━━━━━━━━━━━",
+        value="These announcmeents are contributed to us from various resources and are located in [#ccdc-announcements](https://discordapp.com/channels/688822375327989875/756320882225446983).\n┕ :shield: CCDC\n\n━━━━━━━━━━━━",
         inline=False,
     )
     subMessage.add_field(
         name="NICE Cyber Challenge Notifications",
-        value="These announcmeents are contributed to us from various resources and are located in [#nice-announcements](https://discordapp.com/channels/688822375327989875/765664389792923688).\n┕ :film_frames: NICE\n\n━━━━━━━━━━━━",
+        value="These announcmeents are contributed to us from various resources and are located in [#nice-announcements](https://discordapp.com/channels/688822375327989875/770760554276978688).\n┕ :film_frames: NICE\n\n━━━━━━━━━━━━",
         inline=False,
     )
     subMessage.add_field(
-        name="Capture The Flag Calendar Notifications",
-        value="These announcmeents are related to various CTF events.\n┕ :triangular_flag_on_post: CTF Calendar\n┕ :toolbox: HackTheBox\n┕ :postbox: TryHackMe\n┕ :electric_plug: OverTheWire\n\n━━━━━━━━━━━━",
+        name="Capture The Flag Notifications",
+        value="These announcmeents are related to various CTF events and are located in [#ctf-announcements](https://discordapp.com/channels/688822375327989875/770760554276978688).\n┕ :triangular_flag_on_post: Capture The Flag\n\n━━━━━━━━━━━━",
+        inline=False,
+    )
+    subMessage.add_field(
+        name="Hack the Box Notifications",
+        value="These announcmeents are related to various CTF events and are located in [#htb-announcements](https://discordapp.com/channels/688822375327989875/770760554276978688).\n┕ :toolbox: HackTheBox\n\n━━━━━━━━━━━━",
+        inline=False,
+    )
+    subMessage.add_field(
+        name="Try Hack Me Notifications",
+        value="These announcmeents are related to various CTF events and are located in [#thm-announcements](https://discordapp.com/channels/688822375327989875/770760554276978688).\n┕ :postbox: TryHackMe\n\n━━━━━━━━━━━━",
+        inline=False,
+    )
+    subMessage.add_field(
+        name="Over The Wire Calendar Notifications",
+        value="These announcmeents are related to various CTF events and are located in [#otw-announcements](https://discordapp.com/channels/688822375327989875/770760554276978688).\n┕ :electric_plug: OverTheWire\n\n━━━━━━━━━━━━",
         inline=False,
     )
     subMessage.add_field(

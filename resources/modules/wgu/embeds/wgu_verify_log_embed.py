@@ -11,7 +11,7 @@ async def verify_embed_log_message(message, author, email, wgu_user, discord_use
 
     logMessage = discord.Embed(
         title="New verification interaction",
-        description="{}\n{}\n{}\n{}\n{}\n{}\n{}".format(message, author, email, wgu_user, discord_user),
+        description="{}\n{}\n{}\n{}\n{}".format(message, author, email, wgu_user, discord_user),
         colour=discord.Colour.dark_blue(),
     )
     

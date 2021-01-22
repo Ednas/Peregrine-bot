@@ -320,7 +320,7 @@ class peregrine(discord.Client):
                 except Exception as e:
 
                     print(e)
-                    errorMessage = "Failed to process verification role for new member: {}\nPlease hand verify this member or contact a bot developer".format(payload.member)
+                    errorMessage = "Failed to process verification role for new member: {}\nPlease hand verify this member or contact a bot developer".format(member)
                     await channel.send(content=errorMessage)
             
 
@@ -370,7 +370,7 @@ class peregrine(discord.Client):
                 except Exception as e:
 
                     print(e)
-                    errorMessage = "Failed to process verification role for new member: {}\nPlease hand verify this member or contact a bot developer".format(payload.member)
+                    errorMessage = "Failed to process verification role for new member: {}\nPlease hand verify this member or contact a bot developer".format(member)
                     await channel.send(content=errorMessage)
 
         if message.content.startswith("!delete"):

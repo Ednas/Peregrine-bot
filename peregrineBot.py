@@ -392,10 +392,12 @@ class peregrine(discord.Client):
 
             # Set up variables
 
+            conx = connect()
             expiry = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')
             guild = self.get_guild(int(GUILD_ID))
             member = discord.utils.find(lambda m : m.id == message.channel.recipient.id, guild.members) 
             code = message.content.split(' ')[-1]
+            username = str(message.channel.recipient)
 
             if bool(await wgu_check_record(code, username, conx)):
                 

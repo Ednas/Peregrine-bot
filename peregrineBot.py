@@ -71,7 +71,6 @@ load_dotenv()
 TOKEN = os.getenv('bot_token')
 GUILD_ID = os.getenv('guild_id')
 LOG_CHANNEL = os.getenv('log_channel_id')
-NICKNAME_SCHEMA = os.getenv('nickname_schema')
 VERIFICATION_CHANNEL = os.getenv('verification_channel_id')
 VERIFICATION_MESSAGE = os.getenv('verification_message_id')
 ENROLLMENT_MESSAGE = os.getenv('enrollment_self_role_message_id')
@@ -129,7 +128,7 @@ class peregrine(discord.Client):
         # Auto assign unverified role to new members and set nickname defaults
 
         await wgu_set_unverified_on_new_join(member, channel)
-        await wgu_set_user_nick_on_join(member, channel, NICKNAME_SCHEMA)
+        await wgu_set_user_nick_on_join(member, channel)
 
     async def on_member_remove(self, member):
 

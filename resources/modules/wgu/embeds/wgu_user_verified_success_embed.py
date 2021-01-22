@@ -5,13 +5,13 @@ import discord
 from discord.ext import commands
 
 
-async def wgu_user_verified_success_embed(user_email, wgu_user):
+async def wgu_user_verified_success_embed(wgu_user):
 
     # Set initial message here
 
     successMessage = discord.Embed(
         title="Success!",
-        description="\n\nHello, {}!\nYou have been verified! You should now see new channels available. If you do not, please alert a moderator in [#verification-support](https://discordapp.com/channels/688822375327989875/768993144380981248)".format(wgu_user[0], user_email),
+        description="\n\nHello, {}!\nYou have been verified! You should now see new channels available. If you do not, please alert a moderator in [#verification-support](https://discordapp.com/channels/688822375327989875/768993144380981248)".format(wgu_user[0]),
         colour=discord.Colour.dark_blue(),
     )
   

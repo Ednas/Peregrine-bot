@@ -411,7 +411,7 @@ class peregrine(discord.Client):
                                         
                     # Alert user that they have been verified
                     
-                    user_verified_success_embed = await wgu_user_verified_success_embed(dst_email, discord_user)
+                    user_verified_success_embed = await wgu_user_verified_success_embed(discord_user)
                     await message.channel.send(user_verified_success_embed)
 
                 except Exception as e:

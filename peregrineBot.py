@@ -231,13 +231,13 @@ class peregrine(discord.Client):
 
                 print("Event triggered: !subembed\n   Member: {}\n".format(message.author))
                 
-                sub_embedded_message = await wgu_subscription_embed()
-                sub_embed_message = await message.channel.send(embed=sub_embedded_message)
+                roles_embedded_message = await wgu_roles_embed()
+                roles_embed_message = await message.channel.send(embed=roles_embedded_message)
                 
                 # Add initial reaction
 
                 for emoji in ('🛡️', '🎞️', '🚩', '📮', '🔌', '📰'):
-                    await sub_embed_message.add_reaction(emoji)
+                    await roles_embed_message.add_reaction(emoji)
             
             except Exception as e:
 

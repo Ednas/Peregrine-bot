@@ -24,6 +24,7 @@ from resources.modules.wgu.embeds.wgu_verification_embed import *
 from resources.modules.wgu.embeds.wgu_htb_embed import *
 from resources.modules.wgu.embeds.wgu_announcement_sub_embed import *
 from resources.modules.wgu.embeds.wgu_verify_log_embed import *
+from resources.modules.wgu.embeds.wgu_send_email_embed import
 
 # Import database modules
 
@@ -348,22 +349,23 @@ class peregrine(discord.Client):
             # Get necessary role information
             
             guild = self.get_guild(int(GUILD_ID))
-            
-
             member = discord.utils.find(lambda m : m.id == message.channel.recipient.id, guild.members) 
+
+            # Print to console
 
             print("Verification triggered by: {} for guild {}\n   Code is: {}\n   Email is: {}".format(str(member.id), str(member.guild), str(code), str(message.content.split(' ')[-1])))
             
+    
 
             if bool(await wgu_check_verified(dst_email, conx)):
                 await wgu_set_record(dst_email, username, code, expiry, conx)
                 await wgu_send_email(code, dst_email, SRC_EMAIL, EMAIL_PASS)
-                
-                email_message = await wgu_send_email_embed.py(user_email, wgu_user)
+                                
+                email_message = await wgu_send_email_embed(user_email, wgu_user)
 
                 await message.channel.send(embed=email_message)
-                
                 # Log the beginning of verification attempt! Enter here.
+            
             else:
 
                 await message.channel.send("""That email has already been
@@ -383,10 +385,6 @@ class peregrine(discord.Client):
                     errorMessage = "Failed to process verification role for new member: {}\nPlease hand verify this member or contact a bot developer".format(member)
                     await channel.send(content=errorMessage)
 
-            # Set log channel
-
-            channel = self.get_channel(int(LOG_CHANNEL))
-
             # Log information
 
             log_message = await verify_embed_log_message(user_email, wgu_user, discord_user, new_nickname, message)
@@ -396,7 +394,6 @@ class peregrine(discord.Client):
             print("    ┕ WGU user is: {}".format(wgu_user[0]))
             print("    ┕ Discord Username: {}".format(discord_user[0]))
 
-            await message.channel.send(embed=log_message)
 
 
             

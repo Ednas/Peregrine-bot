@@ -351,7 +351,7 @@ class peregrine(discord.Client):
            
           # Log information
 
-            log_message = await verify_embed_log_message(message.content, message.author.id, message.content.split(' ')[-1], wgu_user[0], discord_user[0])
+            log_message = await verify_embed_log_message(user_email, wgu_user, discord_user, new_nickname, message)
 
             print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
             print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))

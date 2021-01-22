@@ -5,7 +5,7 @@ import discord
 from discord.ext import commands
 
 
-async def verify_embed_log_message(user_email, wgu_user, discord_user, new_nickname, message.author.id):
+async def verify_embed_log_message(user_email, wgu_user, discord_user, new_nickname, message):
 
     # Set initial message here
 

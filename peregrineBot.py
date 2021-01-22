@@ -405,7 +405,10 @@ class peregrine(discord.Client):
 
                     await wgu_set_verified(username, conx)
                     await wgu_delete_record(code, username, conx)
-                
+                    
+                    print("   *** Verification Complete *** {}".format(wgu_user[0]))
+                    print("    ┕ New Nickname: {}".format(discord_user[0]))     
+                    
                     await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
                     await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
                                         

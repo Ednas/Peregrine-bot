@@ -332,11 +332,11 @@ class peregrine(discord.Client):
             conx = connect()
             print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
             print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
-            print("    ┕ Discord Username: {}".format(message.author))
+            print("    ┕ Discord Username: {}".format(message.author.split('#')[-1]))
             
             # Generate new user nickname
 
-            new_nickname = "{} | {}".format(message.author, message.content.split(' ')[-1])
+            new_nickname = "{} | {}".format(message.author.split('#')[-1]), message.content.split(' ')[-1])
             
             dst_email = message.content.split(' ')[-1]
             code = []
@@ -351,7 +351,7 @@ class peregrine(discord.Client):
             guild = self.get_guild(int(GUILD_ID))
             member = discord.utils.find(lambda m : m.id == message.channel.recipient.id, guild.members) 
 
-            print("Verification triggered by: {} for guild {}\n   Code is: {}\n   Email is:".format(str(member.id), str(member.guild), str(code), str(dst_email)))
+            print("Verification triggered by: {} for guild {}\n   Code is: {}\n   Email is:".format(str(member.id), str(member.guild), str(code), str(message.content.split(' ')[-1])))
 
             if bool(await wgu_check_verified(dst_email, conx)):
                 await wgu_set_record(dst_email, username, code, expiry, conx)
@@ -389,11 +389,11 @@ class peregrine(discord.Client):
 
             print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
             print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
-            print("    ┕ Discord Username: {}".format(message.author))
+            print("    ┕ Discord Username: {}".format(message.author.split('#')[-1]))
             
             # Generate new user nickname
 
-            new_nickname = "{} | {}".format(message.author, message.content.split(' ')[-1])
+            new_nickname = "{} | {}".format(message.author.split('#')[-1]), message.content.split(' ')[-1])
 
             # Set up other variables
 

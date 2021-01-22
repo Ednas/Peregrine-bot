@@ -10,18 +10,13 @@ async def wgu_roles_embed():
     # Set initial message here
 
     rolesMessage = discord.Embed(
-        title="Looking for additional resources? You've come to the right place.",
-        description="Below you will find a variety of resources in different categories. We try and update this with the most recent and relevant information to assist you in your learning journey. If you have suggestions, we'd love to hear from you!\n\n━━━━━━━━━━━━",
+        title="You want em? We've got em.",
+        description="Get your roles here! Simply react with the appropriate emoji to autmoatically receive your role. If you're looking to get roles related to your industry certifications, please visit [#cert-verification](https://discordapp.com/channels/688822375327989875/757159500091228170) to begin the process!\n\n━━━━━",
         colour=discord.Colour.dark_blue(),
     )
 
     # Set custom fields here
 
-    rolesMessage.add_field(
-        name="You want em? We've got em.",
-        value="Get your roles here! Simply react with the appropriate emoji to autmoatically receive your role. If you're looking to get roles related to your industry certifications, please visit [#cert-verification](https://discordapp.com/channels/688822375327989875/757159500091228170) to begin the process!\n\n━━━━━",
-        inline=False,
-    )
     rolesMessage.add_field(
         name="Enrollment Status",
         value="┕ :man_student: Student\n┕ :mortar_board: Alumni\n\n━━━━━━━━━━━━",

@@ -43,7 +43,7 @@ async def wgu_subscription_embed():
         inline=False,
     )
     subMessage.add_field(
-        name="Over The Wire Calendar Notifications",
+        name="Over The Wire Notifications",
         value="These announcements are related to various CTF events and are located in [#otw-announcements](https://discordapp.com/channels/688822375327989875/790625988622417960).\n┕ :electric_plug: OverTheWire\n\n━━━━━━━━━━━━",
         inline=False,
     )

@@ -65,12 +65,13 @@ client = commands.Bot(command_prefix="!")
 load_dotenv()
 
 TOKEN = os.getenv('bot_token')
-WELCOME = os.getenv('welcome_message_id')
 GUILD_ID = os.getenv('guild_id')
 LOG_CHANNEL = os.getenv('log_channel_id')
 NICKNAME_SCHEMA = os.getenv('nickname_schema')
 VERIFICATION_CHANNEL = os.getenv('verification_channel_id')
 VERIFICATION_MESSAGE = os.getenv('verification_message_id')
+ENROLLMENT_MESSAGE = os.getenv('enrollment_self_role_message_id')
+SUBSCRIPTION_MESSAGE = os.getenv('subscription_self_role_message_id')
 VERIFIED_ROLE = os.getenv('verified_role_name')
 UNVERIFIED_ROLE = os.getenv('unverified_role_name')
 VERIFICATION_EMOJI = os.getenv('verification_emoji')
@@ -142,7 +143,62 @@ class peregrine(discord.Client):
         await channel.send(content=on_member_leave_message)
 
     async def on_raw_reaction_add(self, payload):
-        
+
+        if str(payload.message_id) == str(ENROLLMENT_MESSAGE):
+            
+            print("Triggering verification")
+            
+            # Set log channel
+
+            channel = self.get_channel(int(LOG_CHANNEL))
+            print("Log channel set")
+            
+            # Alert console of member leaving and push to log channel
+
+            on_reaction_add_verification_alert = (
+                "Event triggered: Member verification\n   Member: {}".format(payload.member)
+            )
+
+            print(on_reaction_add_verification_alert)
+            await channel.send(content=on_reaction_add_verification_alert)
+
+            # Initiate email verification process
+
+            await wgu_send_verification_dm(self, payload, VERIFICATION_MESSAGE, VERIFICATION_EMOJI, DM_MESSAGE)
+
+            return
+
+        if str(payload.message_id) != str(VERIFICATION_MESSAGE):
+            return
+
+        if str(payload.message_id) == str(VERIFICATION_MESSAGE):
+            
+            print("Triggering verification")
+            
+            # Set log channel
+
+            channel = self.get_channel(int(LOG_CHANNEL))
+            print("Log channel set")
+            
+            # Alert console of member leaving and push to log channel
+
+            on_reaction_add_verification_alert = (
+                "Event triggered: Member verification\n   Member: {}".format(payload.member)
+            )
+
+            print(on_reaction_add_verification_alert)
+            await channel.send(content=on_reaction_add_verification_alert)
+
+            # Initiate email verification process
+
+            await wgu_send_verification_dm(self, payload, VERIFICATION_MESSAGE, VERIFICATION_EMOJI, DM_MESSAGE)
+
+            return
+
+        if str(payload.message_id) != str(VERIFICATION_MESSAGE):
+            return
+
+
         if str(payload.message_id) == str(VERIFICATION_MESSAGE):
             
             print("Triggering verification")

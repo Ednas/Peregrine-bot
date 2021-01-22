@@ -340,15 +340,15 @@ class peregrine(discord.Client):
 
             # Generate new user nickname
 
-            new_nickname = "{} | {}".format(username, wgu_user )
+            new_nickname = "{} | {}".format(username, wgu_user)
            
             # Sanity check
 
             conx = connect()
             print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
             print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
-            print("    ┕ WGU user is: {}".format(wgu_user)
-            print("    ┕ Discord Username: {}".format(username)
+            print("    ┕ WGU user is: {}".format(wgu_user))
+            print("    ┕ Discord Username: {}".format(username))
 
             # Get necessary role information
             

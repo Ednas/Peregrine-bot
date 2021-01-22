@@ -329,6 +329,7 @@ class peregrine(discord.Client):
                         
             # Set up other variables
 
+            conx = connect()
             dst_email = message.content.split(' ')[-1]
             code = []
             for _ in range(6):
@@ -345,7 +346,6 @@ class peregrine(discord.Client):
            
             # Sanity check
 
-            conx = connect()
             print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
             print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
             print("    ┕ WGU user is: {}".format(wgu_user[0]))
@@ -392,10 +392,6 @@ class peregrine(discord.Client):
 
         if message.content.startswith("!verify"):
 
-            print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
-            print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
-            print("    ┕ Discord Username: {}".format(message.author.split('#')[-1]))
-            
             # Generate new user nickname
 
             new_nickname = "{} | {}".format(message.author.split('#')[-1], message.content.split(' ')[-1])
@@ -419,6 +415,13 @@ class peregrine(discord.Client):
 
             code = message.content.split(' ')[-1]
             username = str(message.channel.recipient)
+
+            # Sanity check
+
+            print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
+            print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
+            print("    ┕ WGU user is: {}".format(wgu_user[0]))
+            print("    ┕ Discord Username: {}".format(discord_user[0]))
 
             if bool(await wgu_check_record(code, username, conx)):
                 

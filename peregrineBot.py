@@ -425,6 +425,9 @@ class peregrine(discord.Client):
 
         if message.content.startswith("!delete"):
             
+            # Set up variables
+
+            conx = connect()         
             # Set log channel
 
             channel = self.get_channel(int(LOG_CHANNEL))
@@ -433,7 +436,7 @@ class peregrine(discord.Client):
             
             field = message.content.split(' ')[-1]
 
-            wgu_delete_record(field)
+            wgu_delete_record(field, conx)
             await message.channel.send("""We'll get that taken care of for
                                        you.""")
 

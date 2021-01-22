@@ -3,7 +3,7 @@ import discord
 # Import additional modules
 
 from discord.ext import commands
-
+import discord
 
 async def wgu_verify_log_embed(user_email, wgu_user, discord_user, new_nickname, message):
 

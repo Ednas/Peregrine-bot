@@ -46,6 +46,8 @@ from resources.modules.wgu.usermanagement.onboarding.wgu_set_user_nick_on_join i
 from resources.modules.wgu.usermanagement.verification.wgu_send_verification_dm import *
 
 # Import user management modules for self roles
+from resources.modules.wgu.usermanagement.roles.wgu_enrollment_status_self_role import *
+from resources.modules.wgu.usermanagement.roles.wgu_subscription_self_role import *
 
 # Import hybrid analysis modules
 
@@ -78,6 +80,15 @@ SUBSCRIPTION_MESSAGE = os.getenv('subscription_self_role_message_id')
 VERIFIED_ROLE = os.getenv('verified_role_name')
 UNVERIFIED_ROLE = os.getenv('unverified_role_name')
 VERIFICATION_EMOJI = os.getenv('verification_emoji')
+STUDENT_EMOJI = os.getenv('student_emoji')
+ALUMNI_EMOJI = os.getenv('alumni_emoji')
+CCDC_SUB_EMOJI = os.getenv('ccdc_sub_emoji')
+NICE_SUB_EMOJI = os.getenv('nice_sub_emoji')
+CTF_SUB_EMOJI = os.getenv('ctf_sub_emoji')
+HTB_SUB_EMOJI = os.getenv('htb_sub_emoji')
+THM_SUB_EMOJI = os.getenv('thm_sub_emoji')
+OTW_SUB_EMOJI = os.getenv('otw_sub_emoji')
+FOREIGN_SUB_EMOJI = os.getenv('foreign_sub_emoji')
 DM_MESSAGE = os.getenv('dm_verification_message')
 SRC_EMAIL = os.getenv('bot_email_address')
 EMAIL_PASS = os.getenv('bot_email_password')
@@ -158,25 +169,24 @@ class peregrine(discord.Client):
             
             # Alert console of member leaving and push to log channel
 
-            on_reaction_add_verification_alert = (
+            on_reaction_add_enrollment_role_alert = (
                 "Event triggered: Member self role assignment\n   Member: {}".format(payload.member)
             )
 
-            print(on_reaction_add_verification_alert)
-            await channel.send(content=on_reaction_add_verification_alert)
+            print(on_reaction_add_enrollment_role_alert)
+            await channel.send(content=on_reaction_add_enrollment_role_alert)
 
-            # Initiate email verification process
+            # Initiate enrollment self role process
 
-            await wgu_send_verification_dm(self, payload, VERIFICATION_MESSAGE, VERIFICATION_EMOJI, DM_MESSAGE)
-
+            await wgu_enrollment_status_self_role(self, payload, STUDENT_EMOJI, ALUMNI_EMOJI)
             return
 
-        if str(payload.message_id) != str(VERIFICATION_MESSAGE):
+        if str(payload.message_id) != str(ENROLLMENT_MESSAGE):
             return
 
-        if str(payload.message_id) == str(VERIFICATION_MESSAGE):
+        if str(payload.message_id) == str(SUBSCRIPTION_MESSAGE):
             
-            print("Triggering verification")
+            print("Triggering subscription self role")
             
             # Set log channel
 
@@ -185,20 +195,19 @@ class peregrine(discord.Client):
             
             # Alert console of member leaving and push to log channel
 
-            on_reaction_add_verification_alert = (
-                "Event triggered: Member verification\n   Member: {}".format(payload.member)
+            on_reaction_add_enrollment_role_alert = (
+                "Event triggered: Member self role assignment\n   Member: {}".format(payload.member)
             )
 
-            print(on_reaction_add_verification_alert)
-            await channel.send(content=on_reaction_add_verification_alert)
+            print(on_reaction_add_enrollment_role_alert)
+            await channel.send(content=on_reaction_add_enrollment_role_alert)
 
-            # Initiate email verification process
+            # Initiate enrollment self role process
 
-            await wgu_send_verification_dm(self, payload, VERIFICATION_MESSAGE, VERIFICATION_EMOJI, DM_MESSAGE)
-
+            await wgu_subscription_self_role(self, payload, CCDC_SUB_EMOJI, NICE_SUB_EMOJI, CTF_SUB_EMOJI, HTB_SUB_EMOJI, THM_SUB_EMOJI, OTW_SUB_EMOJI, FOREIGN_SUB_EMOJI)
             return
 
-        if str(payload.message_id) != str(VERIFICATION_MESSAGE):
+        if str(payload.message_id) != str(SUBSCRIPTION_MESSAGE):
             return
 
 

@@ -1,5 +1,3 @@
-
-
 import discord
 
 async def wgu_set_user_nick_on_join(member, channel):

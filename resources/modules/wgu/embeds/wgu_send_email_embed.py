@@ -11,7 +11,7 @@ async def verify_embed_email_message(user_email, wgu_user):
 
     emailMessage = discord.Embed(
         title="Email sent!",
-        description="Hello, {}!\nAn email has been sent to {}. Please allow up to 5 minutes for it to arrive. If you do not receive an email, please send a message in [#cert-verification](https://discordapp.com/channels/688822375327989875/768993144380981248)".format(wgu_user[0], user_email),
+        description="\n\nHello, {}!\nAn email has been sent to {}. Please allow up to 5 minutes for it to arrive. If you do not receive an email, please send a message in [#cert-verification](https://discordapp.com/channels/688822375327989875/768993144380981248)".format(wgu_user[0], user_email),
         colour=discord.Colour.dark_blue(),
     )
   

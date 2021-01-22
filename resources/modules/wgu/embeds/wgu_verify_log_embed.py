@@ -11,7 +11,7 @@ async def verify_log_embed(user_email, wgu_user, discord_user, new_nickname, mes
 
     logMessage = discord.Embed(
         title="New verification triggered",
-        description=" ┕ User email:{}\n  ┕ WGU Username: {}\n  ┕ Discord Username: {}\n  ┕ New Nickname: {}\n  ┕ Discord id: {}".format(user_email, wgu_user[0], discord_user[0], new_nickname, message.author.id),
+        description="\n\n┕ User email:{}\n  ┕ WGU Username: {}\n  ┕ Discord Username: {}\n  ┕ New Nickname: {}\n  ┕ Discord id: {}".format(user_email, wgu_user[0], discord_user[0], new_nickname, message.author.id),
         colour=discord.Colour.dark_blue(),
     )
     

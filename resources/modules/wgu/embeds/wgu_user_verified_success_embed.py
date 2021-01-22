@@ -10,8 +10,8 @@ async def user_verified_success_embed(user_email, wgu_user):
     # Set initial message here
 
     successMessage = discord.Embed(
-        title="Email sent!",
-        description="Hello, {}!\nAn email has been sent to {}. Please allow up to 5 minutes for it to arrive. If you do not receive an email, please send a message in [#verification-support](https://discordapp.com/channels/688822375327989875/768993144380981248)".format(wgu_user[0], user_email),
+        title="Success!",
+        description="\n\nHello, {}!\nYou have been verified! You should now see new channels available. If you do not, please alert a moderator in [#verification-support](https://discordapp.com/channels/688822375327989875/768993144380981248)".format(wgu_user[0], user_email),
         colour=discord.Colour.dark_blue(),
     )
   

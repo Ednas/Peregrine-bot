@@ -415,7 +415,7 @@ class peregrine(discord.Client):
 
             # Print to console
 
-            print("Verification triggered by: {} for guild {}\n   Code is: {}\n   Email is: {}\n   New Nickname is: {}".format(str(member.id), str(member.guild), str(code), str(message.content.split(' ')[-1], str(new_nickname)))
+            print("Verification triggered by: {} for guild {}\n   Code is: {}\n   Email is: {}\n   New Nickname is: {}".format(str(member.id), str(member.guild), str(code), str(message.content.split(' ')[-1]), str(new_nickname))
             
             if bool(await wgu_check_verified(dst_email, conx)):
                 await wgu_set_record(dst_email, username, code, expiry, conx)

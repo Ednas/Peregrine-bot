@@ -4,7 +4,7 @@ import discord
 
 async def wgu_set_user_nick_on_join(member, channel):
 
-    new_nickname = "{} | UNVERIFIED".format(member.name)
+    new_nickname = "{} | UNVERIFIED".format(member.name[0..24])
 
     # Set new members to default unverified role
 

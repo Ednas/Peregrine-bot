@@ -37,11 +37,15 @@ from resources.modules.wgu.database.wgu_send_email import *
 from resources.modules.wgu.database.wgu_set_record import *
 from resources.modules.wgu.database.wgu_set_verified import *
 
-# Import user management modules
+# Import user management modules for onboarding
 
-from resources.modules.wgu.usermanagement.wgu_set_unverified_on_new_join import *
-from resources.modules.wgu.usermanagement.wgu_set_user_nick_on_join import *
-from resources.modules.wgu.usermanagement.wgu_send_verification_dm import *
+from resources.modules.wgu.usermanagement.onboarding.wgu_set_unverified_on_new_join import *
+from resources.modules.wgu.usermanagement.onboarding.wgu_set_user_nick_on_join import *
+
+# Import user management modules for verification
+from resources.modules.wgu.usermanagement.verification.wgu_send_verification_dm import *
+
+# Import user management modules for self roles
 
 # Import hybrid analysis modules
 
@@ -146,7 +150,7 @@ class peregrine(discord.Client):
 
         if str(payload.message_id) == str(ENROLLMENT_MESSAGE):
             
-            print("Triggering verification")
+            print("Triggering enrollment self role reaction")
             
             # Set log channel
 
@@ -156,7 +160,7 @@ class peregrine(discord.Client):
             # Alert console of member leaving and push to log channel
 
             on_reaction_add_verification_alert = (
-                "Event triggered: Member verification\n   Member: {}".format(payload.member)
+                "Event triggered: Member self role assignment\n   Member: {}".format(payload.member)
             )
 
             print(on_reaction_add_verification_alert)

@@ -1,9 +1,5 @@
 import discord
 
-# Import additional modules
-
-from discord.ext import commands
-
 
 async def wgu_resources_embed():
 

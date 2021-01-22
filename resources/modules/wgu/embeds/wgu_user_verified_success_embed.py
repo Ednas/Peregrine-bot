@@ -5,7 +5,7 @@ import discord
 from discord.ext import commands
 
 
-async def user_verified_success_embed(user_email, wgu_user):
+async def wgu_user_verified_success_embed(user_email, wgu_user):
 
     # Set initial message here
 

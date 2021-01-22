@@ -29,7 +29,7 @@ async def wgu_subscription_embed():
     )
     subMessage.add_field(
         name="Capture The Flag Calendar Notifications",
-        value="These announcmeents are related to various CTF events.\n┕ :triangular_flag_on_post: CTF Calendar\n┕ :toolbox: HackTheBox\n┕ :triangular_flag_on_post: TryHackMe\n┕ :electric_plug: OverTheWire\n\n━━━━━━━━━━━━",
+        value="These announcmeents are related to various CTF events.\n┕ :triangular_flag_on_post: CTF Calendar\n┕ :toolbox: HackTheBox\n┕ :postbox: TryHackMe\n┕ :electric_plug: OverTheWire\n\n━━━━━━━━━━━━",
         inline=False,
     )
     subMessage.add_field(

@@ -2,7 +2,7 @@
 
 import discord
 
-async def wgu_set_user_nick_on_join(member, channel, NICKNAME_SCHEMA):
+async def wgu_set_user_nick_on_join(member, channel):
 
     new_nickname = "{} | UNVERIFIED".format(member.name)
 

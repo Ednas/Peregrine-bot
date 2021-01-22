@@ -367,7 +367,10 @@ class peregrine(discord.Client):
 
                 email_message = await wgu_send_email_embed(user_email, wgu_user)
                 await message.channel.send(embed=email_message)
+                    
+                # Set user nickname
 
+                await wgu_set_user_nick_on_verify(self, channel, new_nickname)
             
             else:
 
@@ -383,32 +386,16 @@ class peregrine(discord.Client):
             print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
             print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
             print("    ┕ WGU user is: {}".format(wgu_user[0]))
-            print("    ┕ Discord Username: {}".format(discord_user[0]))
-
-
-
-            
+            print("    ┕ Discord Username: {}".format(discord_user[0]))           
 
         if message.content.startswith("!verify"):
 
-            # Set up other variables
+            # Set up variables
 
             expiry = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')
-            wgu_user = str(dst_email).split('@')
-            discord_user = str(username).split('#')
             guild = self.get_guild(int(GUILD_ID))
             member = discord.utils.find(lambda m : m.id == message.channel.recipient.id, guild.members) 
             code = message.content.split(' ')[-1]
-
-            # Set up log variables
-
-            user_email = message.content.split(' ')[-1]
-            wgu_user = str(dst_email).split('@')
-            discord_user = str(username).split('#')
-
-            # Generate new user nickname
-
-            new_nickname = "{} | {}".format(discord_user[0][0:24], wgu_user[0])
 
             if bool(await wgu_check_record(code, username, conx)):
                 
@@ -419,8 +406,7 @@ class peregrine(discord.Client):
                 
                     await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
                     await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
-                    await wgu_set_user_nick_on_verify(self, channel, new_nickname)
-                    
+                                        
                     # Alert user that they have been verified
                     
                     user_verified_success_embed = await user_verified_success_embed(user_email, discord_user)

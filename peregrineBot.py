@@ -293,7 +293,7 @@ class peregrine(discord.Client):
             guild = self.get_guild(int(GUILD_ID))
             member = discord.utils.find(lambda m : m.id == message.channel.recipient.id, guild.members) 
 
-            print("Verification triggered by: {} for guild {}\n   Code is: {}.\n   Email is:".format(str(member.id), str(member.guild), str(code), str(dst_email))
+            print("Verification triggered by: {} for guild {}\n   Code is: {}.\n   Email is:".format(str(member.id), str(member.guild), str(code), str(dst_email)))
 
             if bool(await wgu_check_verified(dst_email, conx)):
                 await wgu_set_record(dst_email, username, code, expiry, conx)

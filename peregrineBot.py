@@ -25,7 +25,7 @@ from resources.modules.wgu.embeds.wgu_htb_embed import *
 from resources.modules.wgu.embeds.wgu_announcement_sub_embed import *
 from resources.modules.wgu.embeds.wgu_verify_log_embed import *
 from resources.modules.wgu.embeds.wgu_send_email_embed import *
-
+from resources.modules.wgu.embeds.wgu_email_already_verified_embed import *
 # Import database modules
 
 from resources.modules.wgu.database.wgu_check_record import *
@@ -361,23 +361,19 @@ class peregrine(discord.Client):
                 await wgu_set_record(dst_email, username, code, expiry, conx)
                 await wgu_send_email(code, dst_email, SRC_EMAIL, EMAIL_PASS)
                                 
-                email_message = await wgu_send_email_embed(user_email, wgu_user)
+                # Alert user that an email has been sent
 
+                email_message = await wgu_send_email_embed(user_email, wgu_user)
                 await message.channel.send(embed=email_message)
-                # Log the beginning of verification attempt! Enter here.
+
             
             else:
 
-                await message.channel.send("""That email has already been
-                                            verified. If you think this message
-                                            is in error, please send a message
-                                            in the `#verification-support`
-                                            channel.""")
-                try:
+                # Alert user that email has already been verified
 
-                    await message.channel.send("""You're all set, enjoy the
-                                                server! We look forward to
-                                                learning with you!""")
+                    alread_verified_message = await verify_embed_email_already_verified_message(user_email, wgu_user)
+                    await message.channel.send(embed=already_verified_message)
+    
 
                 except Exception as e:
 
@@ -387,7 +383,7 @@ class peregrine(discord.Client):
 
             # Log information
 
-            log_message = await verify_embed_log_message(user_email, wgu_user, discord_user, new_nickname, message)
+            log_message = await verify_log_embed(user_email, wgu_user, discord_user, new_nickname, message)
 
             print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
             print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
@@ -402,34 +398,22 @@ class peregrine(discord.Client):
 
             # Set up other variables
 
-            conx = connect()
             expiry = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')
             wgu_user = str(dst_email).split('@')
             discord_user = str(username).split('#')
-            username = str(message.channel.recipient)
             guild = self.get_guild(int(GUILD_ID))
             member = discord.utils.find(lambda m : m.id == message.channel.recipient.id, guild.members) 
             code = message.content.split(' ')[-1]
-            username = str(message.channel.recipient)
 
-            # Set log channel
+            # Set up log variables
 
-            channel = self.get_channel(int(LOG_CHANNEL))
-            
+            user_email = message.content.split(' ')[-1]
+            wgu_user = str(dst_email).split('@')
+            discord_user = str(username).split('#')
+
             # Generate new user nickname
 
             new_nickname = "{} | {}".format(discord_user[0][0:24], wgu_user[0])
-            
-            # Log information
-
-            log_message = await verify_embed_log_message(message.content, message.author.id, message.content.split(' ')[-1], wgu_user[0], discord_user[0])
-
-            print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
-            print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
-            print("    ┕ WGU user is: {}".format(wgu_user[0]))
-            print("    ┕ Discord Username: {}".format(discord_user[0]))
-
-            await message.channel.send(embed=log_message)
 
             if bool(await wgu_check_record(code, username, conx)):
                 
@@ -441,9 +425,11 @@ class peregrine(discord.Client):
                     await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
                     await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
                     await wgu_set_user_nick_on_verify(self, channel, new_nickname)
-                    await message.channel.send("""You're all set, enjoy the
-                                                server! We look forward to
-                                                learning with you!""")
+                    
+                    # Alert user that they have been verified
+                    
+                    user_verified_success_embed = await user_verified_success_embed(user_email, wgu_user)
+                    await message.channel.send(user_verified_success_embed)
 
                 except Exception as e:
 

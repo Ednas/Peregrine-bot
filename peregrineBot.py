@@ -393,7 +393,7 @@ class peregrine(discord.Client):
             
             # Generate new user nickname
 
-            new_nickname = "{} | {}".format(message.author, message.content.split('')[-1])
+            new_nickname = "{} | {}".format(message.author, message.content.split(' ')[-1])
 
             # Set up other variables
 

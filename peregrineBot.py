@@ -236,7 +236,7 @@ class peregrine(discord.Client):
                 
                 # Add initial reaction
 
-                for emoji in ('🛡️', '🎞️', '🚩', '📮', '🔌', '📰'):
+                for emoji in ('🎓', '👨‍🎓'):
                     await roles_embed_message.add_reaction(emoji)
             
             except Exception as e:
@@ -246,7 +246,7 @@ class peregrine(discord.Client):
                 await message.channel.send(content=error_message)
 
             return
-
+            
         if message.content.startswith("!certsembed"):
 
             try:

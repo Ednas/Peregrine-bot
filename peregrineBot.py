@@ -406,7 +406,9 @@ class peregrine(discord.Client):
 
             # Generate new user nickname
 
-            new_nickname = "{} | {}".format(discord_user[0][0:22], wgu_user[0])
+            new_nick_part_one = discord_user[0:18]
+            new_nick_part_two = wgu_user[0]
+            new_nickname = "{} | {}".format(new_nick_part_one, new_nick_part_two)
            
             # Get necessary role information
             

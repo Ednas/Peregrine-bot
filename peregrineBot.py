@@ -41,7 +41,6 @@ from resources.modules.wgu.database.wgu_set_verified import *
 
 from resources.modules.wgu.usermanagement.wgu_set_unverified_on_new_join import *
 from resources.modules.wgu.usermanagement.wgu_set_user_nick_on_join import *
-from resources.modules.wgu.usermanagement.wgu_set_user_nick_on_verify import *
 from resources.modules.wgu.usermanagement.wgu_send_verification_dm import *
 
 # Import hybrid analysis modules
@@ -371,7 +370,7 @@ class peregrine(discord.Client):
                     
                 # Set user nickname
 
-                await wgu_set_user_nick_on_verify(self, channel, new_nickname)
+                await member.edit(nick=new_nickname)
             
             else:
 

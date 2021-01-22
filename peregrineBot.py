@@ -373,13 +373,6 @@ class peregrine(discord.Client):
 
                     alread_verified_message = await verify_embed_email_already_verified_message(user_email, wgu_user)
                     await message.channel.send(embed=already_verified_message)
-    
-
-                except Exception as e:
-
-                    print(e)
-                    errorMessage = "Failed to process verification role for new member: {}\nPlease hand verify this member or contact a bot developer".format(member)
-                    await channel.send(content=errorMessage)
 
             # Log information
 

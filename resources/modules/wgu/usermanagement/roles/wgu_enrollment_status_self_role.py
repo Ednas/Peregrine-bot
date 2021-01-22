@@ -1,6 +1,6 @@
 import discord
 
-async def await wgu_enrollment_status_self_role(self, payload, STUDENT_EMOJI, ALUMNI_EMOJI):
+async def wgu_enrollment_status_self_role(self, payload, STUDENT_EMOJI, ALUMNI_EMOJI):
 
     # Assign Student role
 

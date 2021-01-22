@@ -214,7 +214,7 @@ class peregrine(discord.Client):
                 
                 # Add initial reaction
 
-                for emoji in ('🛡️', '🎞️', '🚩', '📮', '🔌', '📰'):
+                for emoji in ('🛡️', '🎞️', '🚩', '🧰 ', '📮', '🔌', '📰'):
                     await sub_embed_message.add_reaction(emoji)
             
             except Exception as e:

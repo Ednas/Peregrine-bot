@@ -33,7 +33,7 @@ async def wgu_subscription_embed():
         inline=False,
     )
     subMessage.add_field(
-        name="Hack the Box Notifications",
+        name="Hack The Box Notifications",
         value="These announcmeents are related to various CTF events and are located in [#htb-announcements](https://discordapp.com/channels/688822375327989875/790625929499246593).\n┕ :white_square_button: HackTheBox\n\n━━━━━━━━━━━━",
         inline=False,
     )

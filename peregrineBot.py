@@ -365,7 +365,7 @@ class peregrine(discord.Client):
                                 
                 # Alert user that an email has been sent
 
-                email_message = await wgu_send_email_embed(user_email, wgu_user)
+                email_message = await send_email_embed(user_email, wgu_user)
                 await message.channel.send(embed=email_message)
                     
                 # Set user nickname

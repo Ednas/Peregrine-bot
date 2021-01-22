@@ -24,7 +24,7 @@ async def wgu_subscription_embed():
     )
     subMessage.add_field(
         name="NICE Cyber Challenge Notifications",
-        value="These announcmeents are contributed to us from various resources and are located in [#nice-announcements](https://discordapp.com/channels/688822375327989875/770760554276978688).\n┕ :film_frames: NICE\n\n━━━━━━━━━━━━",
+        value="These announcmeents are contributed to us from various resources and are located in [#nice-announcements](https://discordapp.com/channels/688822375327989875/790626309218107398).\n┕ :film_frames: NICE\n\n━━━━━━━━━━━━",
         inline=False,
     )
     subMessage.add_field(
@@ -34,17 +34,17 @@ async def wgu_subscription_embed():
     )
     subMessage.add_field(
         name="Hack the Box Notifications",
-        value="These announcmeents are related to various CTF events and are located in [#htb-announcements](https://discordapp.com/channels/688822375327989875/770760554276978688).\n┕ :white_square_button: HackTheBox\n\n━━━━━━━━━━━━",
+        value="These announcmeents are related to various CTF events and are located in [#htb-announcements](https://discordapp.com/channels/688822375327989875/790625929499246593).\n┕ :white_square_button: HackTheBox\n\n━━━━━━━━━━━━",
         inline=False,
     )
     subMessage.add_field(
         name="Try Hack Me Notifications",
-        value="These announcmeents are related to various CTF events and are located in [#thm-announcements](https://discordapp.com/channels/688822375327989875/770760554276978688).\n┕ :postbox: TryHackMe\n\n━━━━━━━━━━━━",
+        value="These announcmeents are related to various CTF events and are located in [#thm-announcements](https://discordapp.com/channels/688822375327989875/790625959069089872).\n┕ :postbox: TryHackMe\n\n━━━━━━━━━━━━",
         inline=False,
     )
     subMessage.add_field(
         name="Over The Wire Calendar Notifications",
-        value="These announcmeents are related to various CTF events and are located in [#otw-announcements](https://discordapp.com/channels/688822375327989875/770760554276978688).\n┕ :electric_plug: OverTheWire\n\n━━━━━━━━━━━━",
+        value="These announcmeents are related to various CTF events and are located in [#otw-announcements](https://discordapp.com/channels/688822375327989875/790625988622417960).\n┕ :electric_plug: OverTheWire\n\n━━━━━━━━━━━━",
         inline=False,
     )
     subMessage.add_field(

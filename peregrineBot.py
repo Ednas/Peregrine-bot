@@ -344,13 +344,17 @@ class peregrine(discord.Client):
 
             new_nickname = "{} | {}".format(discord_user[0][0:24], wgu_user[0])
            
-            # Sanity check
+          # Log information
 
-            print("Log. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
+            log_message = await verify_embed_log_message(message.content, message.author.id, message.content.split(' ')[-1], wgu_user[0], discord_user[0])
+
+            print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
             print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
             print("    ┕ WGU user is: {}".format(wgu_user[0]))
-            print("    ┕ Discord Username is: {}".format(discord_user[0][0:24]))
-            print("    ┕ New nickname is: {}".format(new_nickname))
+            print("    ┕ Discord Username: {}".format(discord_user[0]))
+
+            await message.channel.send(embed=log_message)
+
 
             # Get necessary role information
             
@@ -417,12 +421,12 @@ class peregrine(discord.Client):
 
             log_message = await verify_embed_log_message(message.content, message.author.id, message.content.split(' ')[-1], wgu_user[0], discord_user[0])
 
-          #  print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
-           # print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
-          #  print("    ┕ WGU user is: {}".format(wgu_user[0]))
-          #  print("    ┕ Discord Username: {}".format(discord_user[0]))
+            print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
+            print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
+            print("    ┕ WGU user is: {}".format(wgu_user[0]))
+            print("    ┕ Discord Username: {}".format(discord_user[0]))
 
-            print(log_message)
+            await message.channel.send(embed=log_message)
 
             if bool(await wgu_check_record(code, username, conx)):
                 

@@ -294,7 +294,7 @@ class peregrine(discord.Client):
                 
                 # Add initial reaction
 
-                emojis = "':shield:', ':triangular_flag_on_post:', ':toolbox:', ':electric_plug:', ':newspaper:',  ':film_frames:"
+                emojis = "📄"
                 
                 for emoji in emojis:
                     await sub_embedded_message.add_reaction(emoji)

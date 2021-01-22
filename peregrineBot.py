@@ -26,6 +26,8 @@ from resources.modules.wgu.embeds.wgu_announcement_sub_embed import *
 from resources.modules.wgu.embeds.wgu_verify_log_embed import *
 from resources.modules.wgu.embeds.wgu_send_email_embed import *
 from resources.modules.wgu.embeds.wgu_email_already_verified_embed import *
+from resources.modules.wgu.embeds.wgu_user_verified_success_embed import *
+
 # Import database modules
 
 from resources.modules.wgu.database.wgu_check_record import *

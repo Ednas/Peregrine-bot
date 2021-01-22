@@ -268,6 +268,41 @@ class peregrine(discord.Client):
 
             return
 
+        if message.content.startswith("!htbembed"):
+
+            try:
+                print("Event triggered: !roles\n   Member: {}\n".format(message.author))
+                htb_embedded_message = await htb_roles_embed()
+                await message.channel.send(embed=htb_embedded_message)
+
+            except Exception as e:
+
+                print(e)
+                error_message = "Could not process !roles command.\n"
+                await message.channel.send(content=error_message)
+
+            return
+
+        if message.content.startswith("!subembed"):
+
+            try:
+                print("Event triggered: !roles\n   Member: {}\n".format(message.author))
+                sub_embedded_message = await wgu_subscription_embed
+                await message.channel.send(embed=sub_embedded_message)
+
+            except Exception as e:
+
+                print(e)
+                error_message = "Could not process !roles command.\n"
+                await message.channel.send(content=error_message)
+
+            return
+
+########################## VERIFICATION  SECTION ##########################
+##########################                       ##########################
+##########################                       ##########################
+##########################                       ##########################
+
         if message.content.startswith("!email"):
         
             # Set log channel
@@ -355,7 +390,7 @@ class peregrine(discord.Client):
                 
                     await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
                     await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
-                
+                    await wgu_set_user_nick_on_verify(self, channel, username, conx)
                     await message.channel.send("""You're all set, enjoy the
                                                 server! We look forward to
                                                 learning with you!""")

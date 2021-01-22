@@ -358,15 +358,11 @@ class peregrine(discord.Client):
             if bool(await wgu_check_verified(dst_email, conx)):
                 await wgu_set_record(dst_email, username, code, expiry, conx)
                 await wgu_send_email(code, dst_email, SRC_EMAIL, EMAIL_PASS)
-                await message.channel.send("""An email was sent to the email
-                                            address you provided. If you have
-                                            any trouble finding it, try
-                                            refreshing your browser, waiting a
-                                            few minutes, or check your spam
-                                            folder. If you're still having
-                                            issues, feel free to check out the
-                                            `#verification-support` channel for
-                                            further questions.""")
+                
+                email_message = await wgu_send_email_embed.py(user_email, wgu_user)
+
+                await message.channel.send(embed=email_message)
+                
                 # Log the beginning of verification attempt! Enter here.
             else:
 
@@ -386,7 +382,7 @@ class peregrine(discord.Client):
                     print(e)
                     errorMessage = "Failed to process verification role for new member: {}\nPlease hand verify this member or contact a bot developer".format(member)
                     await channel.send(content=errorMessage)
-                    
+
             # Set log channel
 
             channel = self.get_channel(int(LOG_CHANNEL))

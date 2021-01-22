@@ -15,7 +15,7 @@ async def wgu_verification_embed():
 
     verifyMessage.add_field(
         name="Housekeeping",
-        value="Since this Discord is run and sponsored by WGU, verification of your identity is non-negotiable. You will be required to set your [server nickname](https://www.businessinsider.com/how-to-change-nickname-on-discord 'Click here for help (https://www.businessinsider.com/how-to-change-nickname-on-discord)') to the following format\n\n`<Custom username> | <WGU username>`\n\nYou can see an example of this in the top corner of this message.\n\n\nIf you would prefer to join this Discord with a new account, please click [here](https://discord.com/register 'Register account (https://discord.com/register)') and create a new Discord account using your WGU email address instead.\n\n━━━━━━━━━━━━",
+        value="Since this Discord is run and sponsored by WGU, verification of your identity is non-negotiable. You will be required to set your [server nickname](https://www.businessinsider.com/how-to-change-nickname-on-discord 'Click here for help (https://www.businessinsider.com/how-to-change-nickname-on-discord)') to the following format\n\n`<Custom username> | <WGU username>`\n\nYou can see an example of this in the top corner of this message.\n\nIf you would prefer to join this Discord with a new account, please click [here](https://discord.com/register 'Register account (https://discord.com/register)') and create a new Discord account using your WGU email address instead.\n\n━━━━━━━━━━━━",
         inline=False,
     )
     verifyMessage.add_field(

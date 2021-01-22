@@ -336,8 +336,8 @@ class peregrine(discord.Client):
             code = ''.join(code)
             expiry = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')
             username = str(message.channel.recipient)
-            wgu_user = dst_email.split('@')[-1]
-            discord_user = username.split('#')[-1]
+            wgu_user = dst_email.split('@')
+            discord_user = username.split('#')
 
             # Generate new user nickname
 

@@ -24,7 +24,7 @@ async def wgu_subscription_embed():
     )
     subMessage.add_field(
         name="NICE Cyber Challenge Notifications",
-        value="These announcmeents are contributed to us from various resources and are located in [#nice-announcements](https://discordapp.com/channels/688822375327989875/765664389792923688).\n┕ :shield: CCDC\n\n━━━━━━━━━━━━",
+        value="These announcmeents are contributed to us from various resources and are located in [#nice-announcements](https://discordapp.com/channels/688822375327989875/765664389792923688).\n┕ :film_frames: NICE\n\n━━━━━━━━━━━━",
         inline=False,
     )
     subMessage.add_field(
@@ -38,7 +38,6 @@ async def wgu_subscription_embed():
         inline=False,
     )
     
-
     # Standard footer and author
 
     subMessage.set_footer(

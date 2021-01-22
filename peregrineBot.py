@@ -350,7 +350,7 @@ class peregrine(discord.Client):
             print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
             print("    ┕ WGU user is: {}".format(wgu_user[0]))
             print("    ┕ Discord Username is: {}".format(discord_user[0][0:24]))
-            print("    ┕ New nickname is: {}".format(nickname))
+            print("    ┕ New nickname is: {}".format(new_nickname))
 
             # Get necessary role information
             
@@ -393,30 +393,25 @@ class peregrine(discord.Client):
 
         if message.content.startswith("!verify"):
 
-            # Generate new user nickname
-
-            new_nickname = "{} | {}".format(message.author.split('#')[-1], message.content.split(' ')[-1])
-
             # Set up other variables
 
             conx = connect()
             expiry = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')
-
-            # Get necessary role information
-            
+            wgu_user = str(dst_email).split('@')
+            discord_user = str(username).split('#')
             username = str(message.channel.recipient)
             guild = self.get_guild(int(GUILD_ID))
             member = discord.utils.find(lambda m : m.id == message.channel.recipient.id, guild.members) 
+            code = message.content.split(' ')[-1]
+            username = str(message.channel.recipient)
 
             # Set log channel
 
             channel = self.get_channel(int(LOG_CHANNEL))
             
-            # Set up other variables
+            # Generate new user nickname
 
-            code = message.content.split(' ')[-1]
-            username = str(message.channel.recipient)
-
+            new_nickname = "{} | {}".format(discord_user[0][0:24], wgu_user[0])
             # Sanity check
 
             print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))

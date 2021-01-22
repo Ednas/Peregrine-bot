@@ -353,7 +353,7 @@ class peregrine(discord.Client):
             code = message.content.split(' ')[-1]
             username = str(message.channel.recipient)
 
-            if bool(await wgu_check_record(code, username)):
+            if bool(await wgu_check_record(code, username, conx)):
                 
                 try: 
 

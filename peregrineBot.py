@@ -225,6 +225,28 @@ class peregrine(discord.Client):
 
             return
 
+        if message.content.startswith("!rolesembed"):
+
+            try:
+
+                print("Event triggered: !subembed\n   Member: {}\n".format(message.author))
+                
+                sub_embedded_message = await wgu_subscription_embed()
+                sub_embed_message = await message.channel.send(embed=sub_embedded_message)
+                
+                # Add initial reaction
+
+                for emoji in ('🛡️', '🎞️', '🚩', '📮', '🔌', '📰'):
+                    await sub_embed_message.add_reaction(emoji)
+            
+            except Exception as e:
+
+                print(e)
+                error_message = "Could not process !subembed command.\n"
+                await message.channel.send(content=error_message)
+
+            return
+
         if message.content.startswith("!certsembed"):
 
             try:
@@ -273,21 +295,6 @@ class peregrine(discord.Client):
 
                 print(e)
                 error_message = "Could not process !resources command.\n"
-                await message.channel.send(content=error_message)
-
-            return
-
-        if message.content.startswith("!rolesembed"):
-
-            try:
-                print("Event triggered: !roles\n   Member: {}\n".format(message.author))
-                roles_embedded_message = await wgu_roles_embed()
-                await message.channel.send(embed=roles_embedded_message)
-
-            except Exception as e:
-
-                print(e)
-                error_message = "Could not process !roles command.\n"
                 await message.channel.send(content=error_message)
 
             return

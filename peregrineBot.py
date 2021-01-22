@@ -181,9 +181,6 @@ class peregrine(discord.Client):
             await wgu_enrollment_status_self_role(self, payload, STUDENT_EMOJI, ALUMNI_EMOJI, GUILD_ID)
             return
 
-        if str(payload.message_id) != str(ENROLLMENT_MESSAGE):
-            return
-
         if str(payload.message_id) == str(SUBSCRIPTION_MESSAGE):
             
             print("Triggering subscription self role")
@@ -206,10 +203,6 @@ class peregrine(discord.Client):
 
             await wgu_subscription_self_role(self, payload, CCDC_SUB_EMOJI, NICE_SUB_EMOJI, CTF_SUB_EMOJI, HTB_SUB_EMOJI, THM_SUB_EMOJI, OTW_SUB_EMOJI, FOREIGN_SUB_EMOJI, GUILD_ID)
             return
-
-        if str(payload.message_id) != str(SUBSCRIPTION_MESSAGE):
-            return
-
 
         if str(payload.message_id) == str(VERIFICATION_MESSAGE):
             

@@ -23,6 +23,7 @@ from resources.modules.wgu.embeds.wgu_roles_embed import *
 from resources.modules.wgu.embeds.wgu_verification_embed import *
 from resources.modules.wgu.embeds.wgu_htb_embed import *
 from resources.modules.wgu.embeds.wgu_announcement_sub_embed import *
+from resources.modules.wgu.embeds.wgu_verify_log_embed import *
 
 # Import database modules
 

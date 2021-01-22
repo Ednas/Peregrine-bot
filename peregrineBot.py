@@ -326,18 +326,9 @@ class peregrine(discord.Client):
             # Set log channel
 
             channel = self.get_channel(int(LOG_CHANNEL))
-            
+                        
             # Set up other variables
 
-            conx = connect()
-            print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
-            print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
-            print("    ┕ Discord Username: {}".format(message.author.split('#')[-1]))
-            
-            # Generate new user nickname
-
-            new_nickname = "{} | {}".format(message.author.split('#')[-1], message.content.split(' ')[-1])
-            
             dst_email = message.content.split(' ')[-1]
             code = []
             for _ in range(6):
@@ -345,7 +336,19 @@ class peregrine(discord.Client):
             code = ''.join(code)
             expiry = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')
             username = str(message.channel.recipient)
-            
+            wgu_user = message.content.split('@')[-1]
+
+            # Generate new user nickname
+
+            new_nickname = "{} | {}".format(username, wgu_user )
+           
+            # Sanity check
+
+            conx = connect()
+            print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
+            print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
+            print("    ┕ Discord Username: {}".format(message.author.split('#')[-1]))
+
             # Get necessary role information
             
             guild = self.get_guild(int(GUILD_ID))

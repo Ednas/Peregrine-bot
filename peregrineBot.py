@@ -331,6 +331,13 @@ class peregrine(discord.Client):
 
             conx = connect()
             print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
+            print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
+            print("    ┕ Discord Username: {}".format(message.author))
+            
+            # Generate new user nickname
+
+            new_nickname = "{} | {}".format(message.author, message.content.split('')[-1])
+            
             dst_email = message.content.split(' ')[-1]
             code = []
             for _ in range(6):
@@ -379,7 +386,15 @@ class peregrine(discord.Client):
             
 
         if message.content.startswith("!verify"):
+
+            print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
+            print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
+            print("    ┕ Discord Username: {}".format(message.author))
             
+            # Generate new user nickname
+
+            new_nickname = "{} | {}".format(message.author, message.content.split('')[-1])
+
             # Set up other variables
 
             conx = connect()
@@ -409,7 +424,7 @@ class peregrine(discord.Client):
                 
                     await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
                     await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
-                    await wgu_set_user_nick_on_verify(self, channel, username, conx)
+                    await wgu_set_user_nick_on_verify(self, channel, new_nickname)
                     await message.channel.send("""You're all set, enjoy the
                                                 server! We look forward to
                                                 learning with you!""")

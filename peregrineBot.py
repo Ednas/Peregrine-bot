@@ -185,9 +185,7 @@ class peregrine(discord.Client):
 
             try:
 
-                print(
-                    "Event triggered: !verify\n   Member: {}\n".format(message.author)
-                )
+                print("Event triggered: !verify\n   Member: {}\n".format(message.author))
 
                 verification_instructions_embedded_message = await wgu_verification_embed()
                 send_verification_message = await message.channel.send(embed=verification_instructions_embedded_message)
@@ -202,6 +200,30 @@ class peregrine(discord.Client):
                 print(e)
                 error_message = "Could not process !verify command.\n"
                 await message.channel.send(content=error_message)
+
+            return
+
+        if message.content.startswith("!subembed"):
+
+            try:
+
+                print("Event triggered: !subembed\n   Member: {}\n".format(message.author))
+                
+                sub_embedded_message = await wgu_subscription_embed()
+                sub_embed_message = await message.channel.send(embed=sub_embedded_message)
+                
+                # Add initial reaction
+
+                for emoji in ('📄'):
+                    await sub_embed_message.add_reaction(emoji)
+            
+            except Exception as e:
+
+                print(e)
+                error_message = "Could not process !subembed command.\n"
+                await message.channel.send(content=error_message)
+
+            return
 
         if message.content.startswith("!certsembed"):
 
@@ -285,26 +307,7 @@ class peregrine(discord.Client):
 
             return
 
-        if message.content.startswith("!subembed"):
 
-            try:
-
-                print("Event triggered: !subembed\n   Member: {}\n".format(message.author))
-                sub_embedded_message = await wgu_subscription_embed()
-                await message.channel.send(embed=sub_embedded_message)
-                
-                # Add initial reaction
-
-                for emoji in ('📄'):
-                    await sub_embedded_message.add_reaction(emoji)
-            
-            except Exception as e:
-
-                print(e)
-                error_message = "Could not process !subembed command.\n"
-                await message.channel.send(content=error_message)
-
-            return
 
 ########################## VERIFICATION  SECTION ##########################
 ##########################                       ##########################

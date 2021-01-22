@@ -373,7 +373,7 @@ class peregrine(discord.Client):
 
                 # Alert user that email has already been verified
 
-                    alread_verified_message = await email_already_verified_embed(user_email, wgu_user)
+                    already_verified_message = await email_already_verified_embed(user_email, wgu_user)
                     await message.channel.send(embed=already_verified_message)
 
             # Log information

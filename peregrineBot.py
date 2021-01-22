@@ -229,7 +229,7 @@ class peregrine(discord.Client):
 
             try:
 
-                print("Event triggered: !subembed\n   Member: {}\n".format(message.author))
+                print("Event triggered: !rolesembed\n   Member: {}\n".format(message.author))
                 
                 roles_embedded_message = await wgu_roles_embed()
                 roles_embed_message = await message.channel.send(embed=roles_embedded_message)
@@ -242,7 +242,7 @@ class peregrine(discord.Client):
             except Exception as e:
 
                 print(e)
-                error_message = "Could not process !subembed command.\n"
+                error_message = "Could not process !rolesembed command.\n"
                 await message.channel.send(content=error_message)
 
             return

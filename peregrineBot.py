@@ -404,7 +404,7 @@ class peregrine(discord.Client):
                 try: 
 
                     await wgu_set_verified(username, conx)
-                    await wgu_delete_record(code, username, conx)
+                    await wgu_delete_record(code, conx)
                     
                     print("   *** Verification Complete *** {}".format(wgu_user[0]))
                     print("    ┕ New Nickname: {}".format(discord_user[0]))     

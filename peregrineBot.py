@@ -336,7 +336,7 @@ class peregrine(discord.Client):
             code = ''.join(code)
             expiry = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')
             username = str(message.channel.recipient)
-            wgu_user = dst_email.split('@')[-1]
+            wgu_user = dst_email.split('@')[1]
 
             # Generate new user nickname
 
@@ -348,7 +348,7 @@ class peregrine(discord.Client):
             print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
             print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
             print("    ┕ WGU user is: {}".format(wgu_user))
-            print("    ┕ Discord Username: {}".format(username))
+            print("    ┕ Discord Username: {}".format(username.split('#'[1])))
 
             # Get necessary role information
             

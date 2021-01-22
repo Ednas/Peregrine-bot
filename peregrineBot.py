@@ -329,6 +329,18 @@ class peregrine(discord.Client):
 
         if message.content.startswith("!verify"):
             
+            # Set up other variables
+
+            conx = connect()
+            dst_email = message.content.split(' ')[-1]
+            code = []
+            for _ in range(6):
+                code.append(str(random.randint(0,9)))
+            code = ''.join(code)
+            expiry = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')
+            username = str(message.channel.recipient)
+
+
             # Get necessary role information
             
             username = str(message.channel.recipient)

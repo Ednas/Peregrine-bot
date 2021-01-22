@@ -323,10 +323,6 @@ class peregrine(discord.Client):
 ##########################                       ##########################
 
         if message.content.startswith("!email"):
-        
-            # Set log channel
-
-            channel = self.get_channel(int(LOG_CHANNEL))
                         
             # Set up other variables
 
@@ -349,24 +345,15 @@ class peregrine(discord.Client):
 
             new_nickname = "{} | {}".format(discord_user[0][0:24], wgu_user[0])
            
-          # Log information
-
-            log_message = await verify_embed_log_message(user_email, wgu_user, discord_user, new_nickname, message)
-
-            print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
-            print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
-            print("    ┕ WGU user is: {}".format(wgu_user[0]))
-            print("    ┕ Discord Username: {}".format(discord_user[0]))
-
-            await message.channel.send(embed=log_message)
-
-
             # Get necessary role information
             
             guild = self.get_guild(int(GUILD_ID))
+            
+
             member = discord.utils.find(lambda m : m.id == message.channel.recipient.id, guild.members) 
 
             print("Verification triggered by: {} for guild {}\n   Code is: {}\n   Email is: {}".format(str(member.id), str(member.guild), str(code), str(message.content.split(' ')[-1])))
+            
 
             if bool(await wgu_check_verified(dst_email, conx)):
                 await wgu_set_record(dst_email, username, code, expiry, conx)
@@ -382,6 +369,7 @@ class peregrine(discord.Client):
                                             further questions.""")
                 # Log the beginning of verification attempt! Enter here.
             else:
+
                 await message.channel.send("""That email has already been
                                             verified. If you think this message
                                             is in error, please send a message
@@ -398,6 +386,23 @@ class peregrine(discord.Client):
                     print(e)
                     errorMessage = "Failed to process verification role for new member: {}\nPlease hand verify this member or contact a bot developer".format(member)
                     await channel.send(content=errorMessage)
+                    
+            # Set log channel
+
+            channel = self.get_channel(int(LOG_CHANNEL))
+
+            # Log information
+
+            log_message = await verify_embed_log_message(user_email, wgu_user, discord_user, new_nickname, message)
+
+            print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
+            print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
+            print("    ┕ WGU user is: {}".format(wgu_user[0]))
+            print("    ┕ Discord Username: {}".format(discord_user[0]))
+
+            await message.channel.send(embed=log_message)
+
+
             
 
         if message.content.startswith("!verify"):

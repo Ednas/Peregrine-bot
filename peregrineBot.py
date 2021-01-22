@@ -412,12 +412,17 @@ class peregrine(discord.Client):
             # Generate new user nickname
 
             new_nickname = "{} | {}".format(discord_user[0][0:24], wgu_user[0])
-            # Sanity check
+            
+            # Log information
 
-            print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
-            print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
-            print("    ┕ WGU user is: {}".format(wgu_user[0]))
-            print("    ┕ Discord Username: {}".format(discord_user[0]))
+            log_message = await verify_embed_log_message(message.content, message.author.id, message.content.split(' ')[-1], wgu_user[0], discord_user[0])
+
+          #  print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
+           # print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
+          #  print("    ┕ WGU user is: {}".format(wgu_user[0]))
+          #  print("    ┕ Discord Username: {}".format(discord_user[0]))
+
+            print(log_message)
 
             if bool(await wgu_check_record(code, username, conx)):
                 

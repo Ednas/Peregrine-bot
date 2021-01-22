@@ -5,13 +5,13 @@ import discord
 from discord.ext import commands
 
 
-async def verify_embed_log_message(message, author, email, wgu_user, discord_user):
+async def verify_embed_log_message(user_email, wgu_user, discord_user, new_nickname, message.author.id):
 
     # Set initial message here
 
     logMessage = discord.Embed(
-        title="New verification interaction",
-        description="{}\n{}\n{}\n{}\n{}".format(message, author, email, wgu_user, discord_user),
+        title="New verification interaction triggered",
+        description="  ┕ User email:{}\n  ┕ WGU Username: {}\n  ┕ Discord Username: {}\n  ┕ New Nickname: {}\n  ┕ Discord id: {}".format(user_email, wgu_user, discord_user, new_nickname, message.author.id),
         colour=discord.Colour.dark_blue(),
     )
     

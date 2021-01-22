@@ -338,6 +338,10 @@ class peregrine(discord.Client):
             code = ''.join(code)
             expiry = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')
             username = str(message.channel.recipient)
+
+            # Set up log variables
+
+            user_email = message.content.split(' ')[-1]
             wgu_user = str(dst_email).split('@')
             discord_user = str(username).split('#')
 

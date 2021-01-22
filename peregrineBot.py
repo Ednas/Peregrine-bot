@@ -436,7 +436,7 @@ class peregrine(discord.Client):
             
             field = message.content.split(' ')[-1]
 
-            wgu_delete_record(field, conx)
+            await wgu_delete_record(field, conx)
             await message.channel.send("""We'll get that taken care of for
                                        you.""")
 

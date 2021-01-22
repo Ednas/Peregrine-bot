@@ -289,7 +289,7 @@ class peregrine(discord.Client):
 
             try:
                 print("Event triggered: !subembed\n   Member: {}\n".format(message.author))
-                sub_embedded_message = await wgu_subscription_embed
+                sub_embedded_message = await wgu_subscription_embed()
                 await message.channel.send(embed=sub_embedded_message)
 
             except Exception as e:

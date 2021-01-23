@@ -98,10 +98,7 @@ DB_IPV4 = os.getenv('database_ipv4_address')
 # DB_IPV6 = os.getenv('database_ipv6_address')
 DB_NAME = os.getenv('database_name')
 
-# Set global log channel
 
-global log_channel
-log_channel = self.get_channel(int(LOG_CHANNEL))
 
 # Connect to database
 
@@ -116,7 +113,12 @@ def connect():
     )
 
 class peregrine(discord.Client):
+    
+    # Set global log channel
 
+    global log_channel
+    log_channel = self.get_channel(int(LOG_CHANNEL))
+    
     # Display logo and basic information on successful login
 
     async def on_ready(self):

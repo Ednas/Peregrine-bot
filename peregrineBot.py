@@ -123,12 +123,6 @@ class peregrine(discord.Client):
 
         await start_peregrine(self, int(LOG_CHANNEL))
 
-    # Set global log channel
-
-    global log_channel
-    log_channel = self.get_channel(int(LOG_CHANNEL))
-    
-
     # Track user joins and leaves
 
     async def on_member_join(self, member):

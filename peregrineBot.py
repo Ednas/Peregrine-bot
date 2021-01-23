@@ -127,9 +127,6 @@ class peregrine(discord.Client):
 
     async def on_member_join(self, member):
 
-        # Set log channel ID
-
-        channel = self.get_channel(int(LOG_CHANNEL))
 
         # Alert console of new member and push to log channel
 
@@ -137,7 +134,7 @@ class peregrine(discord.Client):
             member
         )
         print(on_member_join_message)
-        await log_channel.send(content=on_member_join_message)
+        await message.channel.send(content=on_member_join_message)
 
         # Auto assign unverified role to new members and set nickname defaults
 
@@ -156,8 +153,11 @@ class peregrine(discord.Client):
             member
         )
 
+        # Set log channel ID
+
+        channel = self.get_channel(int(LOG_CHANNEL))
         print(on_member_leave_message)
-        await log_channel.send(content=on_member_leave_message)
+        await message.channel.send(content=on_member_leave_message)
 
     async def on_raw_reaction_add(self, payload):
 
@@ -167,7 +167,7 @@ class peregrine(discord.Client):
             
             # Set log channel
 
-            log_channel = self.get_channel(int(LOG_CHANNEL))
+            channel = channel = self.get_channel(int(LOG_CHANNEL))
             print("Log channel set")
             
             # Alert console of member leaving and push to log channel
@@ -177,7 +177,7 @@ class peregrine(discord.Client):
             )
 
             print(on_reaction_add_enrollment_role_alert)
-            await log_channel.send(content=on_reaction_add_enrollment_role_alert)
+            await message.channel.send(content=on_reaction_add_enrollment_role_alert)
 
             # Initiate enrollment self role process
 
@@ -190,7 +190,7 @@ class peregrine(discord.Client):
             
             # Set log channel
 
-            log_channel = self.get_channel(int(LOG_CHANNEL))
+            channel = channel = self.get_channel(int(LOG_CHANNEL))
             print("Log channel set")
             
             # Alert console of member leaving and push to log channel
@@ -200,7 +200,7 @@ class peregrine(discord.Client):
             )
 
             print(on_reaction_add_enrollment_role_alert)
-            await log_channel.send(content=on_reaction_add_enrollment_role_alert)
+            await message.channel.send(content=on_reaction_add_enrollment_role_alert)
 
             # Initiate enrollment self role process
 
@@ -213,7 +213,7 @@ class peregrine(discord.Client):
             
             # Set log channel
 
-            log_channel = self.get_channel(int(LOG_CHANNEL))
+            channel = channel = self.get_channel(int(LOG_CHANNEL))
             print("Log channel set")
             
             # Alert console of member leaving and push to log channel
@@ -223,7 +223,7 @@ class peregrine(discord.Client):
             )
 
             print(on_reaction_add_verification_alert)
-            await log_channel.send(content=on_reaction_add_verification_alert)
+            await message.channel.send(content=on_reaction_add_verification_alert)
 
             # Initiate email verification process
 
@@ -245,9 +245,6 @@ class peregrine(discord.Client):
 
         # Channel commands are listed below
 
-        # Set log channel
-
-        log_channel = self.get_channel(int(LOG_CHANNEL))
 
         if message.content.startswith("!verembed"):
 
@@ -264,6 +261,10 @@ class peregrine(discord.Client):
                 await send_verification_message.add_reaction(emoji_for_verification)
 
             except Exception as e:
+
+                # Set log channel
+
+                channel = channel = self.get_channel(int(LOG_CHANNEL))
 
                 print(e)
                 error_message = "Could not process !verify command.\n"
@@ -446,8 +447,12 @@ class peregrine(discord.Client):
 
             # Log information
 
+            # Set log channel
+
+            channel = channel = self.get_channel(int(LOG_CHANNEL))
+
             log_message = await wgu_verify_log_embed(user_email, wgu_user, discord_user, new_nickname, message)
-            await message.log_channel.send(log_message)
+            await message.channel.send(log_message)
 
             print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
             print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
@@ -484,16 +489,13 @@ class peregrine(discord.Client):
 
                     print(e)
                     errorMessage = "Failed to process verification role for new member: {}\nPlease hand verify this member or contact a bot developer".format(member)
-                    await log_channel.send(content=errorMessage)
+                    await message.channel.send(content=errorMessage)
 
         if message.content.startswith("!delete"):
             
             # Set up variables
 
             conx = connect()         
-            # Set log channel
-
-            log_channel = self.get_channel(int(LOG_CHANNEL))
             
             # Set up other variables
             

@@ -338,13 +338,13 @@ class peregrine(discord.Client):
 
                 print("Event triggered: !faq\n   Member: {}\n".format(message.author))
                 faq_embedded_message = await wgu_faq_embed()
-                await message.channel.send(embed=faq_embedded_message)
+                await channel.send(embed=faq_embedded_message)
 
             except Exception as e:
 
                 print(e)
                 error_message = "Could not process !faq command.\n"
-                await message.channel.send(content=error_message)
+                await channel.send(content=error_message)
 
             return
 

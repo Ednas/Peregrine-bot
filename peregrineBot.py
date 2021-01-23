@@ -490,7 +490,7 @@ class peregrine(discord.Client):
 
                     print(e)
                     errorMessage = "Failed to process verification role for new member: {}\nPlease hand verify this member or contact a bot developer".format(member)
-                    await message.channel.send(content=errorMessage)
+                    await channel.send(content=errorMessage)
 
         if message.content.startswith("!delete"):
             

@@ -1,6 +1,5 @@
 async def start_peregrine(self, LOG_CHANNEL):
     
-    
     # Print logo in terminal
 
     with open("resources/peregrineCore/peregrineLogo", "r") as mylogo:
@@ -9,10 +8,6 @@ async def start_peregrine(self, LOG_CHANNEL):
 
     # Check for active connections to Discord Guilds
 
-    # Set global log channel
-
-    global log_channel
-    log_channel = self.get_channel(int(LOG_CHANNEL))
 
     for guild in self.guilds:
 

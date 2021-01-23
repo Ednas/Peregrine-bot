@@ -114,11 +114,7 @@ def connect():
 
 class peregrine(discord.Client):
     
-    # Set global log channel
 
-    global log_channel
-    log_channel = self.get_channel(int(LOG_CHANNEL))
-    
     # Display logo and basic information on successful login
 
     async def on_ready(self):
@@ -126,6 +122,12 @@ class peregrine(discord.Client):
         # Initiate bot and connect to guilds
 
         await start_peregrine(self, int(LOG_CHANNEL))
+
+    # Set global log channel
+
+    global log_channel
+    log_channel = self.get_channel(int(LOG_CHANNEL))
+    
 
     # Track user joins and leaves
 

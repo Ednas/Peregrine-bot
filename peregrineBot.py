@@ -126,7 +126,10 @@ class peregrine(discord.Client):
     # Track user joins and leaves
 
     async def on_member_join(self, member):
+        
+        # Set log channel
 
+        channel = self.get_channel(int(LOG_CHANNEL))
 
         # Alert console of new member and push to log channel
 
@@ -134,7 +137,7 @@ class peregrine(discord.Client):
             member
         )
         print(on_member_join_message)
-        await message.channel.send(content=on_member_join_message)
+        await channel.send(content=on_member_join_message)
 
         # Auto assign unverified role to new members and set nickname defaults
 
@@ -153,11 +156,8 @@ class peregrine(discord.Client):
             member
         )
 
-        # Set log channel ID
-
-        channel = self.get_channel(int(LOG_CHANNEL))
         print(on_member_leave_message)
-        await message.channel.send(content=on_member_leave_message)
+        await channel.send(content=on_member_leave_message)
 
     async def on_raw_reaction_add(self, payload):
 
@@ -177,7 +177,7 @@ class peregrine(discord.Client):
             )
 
             print(on_reaction_add_enrollment_role_alert)
-            await message.channel.send(content=on_reaction_add_enrollment_role_alert)
+            await channel.send(content=on_reaction_add_enrollment_role_alert)
 
             # Initiate enrollment self role process
 
@@ -200,7 +200,7 @@ class peregrine(discord.Client):
             )
 
             print(on_reaction_add_enrollment_role_alert)
-            await message.channel.send(content=on_reaction_add_enrollment_role_alert)
+            await channel.send(content=on_reaction_add_enrollment_role_alert)
 
             # Initiate enrollment self role process
 
@@ -223,7 +223,7 @@ class peregrine(discord.Client):
             )
 
             print(on_reaction_add_verification_alert)
-            await message.channel.send(content=on_reaction_add_verification_alert)
+            await channel.send(content=on_reaction_add_verification_alert)
 
             # Initiate email verification process
 

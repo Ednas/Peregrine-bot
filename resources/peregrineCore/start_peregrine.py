@@ -20,4 +20,4 @@ async def start_peregrine(self, LOG_CHANNEL):
 
     print("Logging messages to channel: {}".format(LOG_CHANNEL))
 
-    return log_channel
+    return

@@ -452,7 +452,7 @@ class peregrine(discord.Client):
             channel = channel = self.get_channel(int(LOG_CHANNEL))
 
             log_message = await wgu_verify_log_embed(user_email, wgu_user, discord_user, new_nickname, message)
-            await message.channel.send(log_message)
+            await channel.send(log_message)
 
             print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
             print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
@@ -460,6 +460,7 @@ class peregrine(discord.Client):
             print("    ┕ Discord Username: {}".format(discord_user[0]))     
             print("    ┕ New Nickname is: {}".format(new_nickname))        
 
+        if message.content.startswith("!verify"):
 
             # Set up variables
 

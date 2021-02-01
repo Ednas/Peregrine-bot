@@ -463,7 +463,7 @@ class peregrine(discord.Client):
 
             channel = channel = self.get_channel(int(LOG_CHANNEL))
 
-            log_message = await wgu_verify_log_embed(user_email, wgu_user, discord_user, new_nickname, message)
+            log_message = await wgu_verify_log_embed(user_email, wgu_user, discord_user, new_nickname, code, message)
             await channel.send(embed=log_message)
 
             print("Email verification triggered. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
@@ -502,7 +502,7 @@ class peregrine(discord.Client):
 
                     channel = channel = self.get_channel(int(LOG_CHANNEL))
 
-                    log_message = await wgu_verify_success_log__embed(user_email, wgu_user, discord_user, new_nickname, message)
+                    log_message = await wgu_verify_success_log_embed(user_email, wgu_user, discord_user, new_nickname, message)
                     await channel.send(embed=log_message)
                 
                 except Exception as e:

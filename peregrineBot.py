@@ -14,19 +14,29 @@ import discord
 from discord.ext import commands
 from resources.peregrineCore.start_peregrine import start_peregrine
 
-# Import embed modules
+# Import embed modules for announcement embeds
 
-from resources.modules.wgu.embeds.wgu_certifications_embed import *
-from resources.modules.wgu.embeds.wgu_faq_embed import *
-from resources.modules.wgu.embeds.wgu_resources_embed import *
-from resources.modules.wgu.embeds.wgu_roles_embed import *
-from resources.modules.wgu.embeds.wgu_verification_embed import *
-from resources.modules.wgu.embeds.wgu_htb_embed import *
-from resources.modules.wgu.embeds.wgu_subscription_embed import *
-from resources.modules.wgu.embeds.wgu_verify_log_embed import *
-from resources.modules.wgu.embeds.wgu_send_email_embed import *
-from resources.modules.wgu.embeds.wgu_email_already_verified_embed import *
-from resources.modules.wgu.embeds.wgu_user_verified_success_embed import *
+from resources.modules.wgu.embeds.announcements.wgu_monthly_club_meeting_embed import *
+
+# Import embed modules for direct messages
+
+from resources.modules.wgu.embeds.direct.wgu_send_email_embed import *
+from resources.modules.wgu.embeds.direct.wgu_email_already_verified_embed import *
+from resources.modules.wgu.embeds.direct.wgu_user_verified_success_embed import *
+
+# Import embed modules for informative embeds
+
+from resources.modules.wgu.embeds.informative.wgu_certifications_embed import *
+from resources.modules.wgu.embeds.informative.wgu_faq_embed import *
+from resources.modules.wgu.embeds.informative.wgu_resources_embed import *
+from resources.modules.wgu.embeds.informative.wgu_roles_embed import *
+from resources.modules.wgu.embeds.informative.wgu_verification_embed import *
+from resources.modules.wgu.embeds.informative.wgu_htb_embed import *
+from resources.modules.wgu.embeds.informative.wgu_subscription_embed import *
+
+# Import embed modules for log embeds
+
+from resources.modules.wgu.embeds.logs.wgu_verify_log_embed import *
 
 # Import database modules
 
@@ -114,7 +124,6 @@ def connect():
 
 class peregrine(discord.Client):
     
-
     # Display logo and basic information on successful login
 
     async def on_ready(self):
@@ -219,7 +228,7 @@ class peregrine(discord.Client):
             # Alert console of member leaving and push to log channel
 
             on_reaction_add_verification_alert = (
-                "Event triggered: Member verification\n   Member: {}".format(payload.member)
+                "Event triggered: Member verification reaction\n   Member: {}".format(payload.member)
             )
 
             print(on_reaction_add_verification_alert)
@@ -422,7 +431,7 @@ class peregrine(discord.Client):
 
             # Print to console
 
-            print("Verification triggered by: {} for guild {}\n   Code is: {}\n   Email is: {}\n   New Nickname is: {}".format(str(member.id), str(member.guild), str(code), str(message.content.split(' ')[-1]), str(new_nickname[0])))
+            print("Verification triggered by: {} for guild {}\n   Code is: {}\n   Email is: {}\n   New Nickname is: {}".format(str(member.id), str(member.guild), str(code), str(message.content.split(' ')[-1]), str(new_nickname)))
             
             if bool(await wgu_check_verified(dst_email, conx)):
                 await wgu_set_record(dst_email, username, code, expiry, conx)
@@ -454,7 +463,7 @@ class peregrine(discord.Client):
             log_message = await wgu_verify_log_embed(user_email, wgu_user, discord_user, new_nickname, message)
             await channel.send(embed=log_message)
 
-            print("Sanity check. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
+            print("Email verification triggered. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
             print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
             print("    ┕ WGU user is: {}".format(wgu_user[0]))
             print("    ┕ Discord Username: {}".format(discord_user[0]))     

@@ -34,8 +34,8 @@ from resources.modules.wgu.embeds.informative.wgu_htb_embed import *
 
 # Import ebed modules for reactive embeds
 
-from resources.modules.wgu.embeds.informative.wgu_subscription_embed import *
-from resources.modules.wgu.embeds.informative.wgu_verification_embed import *
+from resources.modules.wgu.embeds.reactionary.wgu_subscription_embed import *
+from resources.modules.wgu.embeds.reactionary.wgu_verification_embed import *
 
 # Import embed modules for log embeds
 

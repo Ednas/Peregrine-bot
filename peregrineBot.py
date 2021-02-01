@@ -30,9 +30,12 @@ from resources.modules.wgu.embeds.informative.wgu_certifications_embed import *
 from resources.modules.wgu.embeds.informative.wgu_faq_embed import *
 from resources.modules.wgu.embeds.informative.wgu_resources_embed import *
 from resources.modules.wgu.embeds.informative.wgu_roles_embed import *
-from resources.modules.wgu.embeds.informative.wgu_verification_embed import *
 from resources.modules.wgu.embeds.informative.wgu_htb_embed import *
+
+# Import ebed modules for reactive embeds
+
 from resources.modules.wgu.embeds.informative.wgu_subscription_embed import *
+from resources.modules.wgu.embeds.informative.wgu_verification_embed import *
 
 # Import embed modules for log embeds
 
@@ -494,7 +497,14 @@ class peregrine(discord.Client):
                     
                     user_verified_success_embed = await wgu_user_verified_success_embed(username)
                     await message.channel.send(embed=user_verified_success_embed)
+                    
+                    # Set log channel
 
+                    channel = channel = self.get_channel(int(LOG_CHANNEL))
+
+                    log_message = await wgu_verify_log_embed(user_email, wgu_user, discord_user, new_nickname, message)
+                    await channel.send(embed=log_message)
+                
                 except Exception as e:
 
                     print(e)

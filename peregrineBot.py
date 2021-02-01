@@ -40,7 +40,7 @@ from resources.modules.wgu.embeds.reactionary.wgu_verification_embed import *
 # Import embed modules for log embeds
 
 from resources.modules.wgu.embeds.logs.wgu_verify_log_embed import *
-from resources.modules.wgu.embeds.logs.wgu_success_verify_log_embed import *
+from resources.modules.wgu.embeds.logs.wgu_verify_success_log_embed import *
 
 # Import database modules
 

@@ -15,12 +15,12 @@ async def wgu_ncl_embed():
 
     nclMessage.add_field(
         name="How to register",
-        value="In order to participate in the NCL competition you will need to register an account [here](https://cyberskyline.com/events/ncl/welcome 'https://cyberskyline.com/events/ncl/welcome'). You need to meet the following requirements to participate\n   ┕ You must be a student with an active .edu email\n\n   ┕ You must agree to the rules of conduct [here](https://nationalcyberleague.org/ncl-rules 'https://nationalcyberleague.org/ncl-rules') \n\n━━━━━",
+        value="In order to participate in the NCL competition you will need to register an account [here](https://cyberskyline.com/events/ncl/welcome 'https://cyberskyline.com/events/ncl/welcome'). You need to meet the following requirements to participate\n\n   ┕ You must be a student with an active .edu email\n   ┕ You must agree to the rules of conduct [here](https://nationalcyberleague.org/ncl-rules 'https://nationalcyberleague.org/ncl-rules') \n\n━━━━━",
         inline=False,
     )
     nclMessage.add_field(
         name="Gymnasium - February 15th - May 28th",
-        value="The Gymnasium will be where you test your skills. We encourage everyone to spend time in the Gymnasium and will have dedicated streams among participants on Fridays hosted by <@592047479168565272>\n   ┕ Fridays from 5:00PM - 7:00PM PST \n   ┕ Sundays from 1:00PM - 3:00PM PST\n\n━━━━━",
+        value="The Gymnasium will be where you test your skills. We encourage everyone to spend time in the Gymnasium and will have dedicated streams among participants on Fridays hosted by <@592047479168565272>\n\n   ┕ Fridays from 5:00PM - 7:00PM PST\n   ┕ Sundays from 1:00PM - 3:00PM PST\n\n━━━━━",
         inline=False,
     )
     nclMessage.add_field(

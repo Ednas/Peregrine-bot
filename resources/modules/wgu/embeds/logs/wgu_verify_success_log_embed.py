@@ -11,7 +11,7 @@ async def wgu_verify_success_log_embed( message):
 
     logMessage = discord.Embed(
         title="Verification complete",
-        description="The following account has been verified succesfully!\n\n   ┕ Username: {}\n".format(message.user),
+        description="The following account has been verified succesfully!\n\n   ┕ Username: {}\n".format(message.author),
         colour=discord.Colour.dark_blue(),
     )
     

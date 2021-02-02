@@ -518,7 +518,7 @@ class peregrine(discord.Client):
 
                     channel = channel = self.get_channel(int(LOG_CHANNEL))
 
-                    log_message = await wgu_verify_success_log_embed(wgu_user, discord_user, new_nickname, message)
+                    log_message = await wgu_verify_success_log_embed(message)
                     await channel.send(embed=log_message)
                 
                 except Exception as e:

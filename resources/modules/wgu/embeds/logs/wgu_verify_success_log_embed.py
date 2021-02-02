@@ -5,13 +5,13 @@ import discord
 from discord.ext import commands
 import discord
 
-async def wgu_verify_success_log_embed(wgu_user, discord_user, new_nickname, message):
+async def wgu_verify_success_log_embed( message):
 
     # Set initial message here
 
     logMessage = discord.Embed(
         title="Verification complete",
-        description="The following account has been verified\n\n   ┕ WGU Username: {}\n   ┕ Discord Username: {}\n".format(wgu_user[0], discord_user[0]),
+        description="The following account has been verified succesfully!\n\n   ┕ Username: {}\n".format(message.user),
         colour=discord.Colour.dark_blue(),
     )
     

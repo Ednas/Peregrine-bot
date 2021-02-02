@@ -30,12 +30,12 @@ async def wgu_ncl_embed():
     )
     nclMessage.add_field(
         name="Individual Game - March 26th - March 28th",
-        value="Earn your bragging rights. This is a cutthroat freeforall Capture-The-Flag in a jeopardy style. A variety of categories will be available with challenges similar to those in the NCL Gymnasium and Preseason. Top 10 WGU students will earn themselves a special role and a mention in our [#ncl-hall-of-fame](https://www.discordapp.com/channels/688822375327989875/806031790430093312)\n\n━━━━━",
+        value="Earn your bragging rights. This is a cutthroat freeforall Capture-The-Flag in a jeopardy style. A variety of categories will be available with challenges similar to those in the NCL Gymnasium and Preseason. Top 10 WGU students will earn themselves the <@806036842633101313> role place in the [#ncl-hall-of-fame](https://www.discordapp.com/channels/688822375327989875/806031790430093312)\n\n━━━━━",
         inline=False,
     )
     nclMessage.add_field(
         name="Team Game - April 9th - April 11th",
-        value="You can start your own team and register it on the board or contact the leader of a team listed below to be considered for theirs. There is no limit on the number of teams WGU may put forth, so lets take over the leaderboard!\n\n   ┕ The Fowl Owls | <@440718209205927937>\n   ┕ Parliament of Owls | <@246784517778571264>\n\nIf you would like to add your team to this recruitment board please contact any of our moderators or administrators.\n\n━━━━━",
+        value="You can start your own team and register it on the board or contact the leader of a team listed below to be considered for theirs. There is no limit on the number of teams WGU may put forth, so lets take over the leaderboard!\n\n   ┕ The Fowl Owls | <@440718209205927937>\n   ┕ Parliament of Owls | <@246784517778571264>\n\nIf you would like to add your team to this recruitment board please contact any of our <@711594368179503175> or <@688825169481039872>.\n\n━━━━━",
         inline=False,
     )
 

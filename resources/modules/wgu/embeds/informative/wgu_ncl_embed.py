@@ -35,7 +35,7 @@ async def wgu_ncl_embed():
     )
     nclMessage.add_field(
         name="Team Game - April 9th - April 11th",
-        value="You can start your own team and register it on the board or contact the leader of a team listed below to be considered for theirs. There is no limit on the number of teams WGU may put forth, so lets take over the leaderboard!\n\n   ┕ The Fowl Owls | <@440718209205927937>\n   ┕ Parliament of Owls | <@246784517778571264>\n\nIf you would like to add your team to this recruitment board please contact any of our <@&711594368179503175> or <@&688825169481039872>.\n\n━━━━━",
+        value="You can start your own team and register it on the board or contact the leader of a team listed below to be considered for theirs. There is no limit on the number of teams WGU may put forth, so lets take over the leaderboard!\n\n   ┕ The Fowl Owls | <@440718209205927937>\n   ┕ Parliament of Owls | <@246784517778571264>\n\nIf you would like to add your team to this recruitment board please contact a <@&711594368179503175> or <@&688825169481039872>.\n\n━━━━━",
         inline=False,
     )
 

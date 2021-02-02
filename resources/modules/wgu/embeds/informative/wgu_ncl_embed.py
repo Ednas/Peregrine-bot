@@ -15,7 +15,7 @@ async def wgu_ncl_embed():
 
     nclMessage.add_field(
         name="How to register",
-        value="In order to participate in the NCL competition you will need to register an account [here](https://cyberskyline.com/events/ncl/welcome 'https://cyberskyline.com/events/ncl/welcome'). You need to meet the following requirements to participate\n   ┕ You must be a student with an active .edu email\n   ┕ You must agree to the rules of conduct [here](https://nationalcyberleague.org/ncl-rules 'https://nationalcyberleague.org/ncl-rules') \n\n━━━━━",
+        value="In order to participate in the NCL competition you will need to register an account [here](https://cyberskyline.com/events/ncl/welcome 'https://cyberskyline.com/events/ncl/welcome'). You need to meet the following requirements to participate\n   ┕ You must be a student with an active .edu email\n\n   ┕ You must agree to the rules of conduct [here](https://nationalcyberleague.org/ncl-rules 'https://nationalcyberleague.org/ncl-rules') \n\n━━━━━",
         inline=False,
     )
     nclMessage.add_field(
@@ -45,7 +45,7 @@ async def wgu_ncl_embed():
         text="This is a club member run Discord officially sponsored by Western Governors University. All interactions on this server are logged. All users agree to the Discord Terms of Service"
     )
     nclMessage.set_thumbnail(
-        url="https://cdn.discordapp.com/avatars/758331935054889020/39da98d02a59e22606e230e7afe6841a.png"
+        url="https://images.squarespace-cdn.com/content/5e13a4b584a68c775e362068/1607517723861-XBVA0ONKL21ZROH9C44C/NCL+Powered+By+Cyber+Skyline+Monotone+Logo+copy.png?content-type=image%2Fpng"
     )
     nclMessage.set_author(
         name="Ursa | nchri49",

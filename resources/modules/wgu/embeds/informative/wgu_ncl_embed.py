@@ -7,7 +7,7 @@ async def wgu_ncl_embed():
 
     nclMessage = discord.Embed(
         title="The National Cyber League",
-        description="Welcome to the big leagues!\n\nThe NCL and Cyber Skyline host a collegiete level compeition where you can showcase your cyber skills. The WGU Cyber Club participated in the Fall 2020 competition and many members of our club placed among the top 500 players. We will be announcing various rankings, statistics, and interviewing our student peers live with additional information in [#ncl-live-coverage](https://www.discordapp.com/688822375327989875/806030856606318652). Be sure to join us for the streams in the voice channel!\n\n━━━━━━━━━━━━",
+        description="Welcome to the big leagues!\n\nThe NCL and Cyber Skyline host a collegiete level compeition where you can showcase your cyber skills. The WGU Cyber Club participated in the Fall 2020 competition and many members of our club placed among the top 500 players. We will be announcing various rankings, statistics, and interviewing our student peers live with additional information in [#ncl-live-coverage](https://www.discordapp.com/channels/688822375327989875/806030856606318652). Be sure to join us for the streams in the voice channel!\n\n━━━━━━━━━━━━",
         colour=discord.Colour.dark_blue(),
     )
 
@@ -30,7 +30,7 @@ async def wgu_ncl_embed():
     )
     nclMessage.add_field(
         name="Individual Game - March 26th - March 28th",
-        value="Earn your bragging rights. This is a cutthroat freeforall Capture-The-Flag in a jeopardy style. A variety of categories will be available with challenges similar to those in the NCL Gymnasium and Preseason. Top 10 WGU students will earn themselves a special role and a mention in our [#ncl-hall-of-fame](https://www.discordapp.com/688822375327989875/806031790430093312)\n\n━━━━━",
+        value="Earn your bragging rights. This is a cutthroat freeforall Capture-The-Flag in a jeopardy style. A variety of categories will be available with challenges similar to those in the NCL Gymnasium and Preseason. Top 10 WGU students will earn themselves a special role and a mention in our [#ncl-hall-of-fame](https://www.discordapp.com/channels/688822375327989875/806031790430093312)\n\n━━━━━",
         inline=False,
     )
     nclMessage.add_field(

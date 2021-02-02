@@ -30,7 +30,7 @@ async def wgu_ncl_embed():
     )
     nclMessage.add_field(
         name="Individual Game - March 26th - March 28th",
-        value="Earn your bragging rights. This is a cutthroat freeforall Capture-The-Flag in a jeopardy style. A variety of categories will be available with challenges similar to those in the NCL Gymnasium and Preseason. Top 10 WGU students will earn themselves the <@&806036842633101313> role place in the [#ncl-hall-of-fame](https://www.discordapp.com/channels/688822375327989875/806031790430093312)\n\n━━━━━",
+        value="Earn your bragging rights. This is a cutthroat freeforall Capture-The-Flag in a jeopardy style. A variety of categories will be available with challenges similar to those in the NCL Gymnasium and Preseason. Top 10 WGU students will earn themselves the <@&806036842633101313> role and a custom embed message in the [#ncl-hall-of-fame](https://www.discordapp.com/channels/688822375327989875/806031790430093312)\n\n━━━━━",
         inline=False,
     )
     nclMessage.add_field(

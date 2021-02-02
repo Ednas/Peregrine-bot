@@ -6,26 +6,31 @@ async def wgu_ncl_embed():
     # Set initial message here
 
     resourcesMessage = discord.Embed(
-        title="Looking for additional resources? You've come to the right place.",
-        description="Below you will find a variety of resources in different categories. We try and update this with the most recent and relevant information to assist you in your learning journey. If you have suggestions, we'd love to hear from you!\n\n━━━━━━━━━━━━",
+        title="The National Cyber League",
+        description="Welcome to the big leagues!\n\nThe NCL and Cyber Skyline host a collegiete level compeition where you can showcase your cyber skills. The WGU Cyber Club participated in the Fall 2020 competition and many members of our club placed among the top 500 players.\n\n━━━━━━━━━━━━",
         colour=discord.Colour.dark_blue(),
     )
 
     # Set custom fields here
 
     resourcesMessage.add_field(
-        name="WGU Student Resources",
-        value="A variety of resources are available from the WGU. There are a significant number of free learning tools and software licenses.\n┕ [WGU Student Resources](https://www.wgu.edu/admissions/student-experience/learning-resources.html 'https://www.wgu.edu/admissions/student-experience/learning-resources.html')\n┕ [WGU Alumni](https://www.wgu.edu/alumni.html 'https://www.wgu.edu/alumni.html')\n┕ [WGU DreamSpark Portal](https://wgudreamspark.onthehub.com/WebStore/Welcome.aspx 'https://wgudreamspark.onthehub.com/WebStore/Welcome.aspx')\n\n━━━━━",
+        name="How to register",
+        value="In order to participate in the NCL competition you will need to register an account [here](https://cyberskyline.com/events/ncl/welcome 'https://cyberskyline.com/events/ncl/welcome'). You need to meet the following requirements to participate\n   ┕ You must be a student with an active .edu email\n   ┕ You must agree to the rules of conduct [here](https://nationalcyberleague.org/ncl-rules 'https://nationalcyberleague.org/ncl-rules') \n\n━━━━━",
         inline=False,
     )
     resourcesMessage.add_field(
-        name="Professional Organizations",
-        value="Paying your dues can return dividends. The organizations listed here offer a variety of resources as part of your membership.\n┕ [CompTIA Student Membership](https://www.comptia.org/membership/it-pro/student-membership-and-benefits 'https://www.comptia.org/membership/it-pro/student-membership-and-benefits')\n┕ [(ISC)² Membership](https://www.isc2.org/Membership# 'https://www.isc2.org/Membership#')\n┕ [Association of Computing Machinery Student Membership](https://services.acm.org/public/qj/quickjoin/qj_control.cfm?promo=PWEBTOP&form_type=Student 'https://services.acm.org/public/qj/quickjoin/qj_control.cfm?promo=PWEBTOP&form_type=Student')\n\n━━━━━",
+        name="Gymnasium - February 15th - May 28th",
+        value="The Gymnasium will be where you test your skills. We encourage everyone to spend time in the Gymnasium and will have dedicated streams among participants on Fridays hosted by <@592047479168565272>\n   ┕ Fridays from 5:00PM - 7:00PM PST \n   ┕ Sundays from 1:00PM - 3:00PM PST\n\n━━━━━",
         inline=False,
     )
     resourcesMessage.add_field(
-        name="Additional Free Resources",
-        value="The resources below will give you access to a variety of free software, licenses, and learning tools.\n┕ [Azure Student Starter Pack](https://azure.microsoft.com/en-us/offers/ms-azr-0144p/ 'https://azure.microsoft.com/en-us/offers/ms-azr-0144p/')\n┕ [GitHub Student Developer Pack](https://github.blog/2019-08-20-the-github-student-developer-pack-is-back/ 'https://github.blog/2019-08-20-the-github-student-developer-pack-is-back/')\n┕ [Jet Brains Student Licenses](https://www.jetbrains.com/community/education/#students 'https://www.jetbrains.com/community/education/#students')\n┕ [Tableau Student License](https://www.tableau.com/academic/students 'https://www.tableau.com/academic/students')\n\n━━━━━",
+        name="Team Game - April 9th - April 11th",
+        value="You can start your own team and register it on the board or contact the leader of a team listed below to be considered for theirs. There is no limit on the number of teams WGU may put forth, so lets take over the leaderboard!\n   ┕ The Fowl Owls | <@440718209205927937>\n   ┕ Parliament of Owls | <@246784517778571264>\n\n━━━━━",
+        inline=False,
+    )
+    resourcesMessage.add_field(
+        name="Team Game - April 9th - April 11th",
+        value="You can start your own team and register it on the board or contact the leader of a team listed below to be considered for theirs. There is no limit on the number of teams WGU may put forth, so lets take over the leaderboard!\n   ┕ The Fowl Owls | <@440718209205927937>\n   ┕ Parliament of Owls | <@246784517778571264>\n\n━━━━━",
         inline=False,
     )
 

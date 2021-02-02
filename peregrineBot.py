@@ -31,6 +31,7 @@ from resources.modules.wgu.embeds.informative.wgu_faq_embed import *
 from resources.modules.wgu.embeds.informative.wgu_resources_embed import *
 from resources.modules.wgu.embeds.informative.wgu_roles_embed import *
 from resources.modules.wgu.embeds.informative.wgu_htb_embed import *
+from resources.modules.wgu.embeds.informative.wgu_ncl_embed import *
 
 # Import ebed modules for reactive embeds
 
@@ -384,18 +385,32 @@ class peregrine(discord.Client):
         if message.content.startswith("!htbembed"):
 
             try:
-                print("Event triggered: !roles\n   Member: {}\n".format(message.author))
-                htb_embedded_message = await htb_roles_embed()
+                print("Event triggered: !htbembd\n   Member: {}\n".format(message.author))
+                htb_embedded_message = await wgu_htb_embed()
                 await message.channel.send(embed=htb_embedded_message)
 
             except Exception as e:
 
                 print(e)
-                error_message = "Could not process !roles command.\n"
+                error_message = "Could not process !htbembed command.\n"
                 await message.channel.send(content=error_message)
 
             return
 
+        if message.content.startswith("!nclembed"):
+
+            try:
+                print("Event triggered: !nclembed\n   Member: {}\n".format(message.author))
+                ncl_embedded_message = await wgu_ncl_embed()
+                await message.channel.send(embed=ncl_embedded_message)
+
+            except Exception as e:
+
+                print(e)
+                error_message = "Could not process !nclembed command.\n"
+                await message.channel.send(content=error_message)
+
+            return
 
 
 ########################## VERIFICATION  SECTION ##########################

@@ -25,7 +25,7 @@ async def wgu_ncl_embed():
     )
     nclMessage.add_field(
         name="NCL Preseason - March 15th - March 22nd",
-        value="PLACEMENTS! Important: YOU MUST COMPETE IN PRESEASON TO QUALIFY FOR THE INDIVIDUAL AND TEAM GAMES.\n\n Welcome to the CYBERDOME! This is where your practice pays off and sets you apart from your student peers. The objective in preseason is to assess which rank you belong in in order to measure the individual skill among participants in the league games.\n\n   ┕ Gold - Top 15\% \of qualified players or teams\n   ┕ Silver - Next 35\% \of qualified players or teams\n   ┕ Bronze - Remaining 50\% \of qualified players or teams\n   ┕ Pewter - All coaches and unqualified players \n\n━━━━━",
+        value="PLACEMENTS! Important: YOU MUST COMPETE IN PRESEASON TO QUALIFY FOR THE INDIVIDUAL AND TEAM GAMES.\n\n Welcome to the CYBERDOME! This is where your practice pays off and sets you apart from your student peers. The objective in preseason is to assess which rank you belong in in order to measure the individual skill among participants in the league games.\n\n   ┕ Gold - Top 15\% of qualified players or teams\n   ┕ Silver - Next 35\% of qualified players or teams\n   ┕ Bronze - Remaining 50\% of qualified players or teams\n   ┕ Pewter - All coaches and unqualified players \n\n━━━━━",
         inline=False,
     )
     nclMessage.add_field(

@@ -10,8 +10,8 @@ async def wgu_sos_intro_embed():
     # Set initial message here
 
     sosMessage = discord.Embed(
-        title="Justin \"No Raw Talent\" Garcia | U03A9",
-        description="Discord Administrator | BS Cyber Security & Information Assurance\n\n━━━━━━━━━━━━━━━━━━━━━━━━━",
+        title="SimeonOnSecurity.ch | smil289 [*]",
+        description="Discord Moderator | BS Cyber Security & Information Assurance\n\n━━━━━━━━━━━━━━━━━━━━━━━━━",
         colour=discord.Colour.dark_blue(),
     )
     sosMessage.add_field(

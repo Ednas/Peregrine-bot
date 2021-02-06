@@ -33,7 +33,7 @@ async def wgu_u03a9_intro_embed():
         url="https://media-exp1.licdn.com/dms/image/C4E35AQEN1_1SZLjf1g/profile-framedphoto-shrink_200_200/0/1611702743840?e=1612663200&v=beta&t=47cw5yMapS1aue9fSngg_tA-vr7f1ZuclQIFenbYSig"
     )
     successMessage.set_author(
-        name="U03A9 | jsherl1,
+        name="U03A9 | jsherl1",
         icon_url="https://cdn.discordapp.com/avatars/592047479168565272/a_f4ead966c2e7d7ba26bd525a492b21db.gif",
     )
 

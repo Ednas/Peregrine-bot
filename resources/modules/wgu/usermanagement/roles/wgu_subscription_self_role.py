@@ -45,6 +45,6 @@ async def wgu_subscription_self_role(self, payload, CCDC_SUB_EMOJI, NICE_SUB_EMO
     
     # Assign OTW sub role
 
-    if str(payload.emoji.name) == str(NCLSUB_EMOJI):
+    if str(payload.emoji.name) == str(NCL_SUB_EMOJI):
         await payload.member.add_roles(discord.utils.get(guild.roles, name='NCL Alerts'))
     return

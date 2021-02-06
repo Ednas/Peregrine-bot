@@ -8,7 +8,7 @@ from discord.ext import commands
 async def wgu_u03a9_intro_embed():
 
     # Set initial message here
-   sosMessage = discord.Embed(
+    u03a9Message = discord.Embed(
         title="",
         description="Discord Community Administrator\n*CTF Enthusiast | BSCSIA*\n━━━━━",
         colour=discord.Colour.dark_blue(),

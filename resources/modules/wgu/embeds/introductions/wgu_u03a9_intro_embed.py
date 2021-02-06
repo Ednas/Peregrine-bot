@@ -11,12 +11,22 @@ async def wgu_u03a9_intro_embed():
 
     u03a9Message = discord.Embed(
         title="Justin \"No Raw Talent\" Garcia | U03A9",
-        description="Discord Administrator | BSCIA\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+        description="Discord Administrator | BS Cyber Security & Information Assurance\n\n━━━━━━━━━━━━━━━━━━━━━━━━━",
         colour=discord.Colour.dark_blue(),
     )
     u03a9Message.add_field(
-        name="About me",
-        value="I transitioned into the IT realm in late 2018 after spending nearly a decade working in retail sales. I worked for RadioShack, Verizon, Sprint, AT&T, and other various cellular authorized retailers from 2008 to 2018. I got my start on a Help Desk with a Google Support Professional certificate I earned from Coursera. I had the unique opportunity to put my hands on a lot of systems and act as a Jr. Systems Administrator early on in my career. In addition, I stumbled across a documentary about Stuxnet and immediately became fascinated with Cyber Security. I spent 2 years self studying additional Computer Science, Cyber Law, Cyber Security, and .\n\n━━━━━",
+        name="Tell us a little bit about yourself",
+        value="I transitioned into the IT realm in late 2018 after spending nearly a decade working in retail sales. I worked for RadioShack, Verizon, Sprint, AT&T, and other various cellular authorized retailers from 2008 to 2018. I got my start on a Help Desk with a Google Support Professional certificate I earned from Coursera. I had the unique opportunity to put my hands on a lot of systems and act as a Jr. Systems Administrator early on in my career. In addition, I stumbled across a documentary about Stuxnet and immediately became fascinated with Cyber Security. I spent 2 years self studying additional Computer Science, Cyber Law, Cyber Security, and chose to start pursuing a degree at 29 years old.\n\n━━━━━",
+        inline=False,
+    )
+    u03a9Message.add_field(
+        name="Why did you choose WGU?",
+        value="I chose WGU primarily for its affordability in retrospect to other options. In addition, it was flexible to my schedule needs. At the time I was working a contract for the Department of Energy 40 hours a week with an additional 2 hour drive each day. The best part was the amount of industry relavent certifications included in the path. WGU was recommended to me in 2018 by a coworker before I left Verizon Wireless.\n━━━━━",
+        inline=False,
+    )
+    u03a9Message.add_field(
+        name="What's something interesting about you?",
+        value="I used to play guitar in a heavy metal band when I was 18 years old. We called ourselves \"Split Three Ways\" because there's always multiple sides to a story. I also enjoy playing Roulette a little too much and spend a lot of time in Las Vegas\n━━━━━",
         inline=False,
     )
     u03a9Message.add_field(

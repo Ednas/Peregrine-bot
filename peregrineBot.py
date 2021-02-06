@@ -64,6 +64,9 @@ from resources.modules.wgu.usermanagement.verification.wgu_send_verification_dm 
 from resources.modules.wgu.usermanagement.roles.wgu_enrollment_status_self_role import *
 from resources.modules.wgu.usermanagement.roles.wgu_subscription_self_role import *
 
+# Import embed mods for introductions
+from resources.modules.wgu.embeds.introductions.wgu_u03a9_intro_embed import *
+
 # Import hybrid analysis modules
 
 from resources.modules.hybridanalysis import *
@@ -103,6 +106,7 @@ CTF_SUB_EMOJI = os.getenv('ctf_sub_emoji')
 HTB_SUB_EMOJI = os.getenv('htb_sub_emoji')
 THM_SUB_EMOJI = os.getenv('thm_sub_emoji')
 OTW_SUB_EMOJI = os.getenv('otw_sub_emoji')
+NCL_SUB_EMOJI = os.getenv('ncl_sub_emoji')
 FOREIGN_SUB_EMOJI = os.getenv('foreign_sub_emoji')
 DM_MESSAGE = os.getenv('dm_verification_message')
 SRC_EMAIL = os.getenv('bot_email_address')
@@ -411,7 +415,21 @@ class peregrine(discord.Client):
                 await message.channel.send(content=error_message)
 
             return
+            
+        if message.content.startswith("!u03a9intro"):
 
+            try:
+                print("Event triggered: !u03a9intro\n   Member: {}\n".format(message.author))
+                u03a9_embedded_message = await wgu_u03a9_intro_embed()
+                await message.channel.send(embed=u03a9_embedded_message)
+
+            except Exception as e:
+
+                print(e)
+                error_message = "Could not process !nclembed command.\n"
+                await message.channel.send(content=error_message)
+
+            return
 
 ########################## VERIFICATION  SECTION ##########################
 ##########################                       ##########################

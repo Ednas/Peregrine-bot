@@ -66,6 +66,7 @@ from resources.modules.wgu.usermanagement.roles.wgu_subscription_self_role impor
 
 # Import embed mods for introductions
 from resources.modules.wgu.embeds.introductions.wgu_u03a9_intro_embed import *
+from resources.modules.wgu.embeds.introductions.wgu_sos_intro_embed import *
 
 # Import hybrid analysis modules
 
@@ -431,6 +432,20 @@ class peregrine(discord.Client):
 
             return
 
+        if message.content.startswith("!sosintro"):
+
+            try:
+                print("Event triggered: !sosintro\n   Member: {}\n".format(message.author))
+                sos_embedded_message = await wgu_sos_intro_embed()
+                await message.channel.send(embed=sos_embedded_message)
+
+            except Exception as e:
+
+                print(e)
+                error_message = "Could not process !sosintro command.\n"
+                await message.channel.send(content=error_message)
+
+            return
 ########################## VERIFICATION  SECTION ##########################
 ##########################                       ##########################
 ##########################                       ##########################

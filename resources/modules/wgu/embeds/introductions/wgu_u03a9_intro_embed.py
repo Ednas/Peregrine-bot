@@ -21,7 +21,7 @@ async def wgu_u03a9_intro_embed():
     )
     u03a9Message.add_field(
         name="Social media information",
-        value="Find me on various platforms here! Always looking for new connections. Thanks for coming to my Ted Talk.\n [LinkedIn](https://www.linkedin.com/in/u03a9/ 'https://www.linkedin.com/in/u03a9/').\n┕ [Twitter](https://twitter.com/_U03A9_ 'https://twitter.com/_U03A9_')\n┕ [GitHub](https://github.com/U03A9 'https://github.com/U03A9')\n┕ [HackTheBox](https://www.hackthebox.eu/home/users/profile/172464 'https://www.hackthebox.eu/home/users/profile/172464')\n┕ [Personal](https://www.gemstatecyber.com/_U03A9_ 'https://www.gemstatecyber.com/_U03A9_')\n━━━━━",
+        value="Find me on various platforms here! Always looking for new connections. Thanks for coming to my Ted Talk.\n┕ [LinkedIn](https://www.linkedin.com/in/u03a9/ 'https://www.linkedin.com/in/u03a9/').\n┕ [Twitter](https://twitter.com/_U03A9_ 'https://twitter.com/_U03A9_')\n┕ [GitHub](https://github.com/U03A9 'https://github.com/U03A9')\n┕ [HackTheBox](https://www.hackthebox.eu/home/users/profile/172464 'https://www.hackthebox.eu/home/users/profile/172464')\n┕ [Personal](https://www.gemstatecyber.com/_U03A9_ 'https://www.gemstatecyber.com/_U03A9_')\n━━━━━",
         inline=False,
     )
     # Standard footer and author

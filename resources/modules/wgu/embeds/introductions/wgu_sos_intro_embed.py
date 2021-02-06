@@ -21,12 +21,12 @@ async def wgu_sos_intro_embed():
     )
     sosMessage.add_field(
         name="Why did you choose WGU?",
-        value="I chose WGU primarily for its affordability in retrospect to other options. In addition, it was flexible to my schedule needs. At the time I was working a contract for the Department of Energy 40 hours a week with an additional 2 hour drive each day. The best part was the amount of industry relavent certifications included in the path. WGU was recommended to me in 2018 by a coworker before I left Verizon Wireless.\n━━━━━",
+        value="It was cheap and fit my schedule. \n━━━━━",
         inline=False,
     )
     sosMessage.add_field(
         name="What's something interesting about you?",
-        value="I used to play guitar in a heavy metal band when I was 18 years old. We called ourselves \"Split Three Ways\" because there's always multiple sides to a story. I also enjoy playing Roulette a little too much and spend a lot of time in Las Vegas\n━━━━━",
+        value="I have more certs than your entire team. :p\n━━━━━",
         inline=False,
     )
     sosMessage.add_field(

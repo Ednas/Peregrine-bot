@@ -11,7 +11,7 @@ async def wgu_u03a9_intro_embed():
 
     u03a9Message = discord.Embed(
         title="Justin \"No Raw Talent\" Garcia | U03A9",
-        description="Discord Administrator | BS Cyber Security and Information Assurance | Student\n\n━━━━━━━━━━━━"",
+        description="Discord Administrator | BS Cyber Security and Information Assurance | Student\n\n━━━━━━━━━━━━",
         colour=discord.Colour.dark_blue(),
     )
     u03a9Message.add_field(

@@ -11,18 +11,8 @@ async def wgu_sos_intro_embed():
 
     sosMessage = discord.Embed(
         title="Tell us a little bit about yourself",
-        description="Simeon is a Systems Administrator by day and Cyber Security and Privacy Enthusiast by night. He is a tinkerer, a hobbyist, and all around geek and nerd. Simeon got his first start working with a laptop that couldn't even run Windows XP stably at the age of 12. Troubleshooting and fixing issues as they arised, Simeon couldn't get enough. Years later, Simeon now has an in home data-center and lab that rivals most small businesses compute and storage power.\n\n━━━━━",
+        description="Simeon is a Systems Administrator by day and Cyber Security and Privacy Enthusiast by night. He is a tinkerer, a hobbyist, and all around geek and nerd. Simeon got his first start working with a laptop that couldn't even run Windows XP stably at the age of 12. Troubleshooting and fixing issues as they arised, Simeon couldn't get enough. Years later, Simeon now has an in home data-center and lab that rivals most small businesses compute and storage power.\n━━━━━",
         colour=discord.Colour.dark_blue(),
-    )
-    sosMessage.add_field(
-        name="Why did you choose WGU?",
-        value="It was cheap and fit my schedule. \n━━━━━",
-        inline=False,
-    )
-    sosMessage.add_field(
-        name="What's something interesting about you?",
-        value="I have more certs than your entire team. :p\n━━━━━",
-        inline=False,
     )
     sosMessage.add_field(
         name="Where can we find additional information?",

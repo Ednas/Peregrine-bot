@@ -48,6 +48,11 @@ async def wgu_subscription_embed():
         inline=False,
     )
     subMessage.add_field(
+        name="National Cyber League Notifications",
+        value="These announcements are related to the NCL events and are located in [#ncl-announcements](https://discordapp.com/channels/688822375327989875/806205066704453672).\n┕ :electric_plug: OverTheWire\n\n━━━━━━━━━━━━",
+        inline=False,
+    )
+    subMessage.add_field(
         name="Miscellaneous Foreign Announcements",
         value="These announcements are contributed to us from various resources and are located in [#foreign-announcements](https://discordapp.com/channels/688822375327989875/765664389792923688).\n┕ :newspaper: Foreign\n\n━━━━━━━━━━━━",
         inline=False,

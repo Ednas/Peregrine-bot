@@ -218,7 +218,7 @@ class peregrine(discord.Client):
 
             # Initiate enrollment self role process
 
-            await wgu_subscription_self_role(self, payload, CCDC_SUB_EMOJI, NICE_SUB_EMOJI, CTF_SUB_EMOJI, HTB_SUB_EMOJI, THM_SUB_EMOJI, OTW_SUB_EMOJI, FOREIGN_SUB_EMOJI, GUILD_ID)
+            await wgu_subscription_self_role(self, payload, CCDC_SUB_EMOJI, NICE_SUB_EMOJI, CTF_SUB_EMOJI, HTB_SUB_EMOJI, THM_SUB_EMOJI, OTW_SUB_EMOJI, NCL_SUB_EMOJI, FOREIGN_SUB_EMOJI, GUILD_ID)
             return
 
         if str(payload.message_id) == str(VERIFICATION_MESSAGE):
@@ -297,7 +297,7 @@ class peregrine(discord.Client):
                 
                 # Add initial reaction
 
-                for emoji in ('🛡️', '🎞️', '🚩', '🔳', '📮', '🔌', '📰'):
+                for emoji in ('🛡️', '🎞️', '🚩', '🔳', '📮', '🔌', '💎', '📰'):
                     await sub_embed_message.add_reaction(emoji)
             
             except Exception as e:

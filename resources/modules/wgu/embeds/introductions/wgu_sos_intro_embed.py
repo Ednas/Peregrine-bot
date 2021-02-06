@@ -28,7 +28,7 @@ async def wgu_sos_intro_embed():
         url="https://cdn.discordapp.com/attachments/756294909564289084/807437710779744266/4913771.png"
     )
     sosMessage.set_author(
-        name="SimeonOnSecurity.ch | smil289 [*]",
+        name="SimeonOnSecurity.ch | smil289 [*]\nDiscord Community Moderator | Cyber Security Professional and Automation Enthusiast | BSCSIA",
         icon_url="https://cdn.discordapp.com/attachments/756294909564289084/807437710779744266/4913771.png",
     )
 

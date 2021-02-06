@@ -38,7 +38,7 @@ async def wgu_u03a9_intro_embed():
         url="https://cdn.discordapp.com/avatars/592047479168565272/a_f4ead966c2e7d7ba26bd525a492b21db.gif"
     )
     u03a9Message.set_author(
-        name="U03A9 | jsherl1\ntest",
+        name="U03A9 | jsherl1\nDiscord Community Administrator | CTF Enthusiast | BSCSIA",
         icon_url="https://cdn.discordapp.com/avatars/592047479168565272/a_f4ead966c2e7d7ba26bd525a492b21db.gif",
     )
 

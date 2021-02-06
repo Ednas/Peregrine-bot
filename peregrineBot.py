@@ -426,7 +426,7 @@ class peregrine(discord.Client):
             except Exception as e:
 
                 print(e)
-                error_message = "Could not process !nclembed command.\n"
+                error_message = "Could not process !u03a9intro command.\n"
                 await message.channel.send(content=error_message)
 
             return

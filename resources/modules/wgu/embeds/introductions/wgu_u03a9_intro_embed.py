@@ -11,15 +11,15 @@ async def wgu_u03a9_intro_embed():
 
     u03a9Message = discord.Embed(
         title="Justin \"No Raw Talent\" Garcia | U03A9",
-        description="Discord Administrator | BS Cyber Security and Information Assurance | Student\n\n",
+        description="Discord Administrator | BS Cyber Security and Information Assurance | Student\n\n━━━━━━━━━━━━"",
         colour=discord.Colour.dark_blue(),
     )
-    u93a9Message.add_field(
+    u03a9Message.add_field(
         name="About me",
         value="I transitioned into the IT realm in late 2018 after spending nearly a decade working in retail sales. I worked for RadioShack, Verizon, Sprint, AT&T, and other various cellular authorized retailers from 2008 to 2018. I got my start on a Help Desk with a Google Support Professional certificate I earned from Coursera. I had the unique opportunity to put my hands on a lot of systems and act as a Jr. Systems Administrator early on in my career. In addition, I stumbled across a documentary about Stuxnet and immediately became fascinated with Cyber Security. I spent 2 years self studying additional Computer Science, Cyber Law, Cyber Security, and .\n\n━━━━━",
         inline=False,
     )
-    u93a9Message.add_field(
+    u03a9Message.add_field(
         name="Q: I'm new to Discord, where can I learn more about it?",
         value="A: You can find additional information about Discord [here](https://support.discord.com/hc/en-us/categories/115000217151 'https://support.discord.com/hc/en-us/categories/115000217151').\n\n━━━━━",
         inline=False,

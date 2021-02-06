@@ -432,10 +432,10 @@ class peregrine(discord.Client):
 
             return
 
-        if message.content.startswith("!sosintro"):
+        if message.content.startswith("!simeonintro"):
 
             try:
-                print("Event triggered: !sosintro\n   Member: {}\n".format(message.author))
+                print("Event triggered: !simeonintro\n   Member: {}\n".format(message.author))
                 sos_embedded_message = await wgu_sos_intro_embed()
                 await message.channel.send(embed=sos_embedded_message)
 

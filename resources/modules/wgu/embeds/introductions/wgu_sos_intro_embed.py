@@ -11,7 +11,7 @@ async def wgu_sos_intro_embed():
 
     sosMessage = discord.Embed(
         title="",
-        description="Discord Community Moderator | Cyber Security Professional and Automation Enthusiast | BSCSIA\n━━━━━",
+        description="Discord Community Moderator\n*Cyber Security Professional and Automation Enthusiast | BSCSIA*\n━━━━━",
         colour=discord.Colour.dark_blue(),
     )
 

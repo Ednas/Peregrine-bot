@@ -40,11 +40,11 @@ async def wgu_sos_intro_embed():
         text="This is a club member run Discord officially sponsored by Western Governors University. All interactions on this server are logged. All users agree to the Discord Terms of Service"
     )
     sosMessage.set_thumbnail(
-        url="https://media-exp1.licdn.com/dms/image/C4E35AQEN1_1SZLjf1g/profile-framedphoto-shrink_200_200/0/1611702743840?e=1612663200&v=beta&t=47cw5yMapS1aue9fSngg_tA-vr7f1ZuclQIFenbYSig"
+        url="https://cdn.discordapp.com/attachments/756294909564289084/807437710779744266/4913771.png"
     )
     sosMessage.set_author(
         name="U03A9 | jsherl1",
-        icon_url="https://cdn.discordapp.com/avatars/592047479168565272/a_f4ead966c2e7d7ba26bd525a492b21db.gif",
+        icon_url="https://cdn.discordapp.com/attachments/756294909564289084/807437710779744266/4913771.png",
     )
 
     return sosMessage

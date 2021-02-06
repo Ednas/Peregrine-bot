@@ -13,10 +13,10 @@ async def wgu_u03a9_intro_embed():
         description="Discord Community Administrator\n*CTF Enthusiast | BSCSIA*\n━━━━━",
         colour=discord.Colour.dark_blue(),
     )
-    u03a9Message = discord.Embed(
-        title="Tell us a little bit about yourself",
-        description="I transitioned into the IT realm in late 2018 after spending nearly a decade working in retail sales. I worked for RadioShack, Verizon, Sprint, AT&T, and other various cellular authorized retailers from 2008 to 2018. I got my start on a Help Desk with a Google Support Professional certificate I earned from Coursera. I had the unique opportunity to put my hands on a lot of systems and act as a Jr. Systems Administrator early on in my career. In addition, I stumbled across a documentary about Stuxnet and immediately became fascinated with Cyber Security. I spent 2 years self studying additional Computer Science, Cyber Law, Cyber Security, and chose to start pursuing a degree at 29 years old.\n━━━━━",
-        colour=discord.Colour.dark_blue(),
+    u03a9Message.add_field(
+        name="Tell us a little bit about yourself",
+        value="I transitioned into the IT realm in late 2018 after spending nearly a decade working in retail sales. I worked for RadioShack, Verizon, Sprint, AT&T, and other various cellular authorized retailers from 2008 to 2018. I got my start on a Help Desk with a Google Support Professional certificate I earned from Coursera. I had the unique opportunity to put my hands on a lot of systems and act as a Jr. Systems Administrator early on in my career. In addition, I stumbled across a documentary about Stuxnet and immediately became fascinated with Cyber Security. I spent 2 years self studying additional Computer Science, Cyber Law, Cyber Security, and chose to start pursuing a degree at 29 years old.\n━━━━━",
+        inline=False,
     )
     u03a9Message.add_field(
         name="Why did you choose WGU?",

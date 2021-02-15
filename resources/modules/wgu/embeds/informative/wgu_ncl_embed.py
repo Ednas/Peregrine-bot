@@ -20,7 +20,7 @@ async def wgu_ncl_embed():
     )
     nclMessage.add_field(
         name="Gymnasium - February 15th - May 28th",
-        value="The Gymnasium will be where you test your skills. We encourage everyone to spend time in the Gymnasium and will have dedicated streams among participants hosted by <@592047479168565272>\n\n   ┕ Fridays from 5:00PM - 7:00PM PST\n   ┕ Sundays from 1:00PM - 3:00PM PST\n\n━━━━━",
+        value="The Gymnasium will be where you test your skills. We encourage everyone to spend time in the Gymnasium and will have dedicated streams among participants hosted by <@592047479168565272>\n\n   ┕ Wednesdays from 6:00PM - 8:00PM PST\n   ┕ Sundays from 1:00PM - 3:00PM PST\n\n━━━━━",
         inline=False,
     )
     nclMessage.add_field(

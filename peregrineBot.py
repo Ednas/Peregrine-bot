@@ -520,6 +520,7 @@ class peregrine(discord.Client):
                 print("    ┕ New Nickname is: {}".format(new_nickname))
 
             else:
+                bad_domain = await wgu_email_bad_domain.py
                 await message.channel.send(embed=bad_domain)
                 # No logging here to stop attempts at flooding the feed
 

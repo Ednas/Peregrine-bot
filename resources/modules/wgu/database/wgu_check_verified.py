@@ -11,7 +11,7 @@ async def wgu_check_verified(dst_email, conx):
     veri = bool(len(result) == 0)
 
     cursor = conx.cursor()
-    sql = "SELECT * FROM auth WHERE email LIKE '%s%'"
+    sql = "SELECT * FROM auth WHERE email LIKE %s%"
     val = (dst_email.split("@")[0], )
     cursor.execute(sql, val)
     result = cursor.fetchall()

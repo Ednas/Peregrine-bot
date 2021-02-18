@@ -23,6 +23,7 @@ from resources.modules.wgu.embeds.announcements.wgu_monthly_club_meeting_embed i
 from resources.modules.wgu.embeds.direct.wgu_send_email_embed import *
 from resources.modules.wgu.embeds.direct.wgu_email_already_verified_embed import *
 from resources.modules.wgu.embeds.direct.wgu_user_verified_success_embed import *
+from resources.modules.wgu.embeds.direct.wgu_email_bad_domain import *
 
 # Import embed modules for informative embeds
 
@@ -452,74 +453,75 @@ class peregrine(discord.Client):
 ##########################                       ##########################
 
         if message.content.startswith("!email"):
-                        
-            # Set up other variables
-
-            conx = connect()
             dst_email = message.content.split(' ')[-1]
-            code = []
-            for _ in range(6):
-                code.append(str(random.randint(0,9)))
-            code = ''.join(code)
-            expiry = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')
-            username = str(message.channel.recipient)
 
-            # Set up log variables
+            # Check domain, allow wgu domains to begin verification
+            if dst_email.endswith("wgu.edu"):
+                # Set up other variables
+                conx = connect()
+                code = []
+                for _ in range(6):
+                    code.append(str(random.randint(0,9)))
+                code = ''.join(code)
+                expiry = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')
+                username = str(message.channel.recipient)
 
-            user_email = message.content.split(' ')[-1]
-            wgu_user = str(dst_email).split('@')
-            discord_user = str(username).split('#')
+                # Set up log variables
+                user_email = message.content.split(' ')[-1]
+                wgu_user = str(dst_email).split('@')
+                discord_user = str(username).split('#')
 
-            # Generate new user nickname
+                # Generate new user nickname
+                new_nick_part_one = discord_user[0][0:18]
+                new_nick_part_two = wgu_user[0]
+                new_nickname = "{} | {}".format(new_nick_part_one, new_nick_part_two)
 
-            new_nick_part_one = discord_user[0][0:18]
-            new_nick_part_two = wgu_user[0]
-            new_nickname = "{} | {}".format(new_nick_part_one, new_nick_part_two)
-           
-            # Get necessary role information
-            
-            guild = self.get_guild(int(GUILD_ID))
-            member = discord.utils.find(lambda m : m.id == message.channel.recipient.id, guild.members) 
+                # Get necessary role information
+                guild = self.get_guild(int(GUILD_ID))
+                member = discord.utils.find(lambda m : m.id == message.channel.recipient.id, guild.members)
 
-            # Print to console
+                # Print to console
+                print("Verification triggered by: {} for guild {}\n   Code is: {}\n   Email is: {}\n   New Nickname is: {}".format(str(member.id), str(member.guild), str(code), str(message.content.split(' ')[-1]), str(new_nickname)))
 
-            print("Verification triggered by: {} for guild {}\n   Code is: {}\n   Email is: {}\n   New Nickname is: {}".format(str(member.id), str(member.guild), str(code), str(message.content.split(' ')[-1]), str(new_nickname)))
-            
-            if bool(await wgu_check_verified(dst_email, conx)):
-                await wgu_set_record(dst_email, username, code, expiry, conx)
-                await wgu_send_email(code, dst_email, SRC_EMAIL, EMAIL_PASS)
-                                
-                # Alert user that an email has been sent
+                if bool(await wgu_check_verified(dst_email, conx)):
+                    await wgu_set_record(dst_email, username, code, expiry, conx)
+                    await wgu_send_email(code, dst_email, SRC_EMAIL, EMAIL_PASS)
 
-                email_message = await wgu_send_email_embed(dst_email, wgu_user)
-                await message.channel.send(embed=email_message)
-                    
-                # Set user nickname
+                    # Alert user that an email has been sent
 
-                await member.edit(nick=new_nickname)
-            
-            else:
+                    email_message = await wgu_send_email_embed(dst_email, wgu_user)
+                    await message.channel.send(embed=email_message)
 
-                # Alert user that email has already been verified
+                    # Set user nickname
 
-                    already_verified_message = await wgu_email_already_verified_embed(dst_email, wgu_user)
-                    await message.channel.send(embed=already_verified_message)
                     await member.edit(nick=new_nickname)
 
-            # Log information
+                else:
 
-            # Set log channel
+                    # Alert user that email has already been verified
 
-            channel = channel = self.get_channel(int(LOG_CHANNEL))
+                        already_verified_message = await wgu_email_already_verified_embed(dst_email, wgu_user)
+                        await message.channel.send(embed=already_verified_message)
+                        await member.edit(nick=new_nickname)
 
-            log_message = await wgu_verify_log_embed(user_email, wgu_user, discord_user, new_nickname, code, message)
-            await channel.send(embed=log_message)
+                # Log information
 
-            print("Email verification triggered. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
-            print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
-            print("    ┕ WGU user is: {}".format(wgu_user[0]))
-            print("    ┕ Discord Username: {}".format(discord_user[0]))     
-            print("    ┕ New Nickname is: {}".format(new_nickname))        
+                # Set log channel
+
+                channel = channel = self.get_channel(int(LOG_CHANNEL))
+
+                log_message = await wgu_verify_log_embed(user_email, wgu_user, discord_user, new_nickname, code, message)
+                await channel.send(embed=log_message)
+
+                print("Email verification triggered. Submitted message is: {}\n from: {}".format(message.content, message.author.id))
+                print("    ┕ Email is: {}".format(message.content.split(' ')[-1]))
+                print("    ┕ WGU user is: {}".format(wgu_user[0]))
+                print("    ┕ Discord Username: {}".format(discord_user[0]))
+                print("    ┕ New Nickname is: {}".format(new_nickname))
+
+            else:
+                await message.channel.send(embed=bad_domain)
+                # No logging here to stop attempts at flooding the feed
 
         if message.content.startswith("!verify"):
 

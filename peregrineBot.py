@@ -454,6 +454,8 @@ class peregrine(discord.Client):
 
         if message.content.startswith("!email"):
             dst_email = message.content.split(' ')[-1]
+            username = str(message.channel.recipient)
+            discord_user = str(username).split('#')
 
             # Check domain, allow wgu domains to begin verification
             if dst_email.endswith("wgu.edu"):

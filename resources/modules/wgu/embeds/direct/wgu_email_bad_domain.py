@@ -11,7 +11,7 @@ async def wgu_email_bad_domain(dst_email, discord_user):
 
     bad_domainMessage = discord.Embed(
         title="This email's domain isn't from WGU!",
-        description="Hello, {}!\n\nThe email address {} doesn't contain a WGU domain.\n\n\nIf you believe this is a mistake, please contact a moderator in [#verification-support](https://discordapp.com/channels/688822375327989875/768993144380981248)".format(discord_user[0][0:24], user_email),
+        description="Hello, {}!\n\nThe email address {} doesn't contain a WGU domain.\n\n\nIf you believe this is a mistake, please contact a moderator in [#verification-support](https://discordapp.com/channels/688822375327989875/768993144380981248)".format(discord_user[0][0:24], dst_email),
         colour=discord.Colour.dark_blue(),
     )
 

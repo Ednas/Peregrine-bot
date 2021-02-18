@@ -5,7 +5,7 @@ import discord
 from discord.ext import commands
 
 
-async def wgu_email_bad_domain(user_email, discord_user):
+async def wgu_email_bad_domain(dst_email, discord_user):
 
     # Set initial message here
 

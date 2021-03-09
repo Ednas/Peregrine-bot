@@ -276,7 +276,7 @@ class peregrine(discord.Client):
                 print("Email submitted is: {}".format(email))
                 conx = connect()
                 sqlcheckverified_embedded_message = await wgu_sqlcheckverified(self, email, conx)
-                send_sqlcheckverified_message = await message.channel.send(embed=sqlcheckverified_embedded_message)
+                send_sqlcheckverified_message = await message.channel.send(content=sqlcheckverified_embedded_message)
 
 
             except Exception as e:

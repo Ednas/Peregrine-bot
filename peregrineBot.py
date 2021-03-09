@@ -1,11 +1,10 @@
-#!/bin/python3
+#!usr/bin/python3
 
 # Import core modules and dependencies
 
 import os
 import random
 from datetime import datetime, timedelta
-import discord
 from dotenv import load_dotenv
 import smtplib
 import ssl
@@ -61,6 +60,7 @@ from resources.modules.wgu.usermanagement.onboarding.wgu_set_user_nick_on_join i
 # Import user management modules for verification
 from resources.modules.wgu.usermanagement.verification.wgu_send_verification_dm import *
 from resources.modules.wgu.usermanagement.verification.wgu_sqlcheckverified import *
+from resources.modules.wgu.usermanagement.verification.wgu_sqlclearverified import *
 
 # Import user management modules for self roles
 from resources.modules.wgu.usermanagement.roles.wgu_enrollment_status_self_role import *

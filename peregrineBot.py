@@ -273,6 +273,7 @@ class peregrine(discord.Client):
                 print("Event triggered: !sqlcheckverified\n   Member: {}\n".format(message.author))
 
                 email = message.content.split(' ')[-1]
+                print("Email submitted is: {}".format(email))
                 conx = connect()
                 sqlcheckverified_embedded_message = await wgu_sqlcheckverified(self, email, conx)
                 send_sqlcheckverified_message = await message.channel.send(embed=sqlcheckverified_embedded_message)

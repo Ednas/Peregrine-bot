@@ -60,6 +60,7 @@ from resources.modules.wgu.usermanagement.onboarding.wgu_set_user_nick_on_join i
 
 # Import user management modules for verification
 from resources.modules.wgu.usermanagement.verification.wgu_send_verification_dm import *
+from resources.modules.wgu.usermanagement.verification.wgu_sqlcheckverified import *
 
 # Import user management modules for self roles
 from resources.modules.wgu.usermanagement.roles.wgu_enrollment_status_self_role import *
@@ -262,6 +263,54 @@ class peregrine(discord.Client):
 
         if message.author.id == self.user.id:
             return
+
+        # Commands for querying and interacting with the SQL database
+
+        if message.content.startswith("!sqlcheckverified"):
+
+            try:
+
+                print("Event triggered: !sqlcheckverified\n   Member: {}\n".format(message.author))
+
+                conx = connect()
+                sqlcheckverified_embedded_message = await wgu_sqlcheckverified(self, message, conx)
+                send_sqlcheckverified_message = await message.channel.send(embed=sqlcheckverified_embedded_message)
+
+
+            except Exception as e:
+
+                # Set log channel
+
+                channel = channel = self.get_channel(int(LOG_CHANNEL))
+
+                print(e)
+                error_message = "Could not process !verify command.\n"
+                await message.channel.send(content=error_message)
+
+            return
+        
+        if message.content.startswith("!sqlclearemail"):
+
+            try:
+
+                print("Event triggered: !verify\n   Member: {}\n".format(message.author))
+
+                sqlclearemail_embedded_message = await wgu_sqlclearemail()
+                send_verification_message = await message.channel.send(embed=sqlclearemail_embedded_message)
+
+            except Exception as e:
+
+                # Set log channel
+
+                channel = channel = self.get_channel(int(LOG_CHANNEL))
+
+                print(e)
+                error_message = "Could not process !verify command.\n"
+                await message.channel.send(content=error_message)
+
+            return
+
+
 
         # Channel commands are listed below
 

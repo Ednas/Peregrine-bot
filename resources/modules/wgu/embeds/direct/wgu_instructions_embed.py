@@ -1,4 +1,6 @@
-async def wgu_instructions_embed(self, member):
+import discord
+
+async def wgu_instructions_embed(member):
 
     instructionsEmbed = discord.Embed(
         title="Verification Instructions",
@@ -8,7 +10,7 @@ async def wgu_instructions_embed(self, member):
             \nIf you have submitted the wrong email address or have a type, you can reset the bot and resend the email by issueing the\
             `!delete`\ command followed by the email address you submitted. Afterwards, you can resubmit by reissuing the !email command\
             \n\n If you require support, please visit the verification-support channel located in the welcome area. Refer to the embed\
-            in welcome for further details",
+            in welcome for further details".format(member),
         colour=discord.Colour.dark_blue(),
         )
 

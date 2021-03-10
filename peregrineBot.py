@@ -45,10 +45,6 @@ from resources.modules.wgu.usermanagement.verification.wgu_send_verification_dm 
 from resources.modules.wgu.usermanagement.verification.wgu_sqlcheckverified import *
 from resources.modules.wgu.usermanagement.verification.wgu_sqlclearverified import *
 
-# Import user management modules for self roles
-from resources.modules.wgu.usermanagement.roles.wgu_enrollment_status_self_role import *
-from resources.modules.wgu.usermanagement.roles.wgu_subscription_self_role import *
-
 # Import hybrid analysis modules
 
 from resources.modules.hybridanalysis import *
@@ -168,7 +164,7 @@ class peregrine(discord.Client):
 
             member = discord.Member
 
-            wgu_instructions_message = await wgu_instructions_embed(self, member)
+            wgu_instructions_message = await wgu_instructions_embed(member)
             await member.send(embed=wgu_instructions_message)
 
             return

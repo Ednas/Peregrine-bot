@@ -13,30 +13,13 @@ import discord
 from discord.ext import commands
 from resources.peregrineCore.start_peregrine import start_peregrine
 
-# Import embed modules for announcement embeds
-
-from resources.modules.wgu.embeds.announcements.wgu_monthly_club_meeting_embed import *
-
 # Import embed modules for direct messages
 
 from resources.modules.wgu.embeds.direct.wgu_send_email_embed import *
 from resources.modules.wgu.embeds.direct.wgu_email_already_verified_embed import *
 from resources.modules.wgu.embeds.direct.wgu_user_verified_success_embed import *
 from resources.modules.wgu.embeds.direct.wgu_email_bad_domain import *
-
-# Import embed modules for informative embeds
-
-from resources.modules.wgu.embeds.informative.wgu_certifications_embed import *
-from resources.modules.wgu.embeds.informative.wgu_faq_embed import *
-from resources.modules.wgu.embeds.informative.wgu_resources_embed import *
-from resources.modules.wgu.embeds.informative.wgu_roles_embed import *
-from resources.modules.wgu.embeds.informative.wgu_htb_embed import *
-from resources.modules.wgu.embeds.informative.wgu_ncl_embed import *
-
-# Import ebed modules for reactive embeds
-
-from resources.modules.wgu.embeds.reactionary.wgu_subscription_embed import *
-from resources.modules.wgu.embeds.reactionary.wgu_verification_embed import *
+from resources.modules.wgu.embeds.direct.wgu_instructions_embed import *
 
 # Import embed modules for log embeds
 
@@ -65,10 +48,6 @@ from resources.modules.wgu.usermanagement.verification.wgu_sqlclearverified impo
 # Import user management modules for self roles
 from resources.modules.wgu.usermanagement.roles.wgu_enrollment_status_self_role import *
 from resources.modules.wgu.usermanagement.roles.wgu_subscription_self_role import *
-
-# Import embed mods for introductions
-from resources.modules.wgu.embeds.introductions.wgu_u03a9_intro_embed import *
-from resources.modules.wgu.embeds.introductions.wgu_sos_intro_embed import *
 
 # Import hybrid analysis modules
 
@@ -164,69 +143,8 @@ class peregrine(discord.Client):
 
         await wgu_set_unverified_on_new_join(member, channel)
         await wgu_set_user_nick_on_join(member, channel)
-
-    async def on_member_remove(self, member):
-
-        # Set log channel
-
-        channel = self.get_channel(int(LOG_CHANNEL))
-
-        # Alert console of member leaving and push to log channel
-
-        on_member_leave_message = "Event triggered: Member removed\n   Member: {}".format(
-            member
-        )
-
-        print(on_member_leave_message)
-        await channel.send(content=on_member_leave_message)
-
+        
     async def on_raw_reaction_add(self, payload):
-
-        if str(payload.message_id) == str(ENROLLMENT_MESSAGE):
-            
-            print("Triggering enrollment self role reaction")
-            
-            # Set log channel
-
-            channel = channel = self.get_channel(int(LOG_CHANNEL))
-            print("Log channel set")
-            
-            # Alert console of member leaving and push to log channel
-
-            on_reaction_add_enrollment_role_alert = (
-                "Event triggered: Member self role assignment\n   Member: {}".format(payload.member)
-            )
-
-            print(on_reaction_add_enrollment_role_alert)
-            await channel.send(content=on_reaction_add_enrollment_role_alert)
-
-            # Initiate enrollment self role process
-
-            await wgu_enrollment_status_self_role(self, payload, STUDENT_EMOJI, ALUMNI_EMOJI, GUILD_ID)
-            return
-
-        if str(payload.message_id) == str(SUBSCRIPTION_MESSAGE):
-            
-            print("Triggering subscription self role")
-            
-            # Set log channel
-
-            channel = channel = self.get_channel(int(LOG_CHANNEL))
-            print("Log channel set")
-            
-            # Alert console of member leaving and push to log channel
-
-            on_reaction_add_enrollment_role_alert = (
-                "Event triggered: Member self role assignment\n   Member: {}".format(payload.member)
-            )
-
-            print(on_reaction_add_enrollment_role_alert)
-            await channel.send(content=on_reaction_add_enrollment_role_alert)
-
-            # Initiate enrollment self role process
-
-            await wgu_subscription_self_role(self, payload, CCDC_SUB_EMOJI, NICE_SUB_EMOJI, CTF_SUB_EMOJI, HTB_SUB_EMOJI, THM_SUB_EMOJI, OTW_SUB_EMOJI, NCL_SUB_EMOJI, FOREIGN_SUB_EMOJI, GUILD_ID)
-            return
 
         if str(payload.message_id) == str(VERIFICATION_MESSAGE):
             
@@ -248,7 +166,10 @@ class peregrine(discord.Client):
 
             # Initiate email verification process
 
-            await wgu_send_verification_dm(self, payload, VERIFICATION_MESSAGE, VERIFICATION_EMOJI, DM_MESSAGE)
+            member = discord.Member
+
+            wgu_instructions_message = await wgu_instructions_embed(self, member)
+            await member.send(embed=wgu_instructions_message)
 
             return
 
@@ -312,192 +233,6 @@ class peregrine(discord.Client):
 
             return
 
-
-
-        # Channel commands are listed below
-
-
-        if message.content.startswith("!verembed"):
-
-            try:
-
-                print("Event triggered: !verify\n   Member: {}\n".format(message.author))
-
-                verification_instructions_embedded_message = await wgu_verification_embed()
-                send_verification_message = await message.channel.send(embed=verification_instructions_embedded_message)
-
-                # Add initial reaction
-
-                emoji_for_verification = "✅"
-                await send_verification_message.add_reaction(emoji_for_verification)
-
-            except Exception as e:
-
-                # Set log channel
-
-                channel = channel = self.get_channel(int(LOG_CHANNEL))
-
-                print(e)
-                error_message = "Could not process !verify command.\n"
-                await message.channel.send(content=error_message)
-
-            return
-
-        if message.content.startswith("!subembed"):
-
-            try:
-
-                print("Event triggered: !subembed\n   Member: {}\n".format(message.author))
-                
-                sub_embedded_message = await wgu_subscription_embed()
-                sub_embed_message = await message.channel.send(embed=sub_embedded_message)
-                
-                # Add initial reaction
-
-                for emoji in ('🛡️', '🎞️', '🚩', '🔳', '📮', '🔌', '💎', '📰'):
-                    await sub_embed_message.add_reaction(emoji)
-            
-            except Exception as e:
-
-                print(e)
-                error_message = "Could not process !subembed command.\n"
-                await message.channel.send(content=error_message)
-
-            return
-
-        if message.content.startswith("!rolesembed"):
-
-            try:
-
-                print("Event triggered: !rolesembed\n   Member: {}\n".format(message.author))
-                
-                roles_embedded_message = await wgu_roles_embed()
-                roles_embed_message = await message.channel.send(embed=roles_embedded_message)
-                
-                # Add initial reaction
-
-                for emoji in ('👨‍🎓', '🎓'):
-                    await roles_embed_message.add_reaction(emoji)
-            
-            except Exception as e:
-
-                print(e)
-                error_message = "Could not process !rolesembed command.\n"
-                await message.channel.send(content=error_message)
-
-            return
-            
-        if message.content.startswith("!certsembed"):
-
-            try:
-
-                print("Event triggered: !certs\n   Member: {}\n".format(message.author))
-                certification_instructions_embedded_message = await wgu_certifications_embed()
-                await message.channel.send(embed=certification_instructions_embedded_message)
-
-            except Exception as e:
-
-                print(e)
-                error_message = "Could not process !certs command.\n"
-                await message.channel.send(content=error_message)
-
-            return
-
-        if message.content.startswith("!faqembed"):
-
-            try:
-
-                print("Event triggered: !faq\n   Member: {}\n".format(message.author))
-                faq_embedded_message = await wgu_faq_embed()
-                await channel.send(embed=faq_embedded_message)
-
-            except Exception as e:
-
-                print(e)
-                error_message = "Could not process !faq command.\n"
-                await channel.send(content=error_message)
-
-            return
-
-        if message.content.startswith("!resourcesembed"):
-
-            try:
-
-                print(
-                    "Event triggered: !resources\n   Member: {}\n".format(
-                        message.author
-                    )
-                )
-                resources_embedded_message = await wgu_resources_embed()
-                await message.channel.send(embed=resources_embedded_message)
-
-            except Exception as e:
-
-                print(e)
-                error_message = "Could not process !resources command.\n"
-                await message.channel.send(content=error_message)
-
-            return
-
-        if message.content.startswith("!htbembed"):
-
-            try:
-                print("Event triggered: !htbembd\n   Member: {}\n".format(message.author))
-                htb_embedded_message = await wgu_htb_embed()
-                await message.channel.send(embed=htb_embedded_message)
-
-            except Exception as e:
-
-                print(e)
-                error_message = "Could not process !htbembed command.\n"
-                await message.channel.send(content=error_message)
-
-            return
-
-        if message.content.startswith("!nclembed"):
-
-            try:
-                print("Event triggered: !nclembed\n   Member: {}\n".format(message.author))
-                ncl_embedded_message = await wgu_ncl_embed()
-                await message.channel.send(embed=ncl_embedded_message)
-
-            except Exception as e:
-
-                print(e)
-                error_message = "Could not process !nclembed command.\n"
-                await message.channel.send(content=error_message)
-
-            return
-            
-        if message.content.startswith("!u03a9intro"):
-
-            try:
-                print("Event triggered: !u03a9intro\n   Member: {}\n".format(message.author))
-                u03a9_embedded_message = await wgu_u03a9_intro_embed()
-                await message.channel.send(embed=u03a9_embedded_message)
-
-            except Exception as e:
-
-                print(e)
-                error_message = "Could not process !u03a9intro command.\n"
-                await message.channel.send(content=error_message)
-
-            return
-
-        if message.content.startswith("!simeonintro"):
-
-            try:
-                print("Event triggered: !simeonintro\n   Member: {}\n".format(message.author))
-                sos_embedded_message = await wgu_sos_intro_embed()
-                await message.channel.send(embed=sos_embedded_message)
-
-            except Exception as e:
-
-                print(e)
-                error_message = "Could not process !sosintro command.\n"
-                await message.channel.send(content=error_message)
-
-            return
 ########################## VERIFICATION  SECTION ##########################
 ##########################                       ##########################
 ##########################                       ##########################

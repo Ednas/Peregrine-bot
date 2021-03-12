@@ -7,7 +7,7 @@ async def command_sql_check_unver_embed(issuer_name, email, guild_name):
     verify_log_message = discord.Embed(
         title="Database results",
         description=f"Hello, {issuer_name}\n\nThe database does not contain an entry for: {email}\n\n\
-            This user has not initiated the verification process. Please instruct them to do so.\n\
+            This user has not initiated the verification process. Please instruct them to do so.\
                 \n\nIssued in: {guild_name}",
         colour=discord.Colour.dark_blue(),
     )

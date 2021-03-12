@@ -190,6 +190,7 @@ async def email(ctx, user_email):
         member = discord.utils.find(lambda m : m.id == ctx.message.channel.recipient.id, guild.members)
         await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
         await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
+        await member.edit(nick=email_check_result[0][3])
 
         # Send message to alert them that they have been verified
 
@@ -224,10 +225,10 @@ async def verify(ctx, submitted_auth_code):
 
     print(f"Submitted pin is: {submitted_auth_code}")
 
-    auth_check_results = await database_check_verification_pin(await peregrine_connect_database(
+    auth_check_result = await database_check_verification_pin(await peregrine_connect_database(
         DB_IPV4, DB_USER, DB_PASS, DB_NAME), ctx.author.id, submitted_auth_code)
 
-    if auth_check_results is True:
+    if auth_check_result is True:
 
         # Push user information from auth table to verified table
 
@@ -240,12 +241,13 @@ async def verify(ctx, submitted_auth_code):
         member = discord.utils.find(lambda m : m.id == ctx.message.channel.recipient.id, guild.members)
         await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
         await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
+        await member.edit(nick=auth_check_result[0][3])
 
         # Send message to alert them that they have been verified
 
         await ctx.send(embed=await wgu_verification_successful_embed(ctx.author.name))
 
-    if auth_check_results is False:
+    if auth_check_result is False:
         await ctx.send(embed=await wgu_verification_invalid_code_embed(submitted_auth_code))
 
 # Moderation management commands

@@ -33,7 +33,7 @@ async def database_push_to_verified(database_connection, discord_id):
     # Remove entry in the auth database
 
     cursor = database_connection.cursor()
-    sql_query = "DELETE FROM auth (DiscordID) VALUES (%s)"
+    sql_query = "DELETE FROM auth WHERE DiscordID LIKE %s"
     parameterized_values = (discord_id, )
     cursor.execute(sql_query, parameterized_values)
     database_connection.commit() 

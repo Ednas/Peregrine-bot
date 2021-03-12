@@ -34,6 +34,10 @@ from modules.wgu.embeds.command_email_triggered_embed import command_email_trigg
 from modules.wgu.embeds.command_status_triggered_embed import command_status_triggered_embed
 from modules.wgu.embeds.command_verify_triggered_embed import command_verify_triggered_embed
 from modules.wgu.embeds.wgu_ver_reaction_embed import wgu_ver_reaction_embed
+from modules.wgu.embeds.command_sql_triggered_embed import command_sql_triggered_embed
+from modules.wgu.embeds.command_sql_check_ver_embed import command_sql_check_ver_embed
+from modules.wgu.embeds.command_sql_check_auth_embed import command_sql_check_auth_embed
+from modules.wgu.embeds.command_sql_check_unver_embed import command_sql_check_unver_embed
 
 # Import environment variables
 
@@ -191,11 +195,6 @@ async def email(ctx, user_email):
     email_check_result = await database_check_existing_records(
         await peregrine_connect_database(DB_IPV4, DB_USER, DB_PASS, DB_NAME), user_email)
 
-    print(f"Sanity! Printing out results of auth_check_result:\n\
-        \tFirst: {str(email_check_result[0])}\n\
-        \tSecond: {str(email_check_result[1])}\n\
-        \tThird: {str(email_check_result[2])}\n")
-
     # Send message to alert member this email is already verified
 
     if bool(email_check_result[0]) is True and bool(email_check_result[1]) is False and str(
@@ -208,11 +207,14 @@ async def email(ctx, user_email):
          guild.members)
         await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
         await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
-        await member.edit(nick=str(email_check_result[3]))
 
         # Send message to alert them that they have been verified
 
         await ctx.send(embed=await wgu_ver_successful_embed(ctx.author.name))
+
+        # Set user nickname
+
+        await member.edit(nick=str(email_check_result[5]))
 
     if bool(email_check_result[0]) is False and bool(email_check_result[1]) is True and str(
         email_check_result[2]) != str(ctx.author.id):
@@ -265,26 +267,56 @@ async def verify(ctx, submitted_auth_code):
 
         # Set member to verified
 
-        print(f"Sanity! Printing out results of auth_check_result:\n\
-            \tFirst: {str(auth_check_result[0])}\n\
-            \tSecond: {str(auth_check_result[1])}\n\
-            \tThird: {str(auth_check_result[2])}\n")
-
         guild = peregrine.get_guild(int(GUILD_ID))
         member = discord.utils.find(lambda m : m.id == ctx.message.channel.recipient.id,
          guild.members)
         await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
         await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
-        await member.edit(nick=str(auth_check_result[2]))
 
         # Send message to alert them that they have been verified
 
         await ctx.send(embed=await wgu_ver_successful_embed(ctx.author.name))
 
+        # Set user nickname
+
+        await member.edit(nick=str(auth_check_result[2]))
+
     if auth_check_result is False:
         await ctx.send(embed=await wgu_ver_invalid_code_embed(submitted_auth_code))
 
 # Moderation management commands
+
+@peregrine.command(name="sql", description="Contains various actions to perform on the SQL database")
+@commands.has_any_role("Administrator","Moderator")
+async def sql(ctx, action, submitted_email):
+    '''This function interacts with the sql database to report to moderators'''
+
+    # Set log channel
+
+    channel = peregrine.get_channel(int(LOG_CHANNEL))
+    await channel.send(embed= await command_sql_triggered_embed(ctx.author.name, ctx.guild,
+     ctx.author.id, action, submitted_email))
+
+    # Check database for requested email
+
+    if str(action) == "check":
+
+        sql_check_result = await database_check_existing_records(await peregrine_connect_database(
+            DB_IPV4, DB_USER, DB_PASS, DB_NAME), submitted_email)
+
+        if bool(sql_check_result[0]) is True and bool(sql_check_result[1]) is False:
+
+            await ctx.channel.send(embed= await command_sql_check_ver_embed(ctx.author.name, submitted_email,
+            sql_check_result[4], sql_check_result[5], sql_check_result[3], ctx.guild))
+
+        if bool(sql_check_result[0]) is False and bool(sql_check_result[1]) is True:
+            await ctx.channel.send(embed= await command_sql_check_auth_embed(ctx.author.name, submitted_email,
+            sql_check_result[4], sql_check_result[5], sql_check_result[3], ctx.guild))
+
+        if bool(sql_check_result[0]) is False and bool(sql_check_result[1]) is False:
+            await ctx.channel.send(embed= await command_sql_check_unver_embed(ctx.author.name, submitted_email, ctx.guild))
+ 
+
 
 # Administrator management commands
 

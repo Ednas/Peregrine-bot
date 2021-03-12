@@ -4,7 +4,7 @@ async def database_check_existing_records(database_connection, user_email):
     # Execute SQL query
 
     cursor = database_connection.cursor()
-    sql_query = "SELECT Email, DiscordID, AuthDate, DiscordNickname FROM verified WHERE email = %s"
+    sql_query = "SELECT Email, DiscordID, VerifiedDate, DiscordNickname FROM verified WHERE email = %s"
     parameterized_values = (user_email, )
     cursor.execute(sql_query, parameterized_values)
     query_results = cursor.fetchall()
@@ -14,12 +14,13 @@ async def database_check_existing_records(database_connection, user_email):
         if bool(str(query_results[0][0]) == str(user_email)) is True:
             
             print(f"Submitted email exists in the verified database")
-            return bool(True), bool(False), str(query_results[0][1]), str(query_results[0][3])
+            return bool(True), bool(False), str(query_results[0][0]), str(
+                    query_results[0][1]), str(query_results[0][2]), str(query_results[0][3])
 
     if bool(len(query_results) == 0) is True:
 
         cursor = database_connection.cursor()
-        sql_query = "SELECT Email, DiscordID, AuthDate, DiscordNickname FROM auth WHERE email = %s"
+        sql_query = "SELECT Email, DiscordID, AuthDate, DiscordNickname, Expiration FROM auth WHERE email = %s"
         parameterized_values = (user_email, )
         cursor.execute(sql_query, parameterized_values)
         query_results = cursor.fetchall()
@@ -29,7 +30,9 @@ async def database_check_existing_records(database_connection, user_email):
             if bool(str(query_results[0][0]) == str(user_email)) is True:
 
                 print (f"Submitted email exists in the auth database")
-                return bool(False), bool(True), str(query_results[0][1]), str(query_results[0][3])
+                return bool(False), bool(True), str(query_results[0][0]), str(
+                    query_results[0][1]), str(query_results[0][2]), str(
+                        query_results[0][3]), str(query_results[0][4])
 
         if bool(len(query_results) == 0) is True:
 

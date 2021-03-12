@@ -6,7 +6,7 @@ async def command_email_triggered_embed(issuer_name, guild_name, user_id, user_e
 
     email_log_message = discord.Embed(
         title="Command triggered",
-        description=f"Command triggered: `!email`\n\tEmail submitted: {user_email}\n\tDiscord User: {issuer_name}\n\tUser ID: {user_id}\n\tIssued In: {guild_name}",
+        description=f"Command triggered: `!email`\nEmail submitted: {user_email}\nDiscord User: {issuer_name}\nUser ID: {user_id}\nIssued In: {guild_name}",
         colour=discord.Colour.dark_blue(),
     )
   

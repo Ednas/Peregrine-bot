@@ -5,8 +5,8 @@ async def wgu_ver_reaction_embed(issuer_name, guild_name, user_id):
     # Set initial message here
 
     email_log_message = discord.Embed(
-        title="Command triggered",
-        description=f"Verification Reaction Triggered`\n\tDiscord User: {issuer_name}\n\tUser ID: {user_id}\n\tIssued In: {guild_name}",
+        title="Verification Reaction Triggered",
+        description=f"`\nDiscord User: {issuer_name}\nUser ID: {user_id}\nIssued In: {guild_name}",
         colour=discord.Colour.dark_blue(),
     )
   

@@ -2,7 +2,7 @@ async def database_check_ver_pin(database_connection, discord_id, submitted_auth
     '''Checks if submitted pincode belongs to this discord user'''
     
     cursor = database_connection.cursor()
-    sql_query = "SELECT AuthCode, DiscordID FROM auth WHERE DiscordID = %s"
+    sql_query = "SELECT AuthCode, DiscordID, DiscordNickname FROM auth WHERE DiscordID = %s"
     parameterized_values = (discord_id, )
     cursor.execute(sql_query, parameterized_values)
     query_results = cursor.fetchall()
@@ -11,7 +11,7 @@ async def database_check_ver_pin(database_connection, discord_id, submitted_auth
         if bool(str(query_results[0][1]) == str(discord_id)) is True:
         
             print("Submitted pincode is correct")
-            return True
+            return bool(query_results[0][0]), bool(query_results[0][1]), str(query_results[0][2])
 
     else:
 

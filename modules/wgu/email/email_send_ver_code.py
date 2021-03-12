@@ -34,7 +34,7 @@ async def email_send_ver_code(database_connection, user_email, SRC_EMAIL, EMAIL_
     questions.
     """.format(discord_nick, auth_code)
 
-    email_html = open('emails/verification_email_template.html').read().format(auth_code=auth_code)
+    email_html = open('emails/verification_email_template.html').read().replace("{auth_code}", str(auth_code))
 
     p1 = MIMEText(email_text, "plain")
     p2 = MIMEText(email_html, "html")

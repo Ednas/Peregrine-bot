@@ -102,7 +102,7 @@ async def on_member_join(member):
     await member.add_roles(discord.utils.get(member.guild.roles, name="Unverified"))
 
 @peregrine.event
-async def on_raw_reaction_add(ctx, payload):
+async def on_raw_reaction_add(payload):
     '''This function tells the bot to DM people who react to the verification message'''
 
     if str(payload.message_id) == str(VERIFICATION_MESSAGE):
@@ -112,8 +112,8 @@ async def on_raw_reaction_add(ctx, payload):
         # Set log channel
 
         channel = peregrine.get_channel(int(LOG_CHANNEL))
-        await channel.send(embed=await wgu_ver_reaction_embed(ctx.author.name, ctx.guild,
-     ctx.author.id))
+        await channel.send(embed=await wgu_ver_reaction_embed(payload.member, payload.guild_id,
+     payload.user_id))
 
         # Initiate email verification process
 
@@ -191,6 +191,11 @@ async def email(ctx, user_email):
     email_check_result = await database_check_existing_records(
         await peregrine_connect_database(DB_IPV4, DB_USER, DB_PASS, DB_NAME), user_email)
 
+    print(f"Sanity! Printing out results of auth_check_result:\n\
+        \tFirst: {str(email_check_result[0])}\n\
+        \tSecond: {str(email_check_result[1])}\n\
+        \tThird: {str(email_check_result[2])}\n")
+
     # Send message to alert member this email is already verified
 
     if bool(email_check_result[0]) is True and bool(email_check_result[1]) is False and str(
@@ -203,7 +208,7 @@ async def email(ctx, user_email):
          guild.members)
         await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
         await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
-        await member.edit(nick=email_check_result[0][3])
+        await member.edit(nick=str(email_check_result[3]))
 
         # Send message to alert them that they have been verified
 
@@ -251,7 +256,7 @@ async def verify(ctx, submitted_auth_code):
     auth_check_result = await database_check_ver_pin(await peregrine_connect_database(
         DB_IPV4, DB_USER, DB_PASS, DB_NAME), ctx.author.id, submitted_auth_code)
 
-    if auth_check_result is True:
+    if auth_check_result[1] is True:
 
         # Push user information from auth table to verified table
 
@@ -260,12 +265,17 @@ async def verify(ctx, submitted_auth_code):
 
         # Set member to verified
 
+        print(f"Sanity! Printing out results of auth_check_result:\n\
+            \tFirst: {str(auth_check_result[0])}\n\
+            \tSecond: {str(auth_check_result[1])}\n\
+            \tThird: {str(auth_check_result[2])}\n")
+
         guild = peregrine.get_guild(int(GUILD_ID))
         member = discord.utils.find(lambda m : m.id == ctx.message.channel.recipient.id,
          guild.members)
         await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
         await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
-        await member.edit(nick=auth_check_result[0][3])
+        await member.edit(nick=str(auth_check_result[2]))
 
         # Send message to alert them that they have been verified
 

@@ -6,7 +6,7 @@ async def command_verify_triggered_embed(issuer_name, guild_name, user_id, pin_c
 
     verify_log_message = discord.Embed(
         title="This email has already been verified!",
-        description=f"Command triggered: `!verify`\n\tEmail submitted: {pin_code}\n\tDiscord User: {issuer_name}\n\tUser ID: {user_id}\n\tIssued In: {guild_name}",
+        description=f"Command triggered: `!verify`\nEmail submitted: {pin_code}\nDiscord User: {issuer_name}\nUser ID: {user_id}\nIssued In: {guild_name}",
         colour=discord.Colour.dark_blue(),
     )
   

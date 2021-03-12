@@ -14,7 +14,7 @@ async def database_check_existing_records(database_connection, user_email):
         if bool(str(query_results[0][0]) == str(user_email)) is True:
             
             print(f"Submitted email exists in the verified database")
-            return bool(True), bool(False), str(query_results[0][1])
+            return bool(True), bool(False), str(query_results[0][1]), str(query_results[0][3])
 
     if bool(len(query_results) == 0) is True:
 
@@ -29,7 +29,7 @@ async def database_check_existing_records(database_connection, user_email):
             if bool(str(query_results[0][0]) == str(user_email)) is True:
 
                 print (f"Submitted email exists in the auth database")
-                return bool(False), bool(True), str(query_results[0][1])
+                return bool(False), bool(True), str(query_results[0][1]), str(query_results[0][3])
 
         if bool(len(query_results) == 0) is True:
 

@@ -6,7 +6,7 @@ async def command_sql_check_auth_embed(issuer_name, email, ver_date, discord_nic
 
     verify_log_message = discord.Embed(
         title="Database results",
-        description=f"Hello, {issuer_name}\n\nThe Database contains the following in the Auth for User email: {email}\n\n\
+        description=f"Hello, {issuer_name}\n\nThe Database contains the following in the `auth` table for: {email}\n\n\
             Verified on: {ver_date}\nDiscord Nickname: {discord_nick}\nDiscord ID: {user_id}\
                 \n\nThis user has not completed the verification process. Please instruct them to check their email\
                 and issue the `!verify <pin>` command to the bot to finish verifying\

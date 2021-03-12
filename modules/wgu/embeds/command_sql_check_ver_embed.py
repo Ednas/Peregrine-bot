@@ -6,7 +6,8 @@ async def command_sql_check_ver_embed(issuer_name, email, ver_date, discord_nick
 
     verify_log_message = discord.Embed(
         title="Database results",
-        description=f"Hello, {issuer_name}\n\nThe Database contains the following for User email: {email}\n\nVerified on: {ver_date}\nDiscord Nickname: {discord_nick}\nDiscord ID: {user_id}\nIssued In: {guild_name}",
+        description=f"Hello, {issuer_name}\n\nThe Database contains the following for: {email}\n\n\
+            Verified on: {ver_date}\nDiscord Nickname: {discord_nick}\nDiscord ID: {user_id}\n\nIssued In: {guild_name}",
         colour=discord.Colour.dark_blue(),
     )
   

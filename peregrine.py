@@ -286,7 +286,7 @@ async def verify(ctx, submitted_auth_code):
 
 # Moderation management commands
 
-@peregrine.command(name="sql", description="Contains various actions to perform on the SQL database")
+@peregrine.command(name="sql", description="Various actions to interact with SQL database")
 @commands.has_any_role("Administrator","Moderator")
 async def sql(ctx, action, submitted_email):
     '''This function interacts with the sql database to report to moderators'''
@@ -306,17 +306,18 @@ async def sql(ctx, action, submitted_email):
 
         if bool(sql_check_result[0]) is True and bool(sql_check_result[1]) is False:
 
-            await ctx.channel.send(embed= await command_sql_check_ver_embed(ctx.author.name, submitted_email,
-            sql_check_result[4], sql_check_result[5], sql_check_result[3], ctx.guild))
+            await ctx.channel.send(embed= await command_sql_check_ver_embed(ctx.author.name,
+             submitted_email, sql_check_result[4], sql_check_result[5],
+              sql_check_result[3], ctx.guild))
 
         if bool(sql_check_result[0]) is False and bool(sql_check_result[1]) is True:
-            await ctx.channel.send(embed= await command_sql_check_auth_embed(ctx.author.name, submitted_email,
-            sql_check_result[4], sql_check_result[5], sql_check_result[3], ctx.guild))
+            await ctx.channel.send(embed= await command_sql_check_auth_embed(ctx.author.name,
+             submitted_email, sql_check_result[4], sql_check_result[5],
+              sql_check_result[3], ctx.guild))
 
         if bool(sql_check_result[0]) is False and bool(sql_check_result[1]) is False:
-            await ctx.channel.send(embed= await command_sql_check_unver_embed(ctx.author.name, submitted_email, ctx.guild))
- 
-
+            await ctx.channel.send(embed= await command_sql_check_unver_embed(ctx.author.name,
+             submitted_email, ctx.guild))
 
 # Administrator management commands
 

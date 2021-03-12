@@ -3,7 +3,7 @@ from email.mime.multipart import MIMEMultipart
 import smtplib
 import ssl
 
-async def email_send_verification_code(database_connection, user_email, SRC_EMAIL, EMAIL_PASS):
+async def email_send_ver_code(database_connection, user_email, SRC_EMAIL, EMAIL_PASS):
     '''Sends an email to the student seeking verification'''
 
     # Collect verification code from database

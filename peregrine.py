@@ -16,20 +16,24 @@ from modules.core.peregrine_connect_database import peregrine_connect_database
 # Import wgu custom database modules
 from modules.wgu.database.database_check_existing_records import database_check_existing_records
 from modules.wgu.database.database_create_new_entry import database_create_new_entry
-from modules.wgu.database.database_check_verification_pin import database_check_verification_pin
+from modules.wgu.database.database_check_ver_pin import database_check_ver_pin
 from modules.wgu.database.database_push_to_verified import database_push_to_verified
 
 # Import wgu custom email modules
-from modules.wgu.email.email_send_verification_code import email_send_verification_code
+from modules.wgu.email.email_send_ver_code import email_send_ver_code
 
 # Import custom embed message modules
 from modules.wgu.embeds.database_already_exists_embed import database_already_exists_embed
 from modules.wgu.embeds.wgu_email_sent_embed import wgu_email_sent_embed
 from modules.wgu.embeds.wgu_invalid_email_embed import wgu_invalid_email_embed
-from modules.wgu.embeds.wgu_verification_invalid_code_embed import wgu_verification_invalid_code_embed
-from modules.wgu.embeds.wgu_verification_successful_embed import wgu_verification_successful_embed
+from modules.wgu.embeds.wgu_ver_invalid_code_embed import wgu_ver_invalid_code_embed
+from modules.wgu.embeds.wgu_ver_successful_embed import wgu_ver_successful_embed
 from modules.wgu.embeds.wgu_check_email_for_code_embed import wgu_check_email_for_code_embed
-from modules.wgu.embeds.wgu_send_verification_start_embed import wgu_send_verification_start_embed
+from modules.wgu.embeds.wgu_send_ver_start_embed import wgu_send_ver_start_embed
+from modules.wgu.embeds.command_email_triggered_embed import command_email_triggered_embed
+from modules.wgu.embeds.command_status_triggered_embed import command_status_triggered_embed
+from modules.wgu.embeds.command_verify_triggered_embed import command_verify_triggered_embed
+from modules.wgu.embeds.wgu_ver_reaction_embed import wgu_ver_reaction_embed
 
 # Import environment variables
 
@@ -55,7 +59,7 @@ THM_SUB_EMOJI = os.getenv('thm_sub_emoji')
 OTW_SUB_EMOJI = os.getenv('otw_sub_emoji')
 NCL_SUB_EMOJI = os.getenv('ncl_sub_emoji')
 FOREIGN_SUB_EMOJI = os.getenv('foreign_sub_emoji')
-DM_MESSAGE = os.getenv('dm_verification_message')
+DM_MESSAGE = os.getenv('dm_ver_message')
 SRC_EMAIL = os.getenv('bot_email_address')
 EMAIL_PASS = os.getenv('bot_email_password')
 DB_USER = os.getenv('database_username')
@@ -98,7 +102,7 @@ async def on_member_join(member):
     await member.add_roles(discord.utils.get(member.guild.roles, name="Unverified"))
 
 @peregrine.event
-async def on_raw_reaction_add(payload):
+async def on_raw_reaction_add(ctx, payload):
     '''This function tells the bot to DM people who react to the verification message'''
 
     if str(payload.message_id) == str(VERIFICATION_MESSAGE):
@@ -108,21 +112,14 @@ async def on_raw_reaction_add(payload):
         # Set log channel
 
         channel = peregrine.get_channel(int(LOG_CHANNEL))
-        print("Log channel set")
-
-        # Alert console of member leaving and push to log channel
-
-        on_reaction_add_verification_alert = (
-            "Event triggered: Member verification reaction\n   Member: {}".format(payload.member)
-        )
-
-        print(on_reaction_add_verification_alert)
-        await channel.send(content=on_reaction_add_verification_alert)
+        await channel.send(embed=await wgu_ver_reaction_embed(ctx.author.name, ctx.guild,
+     ctx.author.id))
 
         # Initiate email verification process
 
         if str(payload.emoji.name) == str(VERIFICATION_EMOJI):
-            await peregrine.get_user(payload.user_id).send(embed= await wgu_send_verification_start_embed(payload.member))
+            await peregrine.get_user(payload.user_id).send(
+                embed= await wgu_send_ver_start_embed(payload.member))
 
         return
 
@@ -138,12 +135,20 @@ async def status(ctx):
 
     print("Verifying connection to database...\n")
 
+    # Set log channel
+
+    channel = peregrine.get_channel(int(LOG_CHANNEL))
+    await channel.send(embed= await command_status_triggered_embed(ctx.author.name,
+     ctx.guild, ctx.author.id))
+
+    # Check database connectivity
+
     if bool(database_status.is_connected()) is True:
 
         try:
             print(f"\tCurrent database status is: {database_status.is_connected()}\n")
 
-        except Exception as exception_message:
+        except TypeError as exception_message:
             print(exception_message)
 
     if bool(database_status.is_connected()) is False:
@@ -155,7 +160,7 @@ async def status(ctx):
             print(f"\tCurrent database status is: {database_status.is_connected()}")
             return
 
-        except Exception as exception_message:
+        except TypeError as exception_message:
             print(exception_message)
             return exception_message
 
@@ -168,6 +173,12 @@ async def status(ctx):
 @peregrine.command(name='email', description="Collect user email for verification")
 async def email(ctx, user_email):
     '''This function collects the email from a wgu user for verification'''
+
+    # Set log channel
+
+    channel = peregrine.get_channel(int(LOG_CHANNEL))
+    await channel.send(embed= await command_email_triggered_embed(ctx.author.name, ctx.guild,
+     ctx.author.id, user_email))
 
     # Check if email is a valid wgu email address
 
@@ -182,31 +193,36 @@ async def email(ctx, user_email):
 
     # Send message to alert member this email is already verified
 
-    if email_check_result[0] is True and email_check_result[1] is False and str(email_check_result[2]) == str(ctx.author.id):
+    if bool(email_check_result[0]) is True and bool(email_check_result[1]) is False and str(
+        email_check_result[2]) == str(ctx.author.id):
 
         # Set member to verified if Discord ID and email match verification entry
 
         guild = peregrine.get_guild(int(GUILD_ID))
-        member = discord.utils.find(lambda m : m.id == ctx.message.channel.recipient.id, guild.members)
+        member = discord.utils.find(lambda m : m.id == ctx.message.channel.recipient.id,
+         guild.members)
         await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
         await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
         await member.edit(nick=email_check_result[0][3])
 
         # Send message to alert them that they have been verified
 
-        await ctx.send(embed=await wgu_verification_successful_embed(ctx.author.name))
+        await ctx.send(embed=await wgu_ver_successful_embed(ctx.author.name))
 
-    if email_check_result[0] is False and email_check_result[1] is True and str(email_check_result[2]) != str(ctx.author.id):
+    if bool(email_check_result[0]) is False and bool(email_check_result[1]) is True and str(
+        email_check_result[2]) != str(ctx.author.id):
 
         # Send message to alert them this email is already registered
 
         await ctx.send(embed=await database_already_exists_embed(user_email))
 
-    if email_check_result[0] is False and email_check_result[1] is True and str(email_check_result[2]) == str(ctx.author.id):
+    if email_check_result[0] is False and email_check_result[1] is True and str(
+        email_check_result[2]) == str(ctx.author.id):
 
         await ctx.send(embed= await wgu_check_email_for_code_embed(user_email))
 
-    if email_check_result[0] is False and email_check_result[1] is False and email_check_result[2] is False:
+    if bool(email_check_result[0]) is False and bool(email_check_result[1]) is False and bool(
+        email_check_result[2]) is False:
 
         # Create new database entry for user
 
@@ -215,7 +231,7 @@ async def email(ctx, user_email):
 
         # Send message to user to alert them that the email and pincode has been sent
 
-        await email_send_verification_code(await peregrine_connect_database(DB_IPV4, DB_USER,
+        await email_send_ver_code(await peregrine_connect_database(DB_IPV4, DB_USER,
         DB_PASS, DB_NAME), user_email, SRC_EMAIL, EMAIL_PASS)
         await ctx.send(embed= await wgu_email_sent_embed(user_email))
 
@@ -223,9 +239,16 @@ async def email(ctx, user_email):
 async def verify(ctx, submitted_auth_code):
     '''This function checks submitted auth code against database and validates Discord ID'''
 
-    print(f"Submitted pin is: {submitted_auth_code}")
+    # Set log channel
 
-    auth_check_result = await database_check_verification_pin(await peregrine_connect_database(
+    channel = peregrine.get_channel(int(LOG_CHANNEL))
+    await channel.send(embed= await command_verify_triggered_embed(ctx.author.name, ctx.guild,
+     ctx.author.id, submitted_auth_code))
+
+
+    # Check database to validate the pincode
+
+    auth_check_result = await database_check_ver_pin(await peregrine_connect_database(
         DB_IPV4, DB_USER, DB_PASS, DB_NAME), ctx.author.id, submitted_auth_code)
 
     if auth_check_result is True:
@@ -238,17 +261,18 @@ async def verify(ctx, submitted_auth_code):
         # Set member to verified
 
         guild = peregrine.get_guild(int(GUILD_ID))
-        member = discord.utils.find(lambda m : m.id == ctx.message.channel.recipient.id, guild.members)
+        member = discord.utils.find(lambda m : m.id == ctx.message.channel.recipient.id,
+         guild.members)
         await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
         await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
         await member.edit(nick=auth_check_result[0][3])
 
         # Send message to alert them that they have been verified
 
-        await ctx.send(embed=await wgu_verification_successful_embed(ctx.author.name))
+        await ctx.send(embed=await wgu_ver_successful_embed(ctx.author.name))
 
     if auth_check_result is False:
-        await ctx.send(embed=await wgu_verification_invalid_code_embed(submitted_auth_code))
+        await ctx.send(embed=await wgu_ver_invalid_code_embed(submitted_auth_code))
 
 # Moderation management commands
 

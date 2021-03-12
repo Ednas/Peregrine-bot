@@ -1,6 +1,6 @@
 import discord
 
-async def wgu_send_verification_start_embed(discord_member):
+async def wgu_send_ver_start_embed(discord_member):
 
     # Set initial message here
 

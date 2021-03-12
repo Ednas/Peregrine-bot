@@ -1,6 +1,6 @@
 import discord
 
-async def wgu_verification_invalid_code_embed(submitted_auth_code):
+async def wgu_ver_invalid_code_embed(submitted_auth_code):
 
     # Set initial message here
 

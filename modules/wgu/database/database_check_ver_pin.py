@@ -1,4 +1,4 @@
-async def database_check_verification_pin(database_connection, discord_id, submitted_auth_code):
+async def database_check_ver_pin(database_connection, discord_id, submitted_auth_code):
     '''Checks if submitted pincode belongs to this discord user'''
     
     cursor = database_connection.cursor()

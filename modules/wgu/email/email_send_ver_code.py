@@ -34,15 +34,7 @@ async def email_send_ver_code(database_connection, user_email, SRC_EMAIL, EMAIL_
     questions.
     """.format(discord_nick, auth_code)
 
-    email_html = """
-    <html>
-        <body>
-            <p><b>Greetings, {}!</b><br>
-            This email was sent to verify your discord account. To ensure that this email address belongs to you, please reply to the bot with '!verify' followed by your code: {}.</p>
-            <p>If you run into issues, feel free to contact the @administrator & @moderator roles, post in the #tech-support channel, or message Ursa#1337 with any questions.</p>
-        </body>
-    </html>
-    """.format(discord_nick, auth_code)
+    email_html = open("emails/verification_email_template.html").read().format(auth_code=auth_code)
 
     p1 = MIMEText(email_text, "plain")
     p2 = MIMEText(email_html, "html")

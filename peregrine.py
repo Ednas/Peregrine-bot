@@ -6,6 +6,7 @@
 import os
 from dotenv import load_dotenv
 import discord
+import discord.utils
 from discord.ext import commands
 
 # Import core custom modules
@@ -25,8 +26,10 @@ from modules.wgu.email.email_send_verification_code import email_send_verificati
 from modules.wgu.embeds.database_already_exists_embed import database_already_exists_embed
 from modules.wgu.embeds.wgu_email_sent_embed import wgu_email_sent_embed
 from modules.wgu.embeds.wgu_invalid_email_embed import wgu_invalid_email_embed
-from modules.wgu.embeds.wgu_verification_invalid_code import wgu_verification_invalid_code
-from modules.wgu.embeds.wgu_verification_successful import wgu_verification_successful
+from modules.wgu.embeds.wgu_verification_invalid_code_embed import wgu_verification_invalid_code_embed
+from modules.wgu.embeds.wgu_verification_successful_embed import wgu_verification_successful_embed
+from modules.wgu.embeds.wgu_check_email_for_code_embed import wgu_check_email_for_code_embed
+from modules.wgu.embeds.wgu_send_verification_start_embed import wgu_send_verification_start_embed
 
 # Import environment variables
 
@@ -77,9 +80,56 @@ intents.reactions = True
 
 peregrine = commands.Bot(command_prefix="!", case_insensitive=True, intents=intents)
 
+# Jail all new members
+
+@peregrine.event
+async def on_member_join(member):
+    '''Set users to Unverified when they join'''
+
+    # Alert console of new member and push to log channel
+
+    on_member_join_message = "Event triggered: Member joined\n   Member: {}".format(
+        member
+    )
+    print(on_member_join_message)
+
+    # Auto assign unverified role to new members and set nickname defaults
+
+    await member.add_roles(discord.utils.get(member.guild.roles, name="Unverified"))
+
+@peregrine.event
+async def on_raw_reaction_add(payload):
+    '''This function tells the bot to DM people who react to the verification message'''
+
+    if str(payload.message_id) == str(VERIFICATION_MESSAGE):
+
+        print("Triggering verification")
+
+        # Set log channel
+
+        channel = peregrine.get_channel(int(LOG_CHANNEL))
+        print("Log channel set")
+
+        # Alert console of member leaving and push to log channel
+
+        on_reaction_add_verification_alert = (
+            "Event triggered: Member verification reaction\n   Member: {}".format(payload.member)
+        )
+
+        print(on_reaction_add_verification_alert)
+        await channel.send(content=on_reaction_add_verification_alert)
+
+        # Initiate email verification process
+
+        if str(payload.emoji.name) == str(VERIFICATION_EMOJI):
+            await peregrine.get_user(payload.user_id).send(embed= await wgu_send_verification_start_embed(payload.member))
+
+        return
+
 # Main bot commands
 
 @peregrine.command(name='status', description="Print connection status")
+@commands.has_any_role("Administrator", "Moderator")
 async def status(ctx):
     '''This function displays status information to the channel it is issued in'''
 
@@ -127,15 +177,35 @@ async def email(ctx, user_email):
 
     # Check database for email entry
 
-    email_check_result = bool(await database_check_existing_records(
-        await peregrine_connect_database(DB_IPV4, DB_USER, DB_PASS, DB_NAME), user_email))
+    email_check_result = await database_check_existing_records(
+        await peregrine_connect_database(DB_IPV4, DB_USER, DB_PASS, DB_NAME), user_email)
 
     # Send message to alert member this email is already verified
 
-    if email_check_result is True:
-        await ctx.send(embed= await database_already_exists_embed(user_email, ctx.author.name))
+    if email_check_result[0] is True and email_check_result[1] is False and str(email_check_result[2]) == str(ctx.author.id):
 
-    if email_check_result is False:
+        # Set member to verified if Discord ID and email match verification entry
+
+        guild = peregrine.get_guild(int(GUILD_ID))
+        member = discord.utils.find(lambda m : m.id == ctx.message.channel.recipient.id, guild.members)
+        await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
+        await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
+
+        # Send message to alert them that they have been verified
+
+        await ctx.send(embed=await wgu_verification_successful_embed(ctx.author.name))
+
+    if email_check_result[0] is False and email_check_result[1] is True and str(email_check_result[2]) != str(ctx.author.id):
+
+        # Send message to alert them this email is already registered
+
+        await ctx.send(embed=await database_already_exists_embed(user_email))
+
+    if email_check_result[0] is False and email_check_result[1] is True and str(email_check_result[2]) == str(ctx.author.id):
+
+        await ctx.send(embed= await wgu_check_email_for_code_embed(user_email))
+
+    if email_check_result[0] is False and email_check_result[1] is False and email_check_result[2] is False:
 
         # Create new database entry for user
 
@@ -149,7 +219,7 @@ async def email(ctx, user_email):
         await ctx.send(embed= await wgu_email_sent_embed(user_email))
 
 @peregrine.command(name='verify', description='Collects verification pin from user')
-async def verify(ctx, submitted_auth_code, member : discord.Member):
+async def verify(ctx, submitted_auth_code):
     '''This function checks submitted auth code against database and validates Discord ID'''
 
     print(f"Submitted pin is: {submitted_auth_code}")
@@ -160,19 +230,23 @@ async def verify(ctx, submitted_auth_code, member : discord.Member):
     if auth_check_results is True:
 
         # Push user information from auth table to verified table
-        
+
         await database_push_to_verified(await peregrine_connect_database(
         DB_IPV4, DB_USER, DB_PASS, DB_NAME), ctx.author.id)
 
         # Set member to verified
-        member.add_roles(discord.utils.get(member.guild.roles, name="Verified"))
-        
+
+        guild = peregrine.get_guild(int(GUILD_ID))
+        member = discord.utils.find(lambda m : m.id == ctx.message.channel.recipient.id, guild.members)
+        await member.add_roles(discord.utils.get(guild.roles, name=VERIFIED_ROLE))
+        await member.remove_roles(discord.utils.get(guild.roles, name=UNVERIFIED_ROLE))
+
         # Send message to alert them that they have been verified
 
-        await ctx.send(embed=await wgu_verification_successful(ctx.author.name))
+        await ctx.send(embed=await wgu_verification_successful_embed(ctx.author.name))
 
     if auth_check_results is False:
-        await ctx.send(embed=await wgu_verification_invalid_code(submitted_auth_code))
+        await ctx.send(embed=await wgu_verification_invalid_code_embed(submitted_auth_code))
 
 # Moderation management commands
 

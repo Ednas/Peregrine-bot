@@ -38,6 +38,7 @@ from modules.wgu.embeds.command_sql_triggered_embed import command_sql_triggered
 from modules.wgu.embeds.command_sql_check_ver_embed import command_sql_check_ver_embed
 from modules.wgu.embeds.command_sql_check_auth_embed import command_sql_check_auth_embed
 from modules.wgu.embeds.command_sql_check_unver_embed import command_sql_check_unver_embed
+from modules.wgu.embeds.command_alert_triggered_embed import command_alert_triggered_embed
 
 # Import environment variables
 
@@ -331,8 +332,6 @@ async def alert(ctx, role: discord.Role, *, message):
     channel = peregrine.get_channel(int(LOG_CHANNEL))
     await channel.send(embed= await command_alert_triggered_embed(ctx.author.name, ctx.guild,
      ctx.author.id, discord.Role, message))
-
-    # Call main function
 
     members = [member for member in ctx.guild.members if role in member.roles]
     for member in members:

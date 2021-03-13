@@ -7,11 +7,12 @@ async def database_check_ver_pin(database_connection, discord_id, submitted_auth
     cursor.execute(sql_query, parameterized_values)
     query_results = cursor.fetchall()
 
-    if bool(str(query_results[0][0]) == str(submitted_auth_code)) is True:
-        if bool(str(query_results[0][1]) == str(discord_id)) is True:
-        
-            print("Submitted pincode is correct")
-            return bool(query_results[0][0]), bool(query_results[0][1]), str(query_results[0][2])
+    if bool(len(query_results) >= 1) is True:
+        if bool(str(query_results[0][0]) == str(submitted_auth_code)) is True:
+            if bool(str(query_results[0][1]) == str(discord_id)) is True:
+            
+                print("Submitted pincode is correct")
+                return bool(query_results[0][0]), bool(query_results[0][1]), str(query_results[0][2])
 
     else:
 

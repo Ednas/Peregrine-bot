@@ -321,6 +321,24 @@ async def sql(ctx, action, submitted_email):
 
 # Administrator management commands
 
+@peregrine.command(name="alert", description="Provides various sub commands to send alerts to various roles")
+@commands.has_role("Administrator")
+async def alert(ctx, role: discord.Role, *, message):
+    '''This function allows Administrators the ability to directly message a specificed role'''
+
+    # Set log channel
+
+    channel = peregrine.get_channel(int(LOG_CHANNEL))
+    await channel.send(embed= await command_alert_triggered_embed(ctx.author.name, ctx.guild,
+     ctx.author.id, discord.Role, message))
+
+    # Call main function
+
+    members = [member for member in ctx.guild.members if role in member.roles]
+    for member in members:
+        await member.send(message)
+        print(f"Message sent to {member} successfully")
+
 # Start the bot
 
 peregrine.run(TOKEN)

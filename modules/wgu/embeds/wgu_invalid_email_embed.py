@@ -19,8 +19,8 @@ async def wgu_invalid_email_embed(user_email):
         url="https://cdn.discordapp.com/avatars/758331935054889020/39da98d02a59e22606e230e7afe6841a.png"
     )
     invalid_email_message.set_author(
-        name="Merlin | Test Branch",
-        icon_url="https://cdn.discordapp.com/avatars/805916873480470588/2bbcc095669380edec1641774d217a0d.png?size=256",
+        name="Peregrine",
+        icon_url="https://cdn.discordapp.com/avatars/716442510423228496/f293e738c3559906120db7e4d43da13e.png?size=256",
     )
 
     return invalid_email_message

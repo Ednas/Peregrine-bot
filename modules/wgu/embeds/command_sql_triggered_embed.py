@@ -1,12 +1,12 @@
 import discord
 
-async def command_sql_triggered_embed(issuer_name, guild_name, user_id, action, email):
+async def command_sql_triggered_embed(issuer_name, guild_name, user_id, action, user_email):
 
     # Set initial message here
 
     verify_log_message = discord.Embed(
-        title="This email has already been verified!",
-        description=f"Command triggered: `!verify`\nAction type: {action}\nEmail submitted: {email}\nDiscord User: {issuer_name}\nUser ID: {user_id}\nIssued In: {guild_name}",
+        title="Command triggered!",
+        description=f"`!sql`\nAction type: {action}\nEmail submitted: {user_email}\nDiscord User: {issuer_name}\nUser ID: {user_id}\nIssued In: {guild_name}",
         colour=discord.Colour.dark_blue(),
     )
   

@@ -5,12 +5,12 @@ async def command_verify_triggered_embed(issuer_name, guild_name, user_id, pin_c
     # Set initial message here
 
     verify_log_message = discord.Embed(
-        title="This email has already been verified!",
-        description=f"Command triggered: `!verify`\nEmail submitted: {pin_code}\nDiscord User: {issuer_name}\nUser ID: {user_id}\nIssued In: {guild_name}",
+        title="Command triggered!",
+        description=f"`!verify`\nEmail submitted: {pin_code}\nDiscord User: {issuer_name}\nUser ID: {user_id}\nIssued In: {guild_name}",
         colour=discord.Colour.dark_blue(),
     )
   
-    # Standard footer and author
+    # Standard footer and authorß
 
     verify_log_message.set_footer(
         text="This is a club member run Discord officially sponsored by Western Governors University. All interactions on this server are logged. All users agree to the Discord Terms of Service"

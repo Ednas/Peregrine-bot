@@ -14,10 +14,13 @@ from modules.core.peregrine_check_status import peregrine_check_status
 from modules.core.peregrine_connect_database import peregrine_connect_database
 
 # Import wgu custom database modules
-from modules.wgu.database.database_check_existing_records import database_check_existing_records
+from modules.wgu.database.database_check_existing_email import database_check_existing_email
+from modules.wgu.database.database_check_existing_username import database_check_existing_username
 from modules.wgu.database.database_create_new_entry import database_create_new_entry
 from modules.wgu.database.database_check_ver_pin import database_check_ver_pin
 from modules.wgu.database.database_push_to_verified import database_push_to_verified
+from modules.wgu.database.database_normalize_entries import database_normalize_entries
+from modules.wgu.database.database_check_existing_nickname import database_check_existing_nickname
 
 # Import wgu custom email modules
 from modules.wgu.email.email_send_ver_code import email_send_ver_code
@@ -39,6 +42,7 @@ from modules.wgu.embeds.command_sql_check_ver_embed import command_sql_check_ver
 from modules.wgu.embeds.command_sql_check_auth_embed import command_sql_check_auth_embed
 from modules.wgu.embeds.command_sql_check_unver_embed import command_sql_check_unver_embed
 from modules.wgu.embeds.command_alert_triggered_embed import command_alert_triggered_embed
+from modules.wgu.embeds.command_sqla_triggered_embed import command_sqla_triggered_embed
 
 # Import environment variables
 
@@ -193,7 +197,7 @@ async def email(ctx, user_email):
 
     # Check database for email entry
 
-    email_check_result = await database_check_existing_records(
+    email_check_result = await database_check_existing_email(
         await peregrine_connect_database(DB_IPV4, DB_USER, DB_PASS, DB_NAME), user_email)
 
     # Send message to alert member this email is already verified
@@ -302,7 +306,7 @@ async def sql(ctx, action, submitted_email):
 
     if str(action) == "check":
 
-        sql_check_result = await database_check_existing_records(await peregrine_connect_database(
+        sql_check_result = await database_check_existing_email(await peregrine_connect_database(
             DB_IPV4, DB_USER, DB_PASS, DB_NAME), submitted_email)
 
         if bool(sql_check_result[0]) is True and bool(sql_check_result[1]) is False:
@@ -322,7 +326,8 @@ async def sql(ctx, action, submitted_email):
 
 # Administrator management commands
 
-@peregrine.command(name="alert", description="Provides various sub commands to send alerts to various roles")
+@peregrine.command(name="alert", description="Provides various sub commands\
+     to send alerts to various roles")
 @commands.has_role("Administrator")
 async def alert(ctx, role: discord.Role, *, message):
     '''This function allows Administrators the ability to directly message a specificed role'''
@@ -333,10 +338,57 @@ async def alert(ctx, role: discord.Role, *, message):
     await channel.send(embed= await command_alert_triggered_embed(ctx.author.name, ctx.guild,
      ctx.author.id, discord.Role, message))
 
+    # Send messages
+
     members = [member for member in ctx.guild.members if role in member.roles]
     for member in members:
         await member.send(message)
         print(f"Message sent to {member} successfully")
+
+@peregrine.command(name="sqla", description="This command syncs matching member DiscordID with\
+     an entry in the local database")
+@commands.has_role("Administrator")
+async def normalize(ctx, action):
+    '''This function inserts the discord ID of matching users and nicknames that exist'''
+
+    # Set log channel
+
+    channel = peregrine.get_channel(int(LOG_CHANNEL))
+    await channel.send(embed= await command_sqla_triggered_embed(ctx.author.name, ctx.guild,
+     ctx.author.id, action))
+
+    if action == "normalize":
+
+        print("Triggered")
+        # Collect all members from guild
+
+        members = [member.display_name for member in ctx.guild.members]
+        member_ids = [member.id for member in ctx.guild.members]
+
+        # Check database for each user
+
+        count = 0
+        print(int(len(members)))
+        print("### Checking all member usernames ####")
+
+        while count != int(len(members)):
+
+            for member in members:
+
+                normalize_check_result = await database_check_existing_username(
+                    await peregrine_connect_database(DB_IPV4, DB_USER, DB_PASS, DB_NAME),
+                        str(member))
+
+                print(f"Sanity! Printing normalize_check_result\
+                    \n{normalize_check_result[0]}")
+
+                count = count + 1
+
+                if bool(normalize_check_result[0]) is False or bool(
+                    normalize_check_result[1]) is True:
+
+                    await database_normalize_entries(await peregrine_connect_database(DB_IPV4,
+                     DB_USER, DB_PASS, DB_NAME), int(member_ids[count]), str(member))
 
 # Start the bot
 

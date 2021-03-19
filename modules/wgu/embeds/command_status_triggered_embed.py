@@ -5,8 +5,8 @@ async def command_status_triggered_embed(issuer_name, guild_name, user_id):
     # Set initial message here
 
     status_log_message = discord.Embed(
-        title="This email has already been verified!",
-        description=f"Command triggered: `!status`\nDiscord User: {issuer_name}\nUser ID: {user_id}\nIssued In: {guild_name}",
+        title="Command triggered!!",
+        description=f"`!status`\nDiscord User: {issuer_name}\nUser ID: {user_id}\nIssued In: {guild_name}",
         colour=discord.Colour.dark_blue(),
     )
   

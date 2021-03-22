@@ -12,7 +12,7 @@ async def database_check_ver_pin(database_connection, discord_id, submitted_auth
             if bool(str(query_results[0][1]) == str(discord_id)) is True:
             
                 print("Submitted pincode is correct")
-                return bool(query_results[0][0]), bool(query_results[0][1]), str(query_results[0][2])
+                return True
 
         else:
 

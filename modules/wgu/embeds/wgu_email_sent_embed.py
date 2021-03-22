@@ -10,6 +10,9 @@ async def wgu_email_sent_embed(user_email):
         colour=discord.Colour.dark_blue(),
     )
   
+    email_sent_message.set_image(
+        url='https://cdn.discordapp.com/attachments/819072570266877992/823683888877666354/submit_your_pin.gif'
+    )
     # Standard footer and author
 
     email_sent_message.set_footer(

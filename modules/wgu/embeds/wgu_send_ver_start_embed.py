@@ -9,7 +9,11 @@ async def wgu_send_ver_start_embed(discord_member):
         description=f"Hello {discord_member},\n\nReady for verification? Simply reply to me with\n\n`!email <your student email>` (e.x: !email jdoe@wgu.edu)\n\nto begin the process. If you need assistance, please contact a moderator in [#verification-support](https://discordapp.com/channels/688822375327989875/768993144380981248)",
         colour=discord.Colour.dark_blue(),
     )
-  
+
+    verification_start_message.set_image(
+        url='https://cdn.discordapp.com/attachments/819072570266877992/823683896414699561/submit_your_email.gif'
+    )
+
     # Standard footer and author
 
     verification_start_message.set_footer(

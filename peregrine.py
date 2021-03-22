@@ -203,7 +203,7 @@ async def email(ctx, user_email):
     # Send message to alert member this email is already verified
 
     if bool(email_check_result[0]) is True and bool(email_check_result[1]) is False and str(
-        email_check_result[2]) == str(ctx.author.id):
+        email_check_result[3]) == str(ctx.author.id):
 
         # Set member to verified if Discord ID and email match verification entry
 
@@ -222,14 +222,14 @@ async def email(ctx, user_email):
         await member.edit(nick=str(email_check_result[5]))
 
     if bool(email_check_result[0]) is False and bool(email_check_result[1]) is True and str(
-        email_check_result[2]) != str(ctx.author.id):
+        email_check_result[3]) != str(ctx.author.id):
 
         # Send message to alert them this email is already registered
 
         await ctx.send(embed=await database_already_exists_embed(user_email))
 
     if email_check_result[0] is False and email_check_result[1] is True and str(
-        email_check_result[2]) == str(ctx.author.id):
+        email_check_result[3]) == str(ctx.author.id):
 
         await ctx.send(embed= await wgu_check_email_for_code_embed(user_email))
 
@@ -263,7 +263,7 @@ async def verify(ctx, submitted_auth_code):
     auth_check_result = await database_check_ver_pin(await peregrine_connect_database(
         DB_IPV4, DB_USER, DB_PASS, DB_NAME), ctx.author.id, submitted_auth_code)
 
-    if auth_check_result[1] is True:
+    if auth_check_result is True:
 
         # Push user information from auth table to verified table
 

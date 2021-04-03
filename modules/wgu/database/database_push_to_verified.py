@@ -6,7 +6,7 @@ async def database_push_to_verified(database_connection, discord_id):
 
     # Collect information from auth database
 
-    cursor = database_connection.cursor()
+    cursor = database_connection.cursor(prepared=True)
     sql_query = "SELECT DiscordID, DiscordUser, Email, AuthDate, AuthCode, DiscordNickname FROM auth WHERE DiscordID = %s"
     parameterized_values = (discord_id, )
     cursor.execute(sql_query, parameterized_values)
@@ -24,7 +24,7 @@ async def database_push_to_verified(database_connection, discord_id):
 
     # Connect to database and insert into verification database
 
-    cursor = database_connection.cursor()
+    cursor = database_connection.cursor(prepared=True)
     sql_query = "INSERT INTO verified (DiscordID, DiscordUser, Email, AuthDate, AuthCode, DiscordNickname, VerifiedDate) VALUES (%s, %s, %s, %s, %s, %s, %s)"
     parameterized_values = (discord_id, discord_name, user_email, auth_date, auth_code, discord_nick, verified_date, )
     cursor.execute(sql_query, parameterized_values)
@@ -32,7 +32,7 @@ async def database_push_to_verified(database_connection, discord_id):
     
     # Remove entry in the auth database
 
-    cursor = database_connection.cursor()
+    cursor = database_connection.cursor(prepared=True)
     sql_query = "DELETE FROM auth WHERE DiscordID LIKE %s"
     parameterized_values = (discord_id, )
     cursor.execute(sql_query, parameterized_values)

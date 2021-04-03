@@ -362,7 +362,9 @@ async def normalize(ctx, action):
         print("Triggered")
         # Collect all members from guild
 
-        members = [member.display_name for member in ctx.guild.members]
+        members = [user.name for user in ctx.guild.members]
+        member_nicknames = [member.display_name for member in ctx.guild.members]
+        member_discriminators = [member.discriminator for member in ctx.guild.members]
         member_ids = [member.id for member in ctx.guild.members]
 
         # Check database for each user
@@ -372,23 +374,28 @@ async def normalize(ctx, action):
         print("### Checking all member usernames ####")
 
         while count != int(len(members)):
+            if bool(len(str(member_ids[count])) >= 1):
 
-            for member in members:
+                for member in members:
 
-                normalize_check_result = await database_check_existing_username(
-                    await peregrine_connect_database(DB_IPV4, DB_USER, DB_PASS, DB_NAME),
-                        str(member))
+                    checked_user = str(member) + "#" + str(member_discriminators[count])
 
-                print(f"Sanity! Printing normalize_check_result\
-                    \n{normalize_check_result[0]}")
+                    print(f'### Checking results for member: {str(checked_user)} ###')
+                    normalize_check_result = await database_check_existing_username(
+                        await peregrine_connect_database(DB_IPV4, DB_USER, DB_PASS, DB_NAME),
+                            str(checked_user))
 
-                count = count + 1
+                    print(f'######\nResults of normalize_check_result:\n{normalize_check_result}\n######')
 
-                if bool(normalize_check_result[0]) is False or bool(
-                    normalize_check_result[1]) is True:
+                    if bool(normalize_check_result[0]) is True and bool(
+                        normalize_check_result[1]) is False:
 
-                    await database_normalize_entries(await peregrine_connect_database(DB_IPV4,
-                     DB_USER, DB_PASS, DB_NAME), int(member_ids[count]), str(member))
+                        print(f'### {checked_user} was found. Normalizing entry ###')
+
+                        await database_normalize_entries(await peregrine_connect_database(DB_IPV4,
+                        DB_USER, DB_PASS, DB_NAME), int(member_ids[count]), str(checked_user), str(member_nicknames[count]))
+                        
+                    count = count + 1
 
 # Start the bot
 

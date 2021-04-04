@@ -294,42 +294,46 @@ async def verify(ctx, submitted_auth_code):
 
 # Moderation management commands
 
-@peregrine.command(name="sql", description="Various actions to interact with SQL database")
+@peregrine.group()
+async def sql(ctx):
+    '''Provides various commands to interact with the SQL database as a moderator'''
+    pass
+
+@sql.command(name="check", description="Various actions to interact with SQL database")
 @commands.has_any_role("Administrator","Moderator")
-async def sql(ctx, action, email):
+async def check(ctx, user_email):
     '''Provides various commands to interact with the SQL database as a Moderator'''
 
     # Set log channel
 
     channel = peregrine.get_channel(int(LOG_CHANNEL))
     await channel.send(embed= await command_sql_triggered_embed(ctx.author.name, ctx.guild,
-     ctx.author.id, action, email))
+     ctx.author.id, user_email))
 
     # Check database for requested email
 
-    if str(action) == "check":
+    sql_check_result = await database_check_existing_email(await peregrine_connect_database(
+        DB_IPV4, DB_USER, DB_PASS, DB_NAME), user_email)
 
-        sql_check_result = await database_check_existing_email(await peregrine_connect_database(
-            DB_IPV4, DB_USER, DB_PASS, DB_NAME), email)
+    if bool(sql_check_result[0]) is True and bool(sql_check_result[1]) is False:
 
-        if bool(sql_check_result[0]) is True and bool(sql_check_result[1]) is False:
+        await ctx.channel.send(embed= await command_sql_check_ver_embed(ctx.author.name,
+            user_email, sql_check_result[4], sql_check_result[5],
+            sql_check_result[3], ctx.guild))
 
-            await ctx.channel.send(embed= await command_sql_check_ver_embed(ctx.author.name,
-             email, sql_check_result[4], sql_check_result[5],
-              sql_check_result[3], ctx.guild))
+    if bool(sql_check_result[0]) is False and bool(sql_check_result[1]) is True:
+        await ctx.channel.send(embed= await command_sql_check_auth_embed(ctx.author.name,
+            user_email, sql_check_result[4], sql_check_result[5],
+            sql_check_result[3], ctx.guild))
 
-        if bool(sql_check_result[0]) is False and bool(sql_check_result[1]) is True:
-            await ctx.channel.send(embed= await command_sql_check_auth_embed(ctx.author.name,
-             email, sql_check_result[4], sql_check_result[5],
-              sql_check_result[3], ctx.guild))
-
-        if bool(sql_check_result[0]) is False and bool(sql_check_result[1]) is False:
-            await ctx.channel.send(embed= await command_sql_check_unver_embed(ctx.author.name,
-             email, ctx.guild))
+    if bool(sql_check_result[0]) is False and bool(sql_check_result[1]) is False:
+        await ctx.channel.send(embed= await command_sql_check_unver_embed(ctx.author.name,
+            user_email, ctx.guild))
 
 # Administrator management commands
 
-@peregrine.command(name="alert", description="Provides various sub commands to send alerts to various roles")
+@peregrine.command(name="alert", description="""
+Provides various sub commands to send alerts to various roles""")
 @commands.has_role("Administrator")
 async def alert(ctx, role: discord.Role, *, message):
     '''Allows Administrators the ability to mass direct message a specificed role'''
@@ -347,82 +351,86 @@ async def alert(ctx, role: discord.Role, *, message):
         await member.send(message)
         print(f"Message sent to {member} successfully")
 
-@peregrine.command(name="sqla", description="This command syncs matching member DiscordID with\
-     an entry in the local database")
-@commands.has_role("Administrator")
-async def normalize(ctx, action):
+@peregrine.group()
+async def sqla(ctx):
     '''Provides various commands to interact with the SQL database as an administrator'''
+    pass
+
+@sqla.command(name="normalize", description="This command syncs matching member DiscordID with an entry in the local database")
+@commands.has_role("Administrator")
+async def normalize(ctx):
+    '''Inserts DiscordID and Discord Username for all database entries by matching username to old schema'''
 
     # Set log channel
 
     channel = peregrine.get_channel(int(LOG_CHANNEL))
     await channel.send(embed= await command_sqla_triggered_embed(ctx.author.name, ctx.guild,
-     ctx.author.id, action))
+    ctx.author.id))
 
-    if action == "normalize":
+    # Collect all members from guild
 
-        print("Triggered")
-        # Collect all members from guild
+    members = [user.name for user in ctx.guild.members]
+    member_nicknames = [member.display_name for member in ctx.guild.members]
+    member_discriminators = [member.discriminator for member in ctx.guild.members]
+    member_ids = [member.id for member in ctx.guild.members]
 
-        members = [user.name for user in ctx.guild.members]
-        member_nicknames = [member.display_name for member in ctx.guild.members]
-        member_discriminators = [member.discriminator for member in ctx.guild.members]
-        member_ids = [member.id for member in ctx.guild.members]
+    # Check database for each user
 
-        # Check database for each user
+    count = 0
+    print(int(len(members)))
+    print("### Checking all member usernames ####")
 
-        count = 0
-        print(int(len(members)))
-        print("### Checking all member usernames ####")
+    while count != int(len(members)):
+        if bool(len(str(member_ids[count])) >= 1):
 
-        while count != int(len(members)):
-            if bool(len(str(member_ids[count])) >= 1):
+            for member in members:
 
-                for member in members:
+                checked_user = str(member) + "#" + str(member_discriminators[count])
 
-                    checked_user = str(member) + "#" + str(member_discriminators[count])
+                print(f'### Checking results for member: {str(checked_user)} ###')
+                normalize_check_result = await database_check_existing_username(
+                    await peregrine_connect_database(DB_IPV4, DB_USER, DB_PASS, DB_NAME),
+                        str(checked_user))
 
-                    print(f'### Checking results for member: {str(checked_user)} ###')
-                    normalize_check_result = await database_check_existing_username(
-                        await peregrine_connect_database(DB_IPV4, DB_USER, DB_PASS, DB_NAME),
-                            str(checked_user))
+                print(f'######\nResults of normalize_check_result:\n{normalize_check_result}\n\
+                ######')
 
-                    print(f'######\nResults of normalize_check_result:\n{normalize_check_result}\n\
-                    ######')
+                if bool(normalize_check_result[0]) is True and bool(
+                    normalize_check_result[1]) is False:
 
-                    if bool(normalize_check_result[0]) is True and bool(
-                        normalize_check_result[1]) is False:
+                    print(f'### {checked_user} was found. Normalizing entry ###')
 
-                        print(f'### {checked_user} was found. Normalizing entry ###')
+                    await database_normalize_entries(await peregrine_connect_database(DB_IPV4,
+                    DB_USER, DB_PASS, DB_NAME), int(member_ids[count]), str(checked_user),
+                        str(member_nicknames[count]))
 
-                        await database_normalize_entries(await peregrine_connect_database(DB_IPV4,
-                        DB_USER, DB_PASS, DB_NAME), int(member_ids[count]), str(checked_user),
-                         str(member_nicknames[count]))
-
-                    count = count + 1
+                count = count + 1
 
 # Debugging and other commands
 
-@peregrine.command(name="perri", description="Returns all commands available")
-@commands.has_any_role("Administrator","Moderator")
-async def perri(ctx, action):
+@peregrine.group()
+async def perri(ctx):
     '''Provides various commands to interact with Peregrine and its backend'''
+    pass
+
+@perri.command(name="info", description="Displays the intro to Perri the Peregrine")
+@commands.has_any_role("Administrator","Moderator")
+async def info(ctx):
+    '''Provides an intro and overview about Perri'''
 
     # Set log channel
 
     channel = peregrine.get_channel(int(LOG_CHANNEL))
     await channel.send(embed= await perri_help_triggered_embed(ctx.author.name, ctx.guild,
-     ctx.author.id, action))
+     ctx.author.id))
 
-    if action == "commands":
+    # Collect commands
 
-        # Collect commands
+    perri_commands = [command.name for command in ctx.bot.commands]
+    perri_command_docstrings = [command.help for command in ctx.bot.commands]
 
-        perri_commands = [command.name for command in ctx.bot.commands]
-        perri_command_docstrings = [command.help for command in ctx.bot.commands]
-
-        await ctx.channel.send(embed= await perri_command_help_embed(ctx.author.name,
-        ctx.guild, perri_commands, perri_command_docstrings))
+    await ctx.channel.send(embed= await perri_command_help_embed(ctx.author.name,
+    ctx.guild, perri_commands, perri_command_docstrings))
 
 # Start the bot
 

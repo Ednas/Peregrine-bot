@@ -260,7 +260,6 @@ async def verify(ctx, submitted_auth_code):
     await channel.send(embed= await command_verify_triggered_embed(ctx.author.name, ctx.guild,
      ctx.author.id, submitted_auth_code))
 
-
     # Check database to validate the pincode
 
     auth_check_result = await database_check_ver_pin(await peregrine_connect_database(
@@ -299,10 +298,10 @@ async def sql(ctx):
     '''Provides various commands to interact with the SQL database as a moderator'''
     pass
 
-@sql.command(name="check", description="Various actions to interact with SQL database")
+@sql.command(name="check", description="Check database for existing user email")
 @commands.has_any_role("Administrator","Moderator")
 async def check(ctx, user_email):
-    '''Provides various commands to interact with the SQL database as a Moderator'''
+    '''- Check database for existing user email'''
 
     # Set log channel
 

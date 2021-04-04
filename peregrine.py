@@ -10,7 +10,7 @@ import discord.utils
 from discord.ext import commands
 
 # Import core custom modules
-from modules.core.peregrine_check_status import peregrine_check_status
+from modules.core.discord.embeds.peregrine_check_status import peregrine_check_status
 from modules.core.peregrine_connect_database import peregrine_connect_database
 
 # Import wgu custom database modules
@@ -44,6 +44,9 @@ from modules.wgu.embeds.command_sql_check_unver_embed import command_sql_check_u
 from modules.wgu.embeds.command_alert_triggered_embed import command_alert_triggered_embed
 from modules.wgu.embeds.command_sqla_triggered_embed import command_sqla_triggered_embed
 
+# Import Peregrine specific embeds
+from modules.core.discord.embeds.perri_help_triggered_embed import perri_help_triggered_embed
+from modules.core.discord.commands.perri_command_help_embed import perri_command_help_embed
 # Import environment variables
 
 load_dotenv()
@@ -293,44 +296,43 @@ async def verify(ctx, submitted_auth_code):
 
 @peregrine.command(name="sql", description="Various actions to interact with SQL database")
 @commands.has_any_role("Administrator","Moderator")
-async def sql(ctx, action, submitted_email):
-    '''This function interacts with the sql database to report to moderators'''
+async def sql(ctx, action, email):
+    '''Provides various commands to interact with the SQL database as a Moderator'''
 
     # Set log channel
 
     channel = peregrine.get_channel(int(LOG_CHANNEL))
     await channel.send(embed= await command_sql_triggered_embed(ctx.author.name, ctx.guild,
-     ctx.author.id, action, submitted_email))
+     ctx.author.id, action, email))
 
     # Check database for requested email
 
     if str(action) == "check":
 
         sql_check_result = await database_check_existing_email(await peregrine_connect_database(
-            DB_IPV4, DB_USER, DB_PASS, DB_NAME), submitted_email)
+            DB_IPV4, DB_USER, DB_PASS, DB_NAME), email)
 
         if bool(sql_check_result[0]) is True and bool(sql_check_result[1]) is False:
 
             await ctx.channel.send(embed= await command_sql_check_ver_embed(ctx.author.name,
-             submitted_email, sql_check_result[4], sql_check_result[5],
+             email, sql_check_result[4], sql_check_result[5],
               sql_check_result[3], ctx.guild))
 
         if bool(sql_check_result[0]) is False and bool(sql_check_result[1]) is True:
             await ctx.channel.send(embed= await command_sql_check_auth_embed(ctx.author.name,
-             submitted_email, sql_check_result[4], sql_check_result[5],
+             email, sql_check_result[4], sql_check_result[5],
               sql_check_result[3], ctx.guild))
 
         if bool(sql_check_result[0]) is False and bool(sql_check_result[1]) is False:
             await ctx.channel.send(embed= await command_sql_check_unver_embed(ctx.author.name,
-             submitted_email, ctx.guild))
+             email, ctx.guild))
 
 # Administrator management commands
 
-@peregrine.command(name="alert", description="Provides various sub commands\
-     to send alerts to various roles")
+@peregrine.command(name="alert", description="Provides various sub commands to send alerts to various roles")
 @commands.has_role("Administrator")
 async def alert(ctx, role: discord.Role, *, message):
-    '''This function allows Administrators the ability to directly message a specificed role'''
+    '''Allows Administrators the ability to mass direct message a specificed role'''
 
     # Set log channel
 
@@ -349,7 +351,7 @@ async def alert(ctx, role: discord.Role, *, message):
      an entry in the local database")
 @commands.has_role("Administrator")
 async def normalize(ctx, action):
-    '''This function inserts the discord ID of matching users and nicknames that exist'''
+    '''Provides various commands to interact with the SQL database as an administrator'''
 
     # Set log channel
 
@@ -385,7 +387,8 @@ async def normalize(ctx, action):
                         await peregrine_connect_database(DB_IPV4, DB_USER, DB_PASS, DB_NAME),
                             str(checked_user))
 
-                    print(f'######\nResults of normalize_check_result:\n{normalize_check_result}\n######')
+                    print(f'######\nResults of normalize_check_result:\n{normalize_check_result}\n\
+                    ######')
 
                     if bool(normalize_check_result[0]) is True and bool(
                         normalize_check_result[1]) is False:
@@ -393,9 +396,33 @@ async def normalize(ctx, action):
                         print(f'### {checked_user} was found. Normalizing entry ###')
 
                         await database_normalize_entries(await peregrine_connect_database(DB_IPV4,
-                        DB_USER, DB_PASS, DB_NAME), int(member_ids[count]), str(checked_user), str(member_nicknames[count]))
-                        
+                        DB_USER, DB_PASS, DB_NAME), int(member_ids[count]), str(checked_user),
+                         str(member_nicknames[count]))
+
                     count = count + 1
+
+# Debugging and other commands
+
+@peregrine.command(name="perri", description="Returns all commands available")
+@commands.has_any_role("Administrator","Moderator")
+async def perri(ctx, action):
+    '''Provides various commands to interact with Peregrine and its backend'''
+
+    # Set log channel
+
+    channel = peregrine.get_channel(int(LOG_CHANNEL))
+    await channel.send(embed= await perri_help_triggered_embed(ctx.author.name, ctx.guild,
+     ctx.author.id, action))
+
+    if action == "commands":
+
+        # Collect commands
+
+        perri_commands = [command.name for command in ctx.bot.commands]
+        perri_command_docstrings = [command.help for command in ctx.bot.commands]
+
+        await ctx.channel.send(embed= await perri_command_help_embed(ctx.author.name,
+        ctx.guild, perri_commands, perri_command_docstrings))
 
 # Start the bot
 

@@ -1,18 +1,10 @@
-async def database_delete_entries(database_connection, member_id, member, discord_nick):
+async def database_normalize_entries(database_connection, member_id, member, discord_nick):
     '''Inserts matched Discord ID for nicknames or discord name'''
 
-    # Connect to database and delete from verified database
+    # Connect to database and insert into verification database
 
     cursor = database_connection.cursor(prepared=True)
-    sql_query = """DELETE FROM verified WHERE DiscordUser = %s"""
-    parameterized_values = (member_id, discord_nick , member)
-    cursor.execute(sql_query, parameterized_values)
-    database_connection.commit()
-    
-    # Connect to database and delete from auth database
-
-    cursor = database_connection.cursor(prepared=True)
-    sql_query = """DELETE FROM auth WHERE DiscordUser = %s"""
+    sql_query = """UPDATE verified SET DiscordID = %s, DiscordNickname = %s WHERE DiscordUser = %s"""
     parameterized_values = (member_id, discord_nick , member)
     cursor.execute(sql_query, parameterized_values)
     database_connection.commit()

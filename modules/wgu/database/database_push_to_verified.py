@@ -1,6 +1,3 @@
-from datetime import datetime, timedelta
-import random
-
 async def database_push_to_verified(database_connection, discord_id):
     '''Inserts a new user into the auth database to begin verification process'''
 

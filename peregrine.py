@@ -20,6 +20,7 @@ from modules.wgu.database.database_create_new_entry import database_create_new_e
 from modules.wgu.database.database_check_ver_pin import database_check_ver_pin
 from modules.wgu.database.database_push_to_verified import database_push_to_verified
 from modules.wgu.database.database_normalize_entries import database_normalize_entries
+from modules.wgu.database.database_delete_entries import database_delete_entries
 from modules.wgu.database.database_check_existing_nickname import database_check_existing_nickname
 
 # Import wgu custom email modules
@@ -404,7 +405,10 @@ async def normalize(ctx):
                         str(member_nicknames[count]))
 
                 if bool(normalize_check_result[0]) is False and bool(normalize_check_result[1]) is False:
-                    print(f"### {checked_user} was not found. ### PROCEED TO DELETE NEEDS TO BE CODED ###")
+                    print(f"### {checked_user} was not found. DELETING FROM DATABASE ###")
+                    await database_delete_entries(await peregrine_connect_database(DB_IPV4,
+                    DB_USER, DB_PASS, DB_NAME), int(member_ids[count]), str(checked_user),
+                        str(member_nicknames[count]))
 
                 count = count + 1
 

@@ -1,4 +1,4 @@
-async def database_delete_entries(database_connection, member_id, member, discord_nick):
+async def database_delete_entries(database_connection, member):
     '''Inserts matched Discord ID for nicknames or discord name'''
 
     # Connect to database and delete from verified database

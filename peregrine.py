@@ -403,6 +403,9 @@ async def normalize(ctx):
                     DB_USER, DB_PASS, DB_NAME), int(member_ids[count]), str(checked_user),
                         str(member_nicknames[count]))
 
+                if bool(normalize_check_result[0]) is False and bool(normalize_check_result[1]) is False:
+                    print(f"### {checked_user} was not found. ### PROCEED TO DELETE NEEDS TO BE CODED ###")
+
                 count = count + 1
 
 # Debugging and other commands

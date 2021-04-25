@@ -5,7 +5,7 @@ async def database_delete_entries(database_connection, member_id, member, discor
 
     cursor = database_connection.cursor(prepared=True)
     sql_query = """DELETE FROM verified WHERE DiscordUser = %s"""
-    parameterized_values = (member_id, discord_nick , member)
+    parameterized_values = (member)
     cursor.execute(sql_query, parameterized_values)
     database_connection.commit()
     
@@ -13,7 +13,7 @@ async def database_delete_entries(database_connection, member_id, member, discor
 
     cursor = database_connection.cursor(prepared=True)
     sql_query = """DELETE FROM auth WHERE DiscordUser = %s"""
-    parameterized_values = (member_id, discord_nick , member)
+    parameterized_values = (member)
     cursor.execute(sql_query, parameterized_values)
     database_connection.commit()
     

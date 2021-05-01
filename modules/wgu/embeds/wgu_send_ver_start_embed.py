@@ -6,8 +6,23 @@ async def wgu_send_ver_start_embed(discord_member):
 
     verification_start_message = discord.Embed(
         title="Verification Process!",
-        description=f"Hello {discord_member},\nWelcome to the WGU Cyber Club. Before you continue, we'd like to make you aware of a few things you are agreeing to before you complete the verification process.\n\nReady for verification? Simply reply to me with\n\n`!email <your student email>` (e.x: !email jdoe@wgu.edu)\n\nto begin the process. If you need assistance, please contact a moderator in [#verification-support](https://discordapp.com/channels/688822375327989875/768993144380981248)",
+        description=f"Hello {discord_member},\nWelcome to the WGU Cyber Club. Before you continue, we'd like to make you aware of a few things you are agreeing to before you complete the verification process.",
         colour=discord.Colour.dark_blue(),
+    )
+    verification_start_message.add_field(
+        name="Housekeeping",
+        value="Since this Discord is run and sponsored by WGU, verification of your identity is non-negotiable. You will be required to set your [server nickname](https://www.businessinsider.com/how-to-change-nickname-on-discord 'Click here for help (https://www.businessinsider.com/how-to-change-nickname-on-discord)') to the following format\n\n`<Custom username> | <WGU username>`\n\nYou can see an example of this in the top corner of this message.\n\nIf you would prefer to join this Discord with a new account, please click [here](https://discord.com/register 'Register account (https://discord.com/register)') and create a new Discord account using your WGU email address instead.\n\n━━━━━━━━━━━━",
+        inline=False,
+    )
+    verification_start_message.add_field(
+        name="You agree",
+        value="By verifying your identity you certify and acknowledge that\n┕ You are a student or alumni of the WGU School of IT.\n┕ You agree to follow club nickname guidelines.\n┕ You agree to present yourself in a professional manner.\n┕ You agree to all bylaws outlined in the Cyber Club Constitution available [here](https://cm.wgu.edu/t5/Cyber-Security-Club/WGU-Cybersecurity-Club-Constitution-and-By-Laws/ta-p/24789 'WGU Club Bylaws (https://cm.wgu.edu/t5/Cyber-Security-Club/WGU-Cybersecurity-Club-Constitution-and-By-Laws/ta-p/24789)').\n\n━━━━━━━━━━━━",
+        inline=False,
+    )
+    verification_start_message.add_field(
+        name="Ready?",
+        value="\n\nReady for verification? Simply reply to me with\n\n`!email <your student email>` (e.x: !email jdoe@wgu.edu)\n\nto begin the process. If you need assistance, please contact a moderator in [#verification-support](https://discordapp.com/channels/688822375327989875/768993144380981248)\n\n━━━━━━━━━━━━",
+        inline=False,
     )
 
     verification_start_message.set_image(

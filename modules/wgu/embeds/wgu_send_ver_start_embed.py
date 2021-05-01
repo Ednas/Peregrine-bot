@@ -6,12 +6,12 @@ async def wgu_send_ver_start_embed(discord_member):
 
     verification_start_message = discord.Embed(
         title="Verification Process!",
-        description=f"Hello {discord_member},\nWelcome to the WGU Cyber Club. Before you continue, we'd like to make you aware of a few things you are agreeing to before you complete the verification process.",
+        description=f"Hello {discord_member},\n\nWelcome to the WGU Cyber Club. Before you continue, we'd like to make you aware of a few things you are agreeing to before you complete the verification process.",
         colour=discord.Colour.dark_blue(),
     )
     verification_start_message.add_field(
         name="Housekeeping",
-        value="Since this Discord is run and sponsored by WGU, verification of your identity is non-negotiable. You will be required to set your [server nickname](https://www.businessinsider.com/how-to-change-nickname-on-discord 'Click here for help (https://www.businessinsider.com/how-to-change-nickname-on-discord)') to the following format\n\n`<Custom username> | <WGU username>`\n\nYou can see an example of this in the top corner of this message.\n\nIf you would prefer to join this Discord with a new account, please click [here](https://discord.com/register 'Register account (https://discord.com/register)') and create a new Discord account using your WGU email address instead.\n\n━━━━━━━━━━━━",
+        value="Since this Discord is run and sponsored by WGU, verification of your identity is non-negotiable. Your [server nickname](https://www.businessinsider.com/how-to-change-nickname-on-discord 'Click here for help (https://www.businessinsider.com/how-to-change-nickname-on-discord)') will be set to to the following format\n\n`<Custom username> | <WGU username>`\n\nThis change is private and exclusive to this Discord server.\n\nIf you are an active Discord user and would prefer to join this Discord guild with a new account, please click [here](https://discord.com/register 'Register account (https://discord.com/register)') and create a new Discord account using your WGU email address instead.\n\n━━━━━━━━━━━━",
         inline=False,
     )
     verification_start_message.add_field(

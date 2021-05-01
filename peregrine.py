@@ -289,7 +289,7 @@ async def verify(ctx, submitted_auth_code):
 
         # Set user nickname
 
-        await member.edit(nick=str(auth_check_result[2]))
+        await member.edit(nick=str(auth_check_result[1]))
 
     if auth_check_result is False:
         await ctx.send(embed=await wgu_ver_invalid_code_embed(submitted_auth_code))

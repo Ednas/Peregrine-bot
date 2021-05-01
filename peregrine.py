@@ -110,9 +110,14 @@ async def on_member_join(member):
     )
     print(on_member_join_message)
 
+    # Set channel to DM user who joined
+
+    channel = discord.utils.get(member.guild.channels, id=Channel_ID)
+
     # Auto assign unverified role to new members and set nickname defaults
 
     await member.add_roles(discord.utils.get(member.guild.roles, name="Unverified"))
+    await channel.send(embed=await wgu_send_ver_start_embed(member))
 
 @peregrine.event
 async def on_raw_reaction_add(payload):
@@ -435,3 +440,7 @@ async def info(ctx):
 # Start the bot
 
 peregrine.run(TOKEN)
+
+
+
+

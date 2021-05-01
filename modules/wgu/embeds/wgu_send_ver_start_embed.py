@@ -6,7 +6,7 @@ async def wgu_send_ver_start_embed(discord_member):
 
     verification_start_message = discord.Embed(
         title="Verification Process!",
-        description=f"Hello {discord_member},\n\nWelcome to the WGU Cyber Club. Before you continue, we'd like to make you aware of a few things you are agreeing to before you complete the verification process.",
+        description=f"Hello {discord_member},\n\nWelcome to the WGU Cyber Club. Before you continue, we'd like to make you aware of a few things you are agreeing to before you complete the verification process.\n\n━━━━━━━━━━━━",
         colour=discord.Colour.dark_blue(),
     )
     verification_start_message.add_field(

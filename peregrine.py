@@ -268,7 +268,7 @@ async def verify(ctx, submitted_auth_code):
     auth_check_result = await database_check_ver_pin(await peregrine_connect_database(
         DB_IPV4, DB_USER, DB_PASS, DB_NAME), ctx.author.id, submitted_auth_code)
 
-    if auth_check_result is True:
+    if auth_check_result[0] is True:
 
         # Push user information from auth table to verified table
 
@@ -291,7 +291,7 @@ async def verify(ctx, submitted_auth_code):
 
         await member.edit(nick=str(auth_check_result[1]))
 
-    if auth_check_result is False:
+    if auth_check_result[0] is False:
         await ctx.send(embed=await wgu_ver_invalid_code_embed(submitted_auth_code))
 
 # Moderation management commands

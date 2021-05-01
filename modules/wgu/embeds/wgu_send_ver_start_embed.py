@@ -6,7 +6,7 @@ async def wgu_send_ver_start_embed(discord_member):
 
     verification_start_message = discord.Embed(
         title="Verification Process!",
-        description=f"Hello {discord_member},\n\nReady for verification? Simply reply to me with\n\n`!email <your student email>` (e.x: !email jdoe@wgu.edu)\n\nto begin the process. If you need assistance, please contact a moderator in [#verification-support](https://discordapp.com/channels/688822375327989875/768993144380981248)",
+        description=f"Hello {discord_member},\nWelcome to the WGU Cyber Club. Before you continue, we'd like to make you aware of a few things you are agreeing to before you complete the verification process.\n\nReady for verification? Simply reply to me with\n\n`!email <your student email>` (e.x: !email jdoe@wgu.edu)\n\nto begin the process. If you need assistance, please contact a moderator in [#verification-support](https://discordapp.com/channels/688822375327989875/768993144380981248)",
         colour=discord.Colour.dark_blue(),
     )
 

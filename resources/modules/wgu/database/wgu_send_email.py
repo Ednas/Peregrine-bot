@@ -7,7 +7,7 @@ async def wgu_send_email(code, dst_email, SRC_EMAIL, EMAIL_PASS):
     "Sends an email to the student seeking verification"
     email_text = """Greetings!
     This email was sent to verify your discord account. To ensure that this
-    email address belongs to you, please reply to the bot with '!verify {}'.
+    email address belongs to you, please reply to the bot with: !verify {}.
     If you require assistance, please rach out to a Moderator on the Discord server. You can send a message in the channel titled #verification-support (near instant support). Alternatively, you can email jsherl1@wgu.edu (may take up to 24 hours to reply)
     questions.
     """.format(code)
@@ -16,7 +16,8 @@ async def wgu_send_email(code, dst_email, SRC_EMAIL, EMAIL_PASS):
     <html>
         <body>
             <p><b>Greetings!</b><br>
-            This email was sent to verify your discord account. To ensure that this email address belongs to you, please return to Discord and reply to the bot with the folowing command '!verify {}'</p>
+            This email was sent to verify your discord account. To ensure that this email address belongs to you, please return to Discord and reply to the bot with the folowing command:</p> 
+            <p>!verify {}</p>
             <p>If you require assistance, please reach out to a Moderator on the Discord server. You can send a message in the channel titled #verification-help (near instant support) or send an email directly to jsherl1@wgu.edu (may be up to 24 hours to respond).</p>
         </body>
     </html>

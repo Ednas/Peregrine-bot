@@ -437,7 +437,3 @@ async def info(ctx):
 # Start the bot
 
 peregrine.run(TOKEN)
-
-
-
-

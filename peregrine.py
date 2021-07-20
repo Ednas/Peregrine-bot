@@ -402,12 +402,9 @@ async def audit(ctx):
     # Query database for users
 
     for email_to_audit in user_emails_datagram['emails'].tolist():
-        print(f"Searching for email: {email_to_audit}")
         
         audit_query_results = await database_audit_members(await peregrine_connect_database(
             DB_IPV4, DB_USER, DB_PASS, DB_NAME), email_to_audit)
-
-        print(audit_query_results)
 
         if isinstance(audit_query_results, list):
 
@@ -421,11 +418,6 @@ async def audit(ctx):
 
                 user = ctx.server.get_member(audit_query_results[2])
                 user.kick()
-
-        else:
-            print(f"No user found for {email_to_audit}")
-
-
 
 @sqla.command(name="normalize", description="This command syncs matching member DiscordID with an entry in the local database")
 @commands.has_role("Administrator")

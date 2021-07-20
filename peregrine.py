@@ -401,11 +401,15 @@ async def audit(ctx):
    
     user_emails = user_emails_datagram['emails'].tolist()
 
+    print(user_emails)
+
     # Query database for users
 
     for email_to_audit in user_emails:
-        users_to_delete += database_audit_members(await peregrine_connect_database(
+        results = database_audit_members(await peregrine_connect_database(
             DB_IPV4, DB_USER, DB_PASS, DB_NAME), email_to_audit)
+
+        users_to_delete += results
 
     # Delete returned users
 

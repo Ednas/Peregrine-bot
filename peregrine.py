@@ -5,6 +5,8 @@
 
 import os
 from dotenv import load_dotenv
+import requests
+import pandas as pd
 import discord
 import discord.utils
 from discord.ext import commands
@@ -22,6 +24,8 @@ from modules.wgu.database.database_push_to_verified import database_push_to_veri
 from modules.wgu.database.database_normalize_entries import database_normalize_entries
 from modules.wgu.database.database_delete_entries import database_delete_entries
 from modules.wgu.database.database_check_existing_nickname import database_check_existing_nickname
+from modules.wgu.database.database_audit_members import database_audit_members
+from modules.wgu.database.database_delete_members import database_delete_members
 
 # Import wgu custom email modules
 from modules.wgu.email.email_send_ver_code import email_send_ver_code
@@ -357,6 +361,45 @@ async def alert(ctx, role: discord.Role, *, message):
 async def sqla(ctx):
     '''Provides various commands to interact with the SQL database as an administrator'''
     pass
+
+@sqla.command(name="audit", description="This command audits the database for users and removes them. Supply an excel file with the column 'emails'")
+@commands.has_role("Administrator")
+async def audit(ctx):
+    '''Checks a list of users provided against the database and removes them from the Discord'''
+
+    # Set log channel
+
+    channel = peregrine.get_channel(int(LOG_CHANNEL))
+    await channel.send(embed= await command_sqla_triggered_embed(ctx.author.name, ctx.guild,
+    ctx.author.id))
+
+    # Set up lists
+
+    users_to_delete = []
+
+    # Get file from message
+
+    attachment_url = ctx.message.attachments[0].url
+    attachment = requests.get(attachment_url)
+    user_emails_datagram = (pd.read_excel(io=attachment))
+    user_emails = user_emails_datagram['emails'].tolist()
+    # Query database for users
+
+    for email_to_audit in user_emails:
+        users_to_delete += database_audit_members(await peregrine_connect_database(
+            DB_IPV4, DB_USER, DB_PASS, DB_NAME), email_to_audit)
+
+    # Delete returned users
+
+    for user in users_to_delete[0]:
+
+        database_delete_members(await peregrine_connect_database(
+            DB_IPV4, DB_USER, DB_PASS, DB_NAME), user)
+
+    # Remove user account from Discord
+
+    for discord_account in users_to_delete[1]:
+        discord_account.kick()
 
 @sqla.command(name="normalize", description="This command syncs matching member DiscordID with an entry in the local database")
 @commands.has_role("Administrator")

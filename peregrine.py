@@ -406,8 +406,7 @@ async def audit(ctx):
         audit_query_results = await database_audit_members(await peregrine_connect_database(
             DB_IPV4, DB_USER, DB_PASS, DB_NAME), email_to_audit)
 
-        print(type(audit_query_results))
-        if isinstance(audit_query_results, list):
+        if isinstance(audit_query_results, tuple):
 
                 # Delete returned users
 

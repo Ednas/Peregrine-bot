@@ -395,7 +395,7 @@ async def audit(ctx):
     print(f"URL is: {attachment_url}\n\tType is: {type(attachment_url)}")
 
     with io.BytesIO(user_emails.content) as excel_sheet:
-        user_emails_datagram = pd.read_excel(io=excel_sheet, sheetname=0)
+        user_emails_datagram = pd.read_excel(io=excel_sheet)
         
     print(user_emails_datagram)
    

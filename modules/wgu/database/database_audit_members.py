@@ -19,5 +19,5 @@ async def database_audit_members(database_connection, email):
         return bool(True), query_results[0][0], query_results[0][1], query_results[0][2]
 
     else:
-
+        # test
         return bool(False)

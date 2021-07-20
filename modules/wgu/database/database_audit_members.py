@@ -16,8 +16,8 @@ async def database_audit_members(database_connection, email):
             print(f"{email} exists in the verified database")
             print(f"Variables are:\n[0]{query_results[0][0]}\n[1]{query_results[0][1]}\n[2]{query_results[0][2]}\n[3]{query_results[0][3]}")
 
-        return bool(True), query_results[0][0], query_results[0][1], query_results[0][3]2
+        return bool(True), query_results[0][0], query_results[0][1], query_results[0][3]
 
     else:
 
-        return bool(False), bool(False), bool(False)
+        return bool(False)

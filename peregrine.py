@@ -374,10 +374,6 @@ async def audit(ctx):
     await channel.send(embed= await command_sqla_triggered_embed(ctx.author.name, ctx.guild,
     ctx.author.id))
 
-    # Set up lists
-
-    users_to_delete = []
-
     # Get file from message
 
     attachment_url = ctx.message.attachments[0].url

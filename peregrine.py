@@ -399,7 +399,8 @@ async def audit(ctx):
     # Remove user account from Discord
 
     for discord_account in users_to_delete[1]:
-        discord_account.kick()
+        user = ctx.server.get_member(discord_account)
+        user.kick()
 
 @sqla.command(name="normalize", description="This command syncs matching member DiscordID with an entry in the local database")
 @commands.has_role("Administrator")

@@ -407,7 +407,7 @@ async def audit(ctx):
 
     for email_to_audit in user_emails:
         print(f"Searching for email: {email_to_audit}")
-        results = database_audit_members(await peregrine_connect_database(
+        results = await database_audit_members(await peregrine_connect_database(
             DB_IPV4, DB_USER, DB_PASS, DB_NAME), email_to_audit)
 
         users_to_delete += results
@@ -416,7 +416,7 @@ async def audit(ctx):
 
     for user in users_to_delete[0]:
         print(f"Deleting user {user}")
-        database_delete_members(await peregrine_connect_database(
+        await database_delete_members(await peregrine_connect_database(
             DB_IPV4, DB_USER, DB_PASS, DB_NAME), user)
 
     # Remove user account from Discord

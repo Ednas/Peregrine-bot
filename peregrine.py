@@ -4,6 +4,7 @@
 # Import required modules
 
 import os
+import io
 from dotenv import load_dotenv
 import requests
 import pandas as pd
@@ -391,9 +392,13 @@ async def audit(ctx):
 
     user_emails = requests.get(attachment_url, headers=headers)
 
-    print(f"URL is: {attachment_url}\n\tType is: {type(attachment_url)}\nContents is:\n\n{user_emails.text}")
-    user_emails_datagram = pd.read_excel(io=user_emails.text)
+    print(f"URL is: {attachment_url}\n\tType is: {type(attachment_url)}")
+
+    with io.BytesIO(user_emails.content) as excel_sheet:
+        user_emails_datagram = pd.read_excel(io=excel_sheet, sheetname=0)
+        
     print(user_emails_datagram)
+   
     user_emails = user_emails_datagram['emails'].tolist()
 
     # Query database for users

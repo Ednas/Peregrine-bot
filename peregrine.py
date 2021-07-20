@@ -416,7 +416,7 @@ async def audit(ctx):
 
                 # Remove user account from Discord Guild
 
-                user = ctx.server.get_member(audit_query_results[2])
+                user = ctx.guild.get_member(audit_query_results[2])
                 user.kick()
 
 @sqla.command(name="normalize", description="This command syncs matching member DiscordID with an entry in the local database")

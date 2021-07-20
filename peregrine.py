@@ -406,6 +406,7 @@ async def audit(ctx):
     # Query database for users
 
     for email_to_audit in user_emails:
+        print(f"Searching for email: {email_to_audit}")
         results = database_audit_members(await peregrine_connect_database(
             DB_IPV4, DB_USER, DB_PASS, DB_NAME), email_to_audit)
 
@@ -414,7 +415,7 @@ async def audit(ctx):
     # Delete returned users
 
     for user in users_to_delete[0]:
-
+        print(f"Deleting user {user}")
         database_delete_members(await peregrine_connect_database(
             DB_IPV4, DB_USER, DB_PASS, DB_NAME), user)
 

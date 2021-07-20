@@ -381,8 +381,7 @@ async def audit(ctx):
 
     attachment_url = ctx.message.attachments[0].url
     print(f"URL is: {attachment_url}\n\tType is: {type(attachment_url)}")
-    attachment = requests.get(attachment_url)
-    user_emails_datagram = (pd.read_excel(io=attachment))
+    user_emails_datagram = (pd.read_excel(io=attachment_url))
     print(user_emails_datagram)
     user_emails = user_emails_datagram['emails'].tolist()
 

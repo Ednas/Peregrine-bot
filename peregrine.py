@@ -388,7 +388,7 @@ async def audit(ctx):
   "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36",
   "X-Requested-With": "perri-the-discord-bot"
 }
-    # Make request to get user list 
+    # Make request to get user list
 
     user_emails = requests.get(attachment_url, headers=headers)
 
@@ -397,33 +397,33 @@ async def audit(ctx):
     with io.BytesIO(user_emails.content) as excel_sheet:
         user_emails_datagram = pd.read_excel(io=excel_sheet)
         
-    print(user_emails_datagram)
-   
-    user_emails = user_emails_datagram['emails'].tolist()
-
-    print(user_emails)
+    print(f"Excel file received.\n========== Contents =========\n{user_emails_datagram}")
 
     # Query database for users
 
-    for email_to_audit in user_emails:
+    for email_to_audit in user_emails_datagram['emails'].tolist():
         print(f"Searching for email: {email_to_audit}")
-        results = await database_audit_members(await peregrine_connect_database(
+        
+        audit_query_results = await database_audit_members(await peregrine_connect_database(
             DB_IPV4, DB_USER, DB_PASS, DB_NAME), email_to_audit)
 
-        users_to_delete += results
+        if audit_query_results[0] is True:
 
-    # Delete returned users
+                # Delete returned users
 
-    for user in users_to_delete[0]:
-        print(f"Deleting user {user}")
-        await database_delete_members(await peregrine_connect_database(
-            DB_IPV4, DB_USER, DB_PASS, DB_NAME), user)
+                print(f"Deleting user {audit_query_results[1]}")
+                await database_delete_members(await peregrine_connect_database(
+                    DB_IPV4, DB_USER, DB_PASS, DB_NAME), audit_query_results[1])
 
-    # Remove user account from Discord
+                # Remove user account from Discord Guild
 
-    for discord_account in users_to_delete[1]:
-        user = ctx.server.get_member(discord_account)
-        user.kick()
+                user = ctx.server.get_member(audit_query_results[2])
+                user.kick()
+
+        else:
+            print(f"No user found for {email_to_audit}")
+
+
 
 @sqla.command(name="normalize", description="This command syncs matching member DiscordID with an entry in the local database")
 @commands.has_role("Administrator")

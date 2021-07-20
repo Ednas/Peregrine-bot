@@ -411,7 +411,7 @@ async def audit(ctx):
                 # Delete returned users
 
                 print(f"Deleting user {audit_query_results[1]}")
-                delete = await database_delete_members(await peregrine_connect_database(
+                await database_delete_members(await peregrine_connect_database(
                     DB_IPV4, DB_USER, DB_PASS, DB_NAME), audit_query_results[1])
 
                 # Remove user account from Discord Guild
@@ -420,6 +420,8 @@ async def audit(ctx):
 
                 if user is not None:
                     user.kick()
+
+        print("Finished auditing")
 
 @sqla.command(name="normalize", description="This command syncs matching member DiscordID with an entry in the local database")
 @commands.has_role("Administrator")

@@ -421,7 +421,7 @@ async def audit(ctx):
                 if user is not None:
                     user.kick()
 
-        print("Finished auditing")
+    print("Finished auditing")
 
 @sqla.command(name="normalize", description="This command syncs matching member DiscordID with an entry in the local database")
 @commands.has_role("Administrator")

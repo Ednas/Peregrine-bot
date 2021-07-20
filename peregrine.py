@@ -420,7 +420,7 @@ async def audit(ctx):
                 user = ctx.server.get_member(audit_query_results[2])
                 user.kick()
 
-        else:
+        elif audit_query_results[0] is False:
             print(f"No user found for {email_to_audit}")
 
 

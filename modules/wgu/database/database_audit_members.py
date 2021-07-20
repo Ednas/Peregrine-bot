@@ -14,9 +14,9 @@ async def database_audit_members(database_connection, email):
         if bool(str(query_results[0][0]) == str(email)) is True:
 
             print(f"{email} exists in the verified database")
-            print(f"Variables are: [0]{query_results[0][0]}\n[1]{query_results[0][1]}\n[2]{query_results[0][2]}")
+            print(f"Variables are:\n[0]{query_results[0][0]}\n[1]{query_results[0][1]}\n[2]{query_results[0][2]}\n[3]{query_results[0][3]}")
 
-        return bool(True), query_results[0][1], query_results[0][2]
+        return bool(True), query_results[0][0], query_results[0][1], query_results[0][3]
 
     else:
 

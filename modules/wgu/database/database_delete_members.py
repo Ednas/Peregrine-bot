@@ -5,7 +5,7 @@ async def database_delete_members(database_connection, email):
 
     cursor = database_connection.cursor(prepared=True)
     sql_query = """DELETE FROM verified WHERE Email = %s"""
-    parameterized_values = (email)
+    parameterized_values = (email, )
     cursor.execute(sql_query, parameterized_values)
     database_connection.commit()
     
@@ -13,7 +13,7 @@ async def database_delete_members(database_connection, email):
 
     cursor = database_connection.cursor(prepared=True)
     sql_query = """DELETE FROM auth WHERE Email = %s"""
-    parameterized_values = (email)
+    parameterized_values = (email, )
     cursor.execute(sql_query, parameterized_values)
     database_connection.commit()
     

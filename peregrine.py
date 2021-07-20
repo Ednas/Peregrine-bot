@@ -411,7 +411,7 @@ async def audit(ctx):
                 # Delete returned users
 
                 print(f"Deleting user {audit_query_results[1]}")
-                await database_delete_members(await peregrine_connect_database(
+                delete = await database_delete_members(await peregrine_connect_database(
                     DB_IPV4, DB_USER, DB_PASS, DB_NAME), audit_query_results[1])
 
                 # Remove user account from Discord Guild

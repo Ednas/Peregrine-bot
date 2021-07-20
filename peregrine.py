@@ -407,6 +407,8 @@ async def audit(ctx):
         audit_query_results = await database_audit_members(await peregrine_connect_database(
             DB_IPV4, DB_USER, DB_PASS, DB_NAME), email_to_audit)
 
+        print(audit_query_results)
+
         if audit_query_results[0] is True:
 
                 # Delete returned users
@@ -420,7 +422,7 @@ async def audit(ctx):
                 user = ctx.server.get_member(audit_query_results[2])
                 user.kick()
 
-        elif audit_query_results[0] is False:
+        else:
             print(f"No user found for {email_to_audit}")
 
 

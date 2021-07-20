@@ -383,6 +383,7 @@ async def audit(ctx):
     attachment = requests.get(attachment_url)
     user_emails_datagram = (pd.read_excel(io=attachment))
     user_emails = user_emails_datagram['emails'].tolist()
+    
     # Query database for users
 
     for email_to_audit in user_emails:

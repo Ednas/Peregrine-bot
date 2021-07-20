@@ -4,7 +4,7 @@ async def database_audit_members(database_connection, email):
     # Execute SQL query
 
     cursor = database_connection.cursor(prepared=True)
-    sql_query = "SELECT email, username FROM verified WHERE email = %s"
+    sql_query = "SELECT Email, DiscordID, VerifiedDate, DiscordNickname FROM verified WHERE Email = %s"
     parameterized_values = (email, )
     cursor.execute(sql_query, parameterized_values)
     query_results = cursor.fetchall()

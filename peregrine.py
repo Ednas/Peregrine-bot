@@ -409,7 +409,7 @@ async def audit(ctx):
 
         print(audit_query_results)
 
-        if audit_query_results[0] is True:
+        if isinstance(audit_query_results, list):
 
                 # Delete returned users
 

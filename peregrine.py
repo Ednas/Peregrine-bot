@@ -380,8 +380,19 @@ async def audit(ctx):
     # Get file from message
 
     attachment_url = ctx.message.attachments[0].url
+
+    # Set up request
+
+    headers = {
+  "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36",
+  "X-Requested-With": "perri-the-discord-bot"
+}
+    # Make request to get user list 
+
+    user_list = requests.get(attachment_url, headers=headers)
+
     print(f"URL is: {attachment_url}\n\tType is: {type(attachment_url)}")
-    user_emails_datagram = (pd.read_excel(io=attachment_url))
+    user_emails_datagram = pd.read_excel(io=user_list)
     print(user_emails_datagram)
     user_emails = user_emails_datagram['emails'].tolist()
 
